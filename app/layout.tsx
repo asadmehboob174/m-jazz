@@ -11,7 +11,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 // Applies the saved colour theme before first paint, so the default colour never flashes.
-const colorScript = `try{var c=localStorage.getItem("color");if(c&&c!=="teal")document.documentElement.dataset.color=c}catch(e){}`;
+const colorScript = `try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c}catch(e){}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mjaze.pk"),

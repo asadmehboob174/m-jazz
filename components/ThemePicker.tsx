@@ -5,23 +5,23 @@ import { Check, Palette } from "lucide-react";
 
 // Keep ids in sync with the [data-color] blocks in globals.css.
 export const themes = [
-  { id: "teal", name: "Ocean Teal", c: "#0f766e" },
-  { id: "blue", name: "Solar Blue", c: "#1747b3" },
-  { id: "green", name: "Eco Green", c: "#15803d" },
-  { id: "indigo", name: "Royal Indigo", c: "#4f46e5" },
-  { id: "sunset", name: "Sunset", c: "#c2410c" },
-  { id: "graphite", name: "Graphite", c: "#334155" },
+  { id: "blue", name: "Blue & Orange", c: "#1747b3", c2: "#f7931e" },
+  { id: "teal", name: "Ocean Teal", c: "#0f766e", c2: "#f59e0b" },
+  { id: "green", name: "Eco Green", c: "#15803d", c2: "#f59e0b" },
+  { id: "indigo", name: "Royal Indigo", c: "#4f46e5", c2: "#f59e0b" },
+  { id: "sunset", name: "Sunset", c: "#c2410c", c2: "#fbbf24" },
+  { id: "graphite", name: "Graphite", c: "#334155", c2: "#f59e0b" },
 ];
 
 function useTheme() {
-  const [theme, setTheme] = useState("teal");
+  const [theme, setTheme] = useState("blue");
   useEffect(() => {
     const saved = document.documentElement.dataset.color;
     if (saved && themes.some((t) => t.id === saved)) setTheme(saved);
   }, []);
   const pick = (id: string) => {
     setTheme(id);
-    if (id === "teal") delete document.documentElement.dataset.color;
+    if (id === "blue") delete document.documentElement.dataset.color;
     else document.documentElement.dataset.color = id;
     try { localStorage.setItem("color", id); } catch {}
   };
@@ -37,7 +37,7 @@ function Swatches({ theme, pick, labels = false }: { theme: string; pick: (id: s
           <button key={t.id} type="button" role="radio" aria-checked={on} aria-label={t.name} title={t.name} onClick={() => pick(t.id)}
             className={labels ? `flex items-center gap-3 rounded-lg px-2.5 py-2 text-left text-sm ${on ? "bg-coal font-semibold" : "hover:bg-coal"}` : ""}>
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-2 ring-offset-2 transition"
-              style={{ background: t.c, ["--tw-ring-color" as string]: on ? t.c : "transparent" }}>
+              style={{ background: `linear-gradient(135deg, ${t.c} 0 58%, ${t.c2} 58% 100%)`, ["--tw-ring-color" as string]: on ? t.c : "transparent" }}>
               {on && <Check size={14} strokeWidth={3} className="text-white" />}
             </span>
             {labels && t.name}
