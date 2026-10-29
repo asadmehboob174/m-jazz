@@ -1,107 +1,127 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { Menu, X, ShoppingBag, Search } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { Clock, LayoutGrid, MapPin, Menu, Phone, Search, ShoppingCart, X } from "lucide-react";
 import Logo from "./Logo";
-import ThemeToggle from "./ThemeToggle";
-import { waLink } from "@/lib/data";
+import { company, waLink } from "@/lib/data";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/shop", label: "Shop" },
-  { href: "/shop?c=Packages", label: "Packages" },
-  { href: "/projects/dha-25kw-hybrid", label: "Projects" },
-  { href: "/#contact", label: "Contact" },
+const nav = [
+  { label: "Solar Panels", href: "/shop?c=Solar%20Panels" },
+  { label: "Inverters", href: "/shop?c=Inverters" },
+  { label: "Lithium Batteries", href: "/shop?c=Batteries" },
+  { label: "Solar Packages", href: "/shop?c=Packages" },
+  { label: "UPS", href: "/shop?c=UPS" },
+  { label: "CCTV", href: "/shop?c=CCTV" },
+  { label: "Projectors & Boards", href: "/shop?c=Projectors" },
+  { label: "Rentals", href: "/shop?c=Rentals" },
+  { label: "Services", href: "/services" },
 ];
 
+function SearchBox({ className = "" }: { className?: string }) {
+  const params = useSearchParams();
+  return (
+    <form action="/shop" role="search" className={`flex h-11 overflow-hidden rounded-lg border border-line bg-coal focus-within:border-brand focus-within:bg-white ${className}`}>
+      <label htmlFor="q" className="sr-only">Search products</label>
+      <input
+        id="q"
+        name="q"
+        type="search"
+        defaultValue={params.get("q") ?? ""}
+        placeholder="Search inverters, panels, batteries…"
+        className="min-w-0 flex-1 bg-transparent px-4 text-[15px] outline-none placeholder:text-mute"
+      />
+      <button type="submit" aria-label="Search" className="flex w-12 items-center justify-center bg-brand text-white hover:bg-brand-2">
+        <Search size={18} />
+      </button>
+    </form>
+  );
+}
+
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 24);
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, []);
+  useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3">
-      <nav
-        aria-label="Main"
-        className={`flex w-full max-w-[1140px] items-center justify-between gap-3 rounded-full border py-2 pl-5 pr-2 transition-all duration-500 ${
-          scrolled
-            ? "border-fg/10 bg-ink/70 shadow-[0_10px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl"
-            : "border-fg/[0.06] bg-fg/[0.03] backdrop-blur-md"
-        }`}
-      >
-        <Link href="/" aria-label="M.JAZE home">
-          <Logo />
-        </Link>
+    <>
+      {/* Promo bar (scrolls away; the rows below stay pinned) */}
+      <div className="bg-navy text-[13px] text-white/85">
+        <div className="container-x flex h-9 items-center justify-between gap-4">
+          <p className="truncate">
+            <span className="font-semibold text-sun-2">Free site survey</span> in Lahore · Easy instalments · Official brand warranty
+          </p>
+          <div className="hidden items-center gap-5 md:flex">
+            <span className="flex items-center gap-1.5"><Clock size={13} /> {company.hours}</span>
+            <span className="flex items-center gap-1.5"><MapPin size={13} /> Defence Ghazi Road, Lahore</span>
+          </div>
+        </div>
+      </div>
 
-        <ul className="hidden items-center gap-1 lg:flex">
-          {links.map((l) => {
-            const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href.split("?")[0]) && !l.href.includes("?");
-            return (
-              <li key={l.href} className="relative">
-                {active && <motion.span layoutId="nav-active" className="absolute inset-0 rounded-full bg-fg/[0.08]" transition={{ type: "spring", bounce: 0.2, duration: 0.5 }} />}
-                <Link href={l.href} className={`relative block whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] transition hover:text-fg ${active ? "text-fg" : "text-soft"}`}>
-                  {l.label}
-                  {l.label === "Packages" && <span className="ml-1.5 rounded-full bg-sun px-1.5 py-0.5 align-middle text-[10px] font-bold text-black">NEW</span>}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="flex shrink-0 items-center gap-1.5">
-          <Link href="/shop" aria-label="Search products" className="hidden h-11 w-11 items-center justify-center rounded-full text-soft hover:bg-fg/5 hover:text-fg sm:flex">
-            <Search size={19} />
-          </Link>
-          <Link href="/shop" aria-label="Cart" className="hidden h-11 w-11 items-center justify-center rounded-full text-soft hover:bg-fg/5 hover:text-fg sm:flex">
-            <ShoppingBag size={19} />
-          </Link>
-          <ThemeToggle />
-          <a href={waLink()} target="_blank" rel="noopener" className="hidden h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-sun pl-1.5 pr-5 text-[15px] font-semibold text-black transition hover:bg-sun-2 md:flex">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/15">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.4.1.1.1.7-.1 1.3Z" /></svg>
-            </span>
-            Get a quote
-          </a>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-fg hover:bg-fg/5 lg:hidden"
-          >
+      <header className="sticky top-0 z-50 bg-white">
+      {/* Main row */}
+      <div className="border-b border-line">
+        <div className="container-x flex h-[68px] items-center gap-4 md:gap-8">
+          <button type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}
+            className="-ml-2 flex h-10 w-10 items-center justify-center rounded-lg hover:bg-coal lg:hidden">
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
+          <Link href="/" aria-label="M.JAZE home" className="shrink-0"><Logo /></Link>
+
+          <Suspense fallback={<div className="hidden h-11 flex-1 md:block" />}>
+            <SearchBox className="hidden flex-1 md:flex" />
+          </Suspense>
+
+          <div className="ml-auto flex items-center gap-2 md:ml-0">
+            <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="hidden items-center gap-2.5 rounded-lg px-2 py-1.5 hover:bg-coal xl:flex">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-stage-blue text-brand"><Phone size={17} /></span>
+              <span className="leading-tight">
+                <span className="block text-xs text-mute">Call or WhatsApp</span>
+                <span className="block text-[15px] font-semibold">{company.phone}</span>
+              </span>
+            </a>
+            <Link href="/shop" aria-label="Cart" className="relative flex h-10 w-10 items-center justify-center rounded-lg hover:bg-coal">
+              <ShoppingCart size={21} />
+              <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-sun px-1 text-[10px] font-bold text-black">0</span>
+            </Link>
+            <a href={waLink("I want a free quote.")} target="_blank" rel="noopener" className="btn-sun hidden whitespace-nowrap sm:inline-flex">
+              Get free quote
+            </a>
+          </div>
+        </div>
+        <div className="container-x pb-3 md:hidden">
+          <Suspense fallback={<div className="h-11" />}><SearchBox /></Suspense>
+        </div>
+      </div>
+
+      {/* Category row */}
+      <nav aria-label="Categories" className="hidden border-b border-line lg:block">
+        <div className="container-x flex h-12 items-center gap-1 text-[14px]">
+          <Link href="/shop" className="mr-3 flex h-full items-center gap-2 bg-brand px-4 font-semibold text-white hover:bg-brand-2">
+            <LayoutGrid size={16} /> All products
+          </Link>
+          {nav.map((l) => (
+            <Link key={l.label} href={l.href} className="whitespace-nowrap rounded-md px-3 py-2 font-medium text-soft hover:bg-coal hover:text-brand">
+              {l.label}
+            </Link>
+          ))}
         </div>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="absolute inset-x-3 top-[76px] rounded-2xl border border-fg/10 bg-coal/95 p-3 backdrop-blur-xl lg:hidden"
-          >
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3.5 text-lg hover:bg-fg/5">
-                {l.label}
-              </Link>
+      {/* Mobile menu */}
+      {open && (
+        <div className="absolute inset-x-0 top-full max-h-[calc(100vh-120px)] overflow-y-auto border-b border-line bg-white shadow-lg lg:hidden">
+          <div className="container-x py-3">
+            <Link href="/shop" className="block rounded-lg px-3 py-3 font-semibold text-brand hover:bg-coal">All products</Link>
+            {nav.map((l) => (
+              <Link key={l.label} href={l.href} className="block rounded-lg px-3 py-3 hover:bg-coal">{l.label}</Link>
             ))}
-            <a href={waLink()} target="_blank" rel="noopener" className="btn-sun mt-2 w-full justify-center">Chat on WhatsApp</a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <a href={waLink()} target="_blank" rel="noopener" className="btn-sun mt-3 w-full">Chat on WhatsApp</a>
+          </div>
+        </div>
+      )}
     </header>
+    </>
   );
 }

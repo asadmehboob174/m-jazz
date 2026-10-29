@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, Plus, Star } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import Logo from "./Logo";
-import { company, waLink, divisions } from "@/lib/data";
+import { company, waLink, divisions, paymentMethods } from "@/lib/data";
 
 const socials = [
   { label: "Facebook", d: "M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8Z" },
@@ -10,92 +10,75 @@ const socials = [
   { label: "TikTok", d: "M16 3c.3 2.2 1.7 3.7 4 4v3c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6v3a3 3 0 1 0 3 3V3h3Z" },
 ];
 
+const shop = ["Solar Panels", "Inverters", "Batteries", "Packages", "UPS", "CCTV", "Rentals"];
+
 export default function Footer() {
   return (
-    <footer id="contact" className="relative overflow-hidden">
-      {/* CTA band */}
-      <section className="border-y border-fg/[0.06] bg-gradient-to-br from-warm via-warm-2 to-ink">
-        <div className="container-x flex flex-wrap items-center justify-between gap-10 py-20">
+    <footer id="contact" className="mt-6">
+      {/* Quote band */}
+      <section className="bg-brand text-white">
+        <div className="container-x flex flex-wrap items-center justify-between gap-6 py-8">
           <div>
-            <h2 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
-              Book your free<br /><span className="em text-sun-gradient">site survey</span>
-            </h2>
-            <ul className="mt-7 flex flex-wrap gap-3 text-[15px]">
-              {["No obligation", "Engineer visit in 48 hours", "Quote on WhatsApp"].map((t) => (
-                <li key={t} className="flex items-center gap-2 rounded-full bg-fg/[0.05] py-1.5 pl-1.5 pr-4">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sun text-black"><Check size={14} strokeWidth={3} /></span>{t}
-                </li>
-              ))}
-            </ul>
+            <h2 className="text-xl font-bold md:text-2xl">Not sure what size you need?</h2>
+            <p className="mt-1 text-white/80">Send us your electricity bill on WhatsApp. We&apos;ll suggest a system and price for free.</p>
           </div>
-          <div className="flex flex-wrap items-center gap-8">
-            <a href={waLink("I want to book a free site survey.")} target="_blank" rel="noopener"
-              className="flex items-center gap-4 rounded-full bg-sun py-2 pl-7 pr-2 text-lg font-semibold text-black transition hover:bg-sun-2">
-              Book now <span className="flex h-10 w-14 items-center justify-center rounded-full bg-black/15"><Plus size={20} /></span>
-            </a>
-            <div className="flex items-center gap-3 border-l border-fg/10 pl-8">
-              <Star size={30} className="text-sun" fill="currentColor" />
-              <div className="text-sm"><p className="font-semibold">{company.rating} / 5</p><p className="text-mute">from {company.reviews}+ Google reviews</p></div>
-            </div>
-          </div>
+          <a href={waLink("Here is my electricity bill — please suggest a solar system.")} target="_blank" rel="noopener" className="btn-sun">
+            Send bill on WhatsApp
+          </a>
         </div>
       </section>
 
-      <div className="container-x relative z-10">
-        <div className="grid gap-12 py-20 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
-          <div className="lg:border-r lg:border-fg/[0.07] lg:pr-10">
-            <Logo />
-            <p className="mt-5 max-w-sm leading-relaxed text-mute">{company.legal} — {company.tagline}</p>
-            <address className="mt-6 space-y-1.5 text-[15px] not-italic text-soft">
-              <p>{company.address}</p>
-              <p>{company.hours}</p>
-              <p>{company.phone} · {company.email}</p>
-            </address>
-            <div className="mt-7 flex gap-3">
+      <div className="bg-navy text-white/70">
+        <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
+          <div>
+            <Logo invert />
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed">{company.legal}. {company.tagline}</p>
+            <div className="mt-5 flex gap-2">
               {socials.map((s) => (
-                <a key={s.label} href="#" aria-label={s.label} className="flex h-11 w-11 items-center justify-center rounded-full bg-fg/[0.06] text-soft transition hover:bg-sun hover:text-black">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true"><path d={s.d} /></svg>
+                <a key={s.label} href="#" aria-label={s.label} className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-sun hover:text-black">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true"><path d={s.d} /></svg>
                 </a>
               ))}
             </div>
           </div>
           <div>
-            <p className="text-xl font-semibold">Solutions</p>
-            <ul className="mt-5 space-y-3 text-[15px]">
+            <p className="font-semibold text-white">Shop</p>
+            <ul className="mt-4 space-y-2.5 text-[15px]">
+              {shop.map((c) => (
+                <li key={c}><Link href={`/shop?c=${encodeURIComponent(c)}`} className="hover:text-white">{c}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold text-white">Services</p>
+            <ul className="mt-4 space-y-2.5 text-[15px]">
               {divisions.map((d) => (
-                <li key={d.id}><Link href={`/services#${d.id}`} className="text-mute hover:text-fg">{d.name}</Link></li>
+                <li key={d.id}><Link href={`/services#${d.id}`} className="hover:text-white">{d.name}</Link></li>
               ))}
             </ul>
           </div>
           <div>
-            <p className="text-xl font-semibold">Shop</p>
-            <ul className="mt-5 space-y-3 text-[15px]">
-              {["Solar Panels", "Inverters", "Batteries", "Packages", "CCTV", "Rentals"].map((c) => (
-                <li key={c}><Link href={`/shop?c=${encodeURIComponent(c)}`} className="text-mute hover:text-fg">{c}</Link></li>
+            <p className="font-semibold text-white">Contact us</p>
+            <address className="mt-4 space-y-3 text-[15px] not-italic">
+              <p className="flex gap-2.5"><MapPin size={18} className="mt-0.5 shrink-0 text-sun" />{company.address}</p>
+              <p className="flex gap-2.5"><Clock size={18} className="mt-0.5 shrink-0 text-sun" />{company.hours}</p>
+              <p className="flex gap-2.5"><Phone size={18} className="mt-0.5 shrink-0 text-sun" /><a href={`tel:${company.phone.replace(/\s/g, "")}`} className="hover:text-white">{company.phone}</a></p>
+              <p className="flex gap-2.5"><Mail size={18} className="mt-0.5 shrink-0 text-sun" /><a href={`mailto:${company.email}`} className="hover:text-white">{company.email}</a></p>
+            </address>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10">
+          <div className="container-x flex flex-wrap items-center justify-between gap-4 py-5 text-sm">
+            <p>© {new Date().getFullYear()} {company.legal}. All rights reserved.</p>
+            <ul className="flex flex-wrap gap-2" aria-label="Payment methods">
+              {paymentMethods.map((m) => (
+                <li key={m} className="rounded bg-white px-2.5 py-1 text-xs font-semibold text-navy">{m}</li>
               ))}
             </ul>
-          </div>
-          <div>
-            <p className="text-xl font-semibold">Solar tips & offers</p>
-            <p className="mt-5 text-[15px] text-mute">Monthly price updates, net-metering news and seasonal deals. No spam.</p>
-            <form className="mt-6 flex rounded-full border border-sun/40 bg-fg/[0.03] p-1.5 focus-within:border-sun">
-              <label htmlFor="nl-email" className="sr-only">Email address</label>
-              <input id="nl-email" type="email" required placeholder="Email address" className="min-w-0 flex-1 bg-transparent px-4 text-[15px] outline-none placeholder:text-mute" />
-              <button type="submit" aria-label="Subscribe" className="flex h-11 w-14 items-center justify-center rounded-full bg-sun text-black hover:bg-sun-2"><ArrowUpRight size={20} /></button>
-            </form>
+            <p className="flex gap-5"><Link href="#" className="hover:text-white">Privacy</Link><Link href="#" className="hover:text-white">Warranty terms</Link><Link href="#" className="hover:text-white">Returns</Link></p>
           </div>
         </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-fg/[0.06] py-8 text-sm text-mute">
-          <p>© {new Date().getFullYear()} {company.legal}. All rights reserved.</p>
-          <p className="flex gap-6"><Link href="#" className="hover:text-fg">Privacy policy</Link><Link href="#" className="hover:text-fg">Warranty terms</Link><Link href="#" className="hover:text-fg">Returns</Link></p>
-        </div>
-      </div>
-
-      {/* glow + watermark */}
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-[-220px] left-1/2 h-[420px] w-[1100px] -translate-x-1/2 rounded-full bg-sun/20 blur-[140px]" />
-      <div aria-hidden="true" className="pointer-events-none select-none bg-gradient-to-b from-fg/[0.07] to-transparent bg-clip-text text-center text-[24vw] font-bold leading-[0.75] tracking-tighter text-transparent lg:text-[300px]">
-        M.JAZE
       </div>
     </footer>
   );

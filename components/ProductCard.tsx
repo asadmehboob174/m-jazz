@@ -1,30 +1,49 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { Star } from "lucide-react";
 import ProductVisual from "./ProductVisual";
-import { formatPKR, type Product } from "@/lib/data";
+import { formatPKR, waLink, type Product } from "@/lib/data";
 
 export default function ProductCard({ p }: { p: Product }) {
   const off = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+  const href = `/shop/${p.slug}`;
   return (
-    <Link href={`/shop/${p.slug}`} className="group block">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-fg/[0.07] bg-gradient-to-b from-stage to-stage-end shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition duration-500 group-hover:-translate-y-1 group-hover:border-sun/40 group-hover:shadow-[0_18px_40px_-18px_rgba(15,23,42,0.25)]">
-        <ProductVisual kind={p.kind} className="h-full w-full transition duration-700 group-hover:scale-[1.06]" />
-        <div className="absolute left-4 top-4 flex gap-2">
-          {p.badge && <span className="rounded-full border border-fg/10 bg-panel px-3 py-1 text-xs font-medium">{p.badge}</span>}
-          {off > 0 && <span className="rounded-full bg-sun px-3 py-1 text-xs font-bold text-black">-{off}%</span>}
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-panel transition hover:border-fg/20 hover:shadow-[0_12px_32px_-16px_rgba(15,23,42,0.28)]">
+      <Link href={href} className="relative block aspect-square bg-coal" tabIndex={-1} aria-hidden="true">
+        <ProductVisual kind={p.kind} className="h-full w-full transition duration-500 group-hover:scale-[1.04]" />
+        <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
+          {off > 0 && <span className="rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">-{off}%</span>}
+          {p.badge && <span className="rounded bg-navy px-2 py-0.5 text-xs font-semibold text-white">{p.badge}</span>}
         </div>
-        <span className="absolute bottom-4 right-4 flex h-11 w-11 translate-y-3 items-center justify-center rounded-full bg-fg text-ink opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-          <ArrowUpRight size={20} />
-        </span>
+      </Link>
+
+      <div className="flex flex-1 flex-col p-4">
+        <p className="text-xs font-semibold uppercase tracking-wide text-mute">{p.brand}</p>
+        <h3 className="mt-1 line-clamp-2 text-[15px] font-semibold leading-snug">
+          <Link href={href} className="hover:text-brand">{p.name}</Link>
+        </h3>
+        {p.rating && (
+          <p className="mt-1.5 flex items-center gap-1 text-[13px] text-mute">
+            <Star size={14} className="fill-sun text-sun" /> {p.rating.toFixed(1)}
+          </p>
+        )}
+        <div className="mt-auto pt-3">
+          <p className="flex flex-wrap items-baseline gap-x-2">
+            <span className="text-lg font-bold">{formatPKR(p.price)}</span>
+            {p.unit && <span className="text-sm text-mute">{p.unit}</span>}
+            {p.oldPrice && <span className="text-sm text-mute line-through">{formatPKR(p.oldPrice)}</span>}
+          </p>
+          <p className="mt-0.5 text-[13px] font-medium text-ok">In stock</p>
+          <div className="mt-3 flex gap-2">
+            <Link href={href} className="flex h-10 flex-1 items-center justify-center rounded-lg bg-brand text-sm font-semibold text-white hover:bg-brand-2">
+              View details
+            </Link>
+            <a href={waLink(`I want to order: ${p.brand} ${p.name}`)} target="_blank" rel="noopener" aria-label={`Order ${p.name} on WhatsApp`}
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-[#1fa855] hover:border-[#25D366] hover:bg-[#25D366]/10">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.4.1.1.1.7-.1 1.3Z" /></svg>
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="mt-4 px-1">
-        <p className="tag">{p.brand}</p>
-        <h3 className="mt-1.5 text-[17px] font-medium leading-snug">{p.name}</h3>
-        <p className="mt-2 flex items-baseline gap-2">
-          <span className="font-semibold">{formatPKR(p.price)}</span>
-          {p.oldPrice && <span className="text-sm text-mute line-through">{formatPKR(p.oldPrice)}</span>}
-        </p>
-      </div>
-    </Link>
+    </article>
   );
 }

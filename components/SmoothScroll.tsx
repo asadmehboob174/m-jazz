@@ -15,7 +15,7 @@ export default function SmoothScroll() {
     lenis = new Lenis({
       lerp: 0.085,
       wheelMultiplier: 0.9,
-      anchors: { offset: -90 },
+      anchors: { offset: -130 },
     });
     let id = 0;
     const raf = (t: number) => {

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Headphones, ShieldCheck, Truck, Wrench } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import ProductVisual from "@/components/ProductVisual";
-import { categories, products, paymentMethods, waLink } from "@/lib/data";
+import { categories, products, waLink } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Shop Solar Panels, Inverters, Lithium Batteries & More",
@@ -11,104 +10,97 @@ export const metadata: Metadata = {
 };
 
 const sorts = [
-  { id: "latest", label: "Latest" },
+  { id: "latest", label: "Featured" },
   { id: "low", label: "Price: low to high" },
   { id: "high", label: "Price: high to low" },
 ];
 
-export default async function ShopPage({ searchParams }: { searchParams: Promise<{ c?: string; sort?: string }> }) {
-  const { c = "All", sort = "latest" } = await searchParams;
+type Q = { c?: string; sort?: string; q?: string };
+
+export default async function ShopPage({ searchParams }: { searchParams: Promise<Q> }) {
+  const { c = "All", sort = "latest", q = "" } = await searchParams;
+  const term = q.trim().toLowerCase();
+
   let list = c === "All" ? products : products.filter((p) => p.category === c);
+  if (term) list = list.filter((p) => `${p.brand} ${p.name} ${p.category}`.toLowerCase().includes(term));
   if (sort === "low") list = [...list].sort((a, b) => a.price - b.price);
   if (sort === "high") list = [...list].sort((a, b) => b.price - a.price);
 
-  const href = (q: { c?: string; sort?: string }) => {
-    const p = new URLSearchParams({ c: q.c ?? c, sort: q.sort ?? sort });
-    return `/shop?${p.toString()}`;
+  const href = (next: Q) => {
+    const p = new URLSearchParams();
+    const v = { c, sort, q, ...next };
+    if (v.c && v.c !== "All") p.set("c", v.c);
+    if (v.sort && v.sort !== "latest") p.set("sort", v.sort);
+    if (v.q) p.set("q", v.q);
+    const s = p.toString();
+    return s ? `/shop?${s}` : "/shop";
   };
 
+  const title = term ? `Results for “${q}”` : c === "All" ? "All products" : c;
+
   return (
-    <>
-      {/* Header */}
-      <section className="relative overflow-hidden pb-12 pt-36">
-        <div aria-hidden="true" className="absolute left-1/2 top-[-300px] h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-sun/10 blur-[140px]" />
-        <div className="container-x relative">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h1 className="text-[clamp(56px,9vw,140px)] font-semibold leading-[0.9] tracking-[-0.05em] text-gradient">Store</h1>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm text-soft md:grid-cols-4">
-              {[[Headphones, "WhatsApp support"], [Wrench, "Installation available"], [ShieldCheck, "Official warranty"], [Truck, "Delivery across Pakistan"]].map(([Icon, t]) => {
-                const I = Icon as typeof Truck;
-                return <span key={t as string} className="flex items-center gap-2"><I size={17} className="text-sun" />{t as string}</span>;
-              })}
+    <section className="container-x py-6">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-mute">
+        <Link href="/" className="hover:text-fg">Home</Link><ChevronRight size={14} />
+        <Link href="/shop" className="hover:text-fg">Shop</Link>
+        {c !== "All" && <><ChevronRight size={14} /><span className="text-soft">{c}</span></>}
+      </nav>
+
+      <div className="mt-5 grid gap-8 lg:grid-cols-[240px_1fr]">
+        {/* Sidebar */}
+        <aside className="lg:sticky lg:top-[132px] lg:self-start">
+          <h2 className="hidden text-sm font-bold uppercase tracking-wide text-mute lg:block">Categories</h2>
+          <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-3 lg:block lg:space-y-0.5 lg:overflow-visible lg:px-0">
+            {categories.map((cat) => {
+              const n = cat === "All" ? products.length : products.filter((p) => p.category === cat).length;
+              const on = cat === c;
+              return (
+                <li key={cat} className="shrink-0">
+                  <Link href={href({ c: cat, q: "" })}
+                    className={`flex items-center justify-between gap-3 whitespace-nowrap rounded-lg border px-3 py-2 text-[15px] lg:border-transparent ${on ? "border-brand bg-stage-blue font-semibold text-brand" : "border-line hover:bg-coal"}`}>
+                    {cat === "All" ? "All products" : cat}
+                    <span className="text-xs text-mute">{n}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="mt-6 hidden rounded-xl bg-stage-amber p-5 lg:block">
+            <p className="font-bold">Need help choosing?</p>
+            <p className="mt-1 text-sm text-soft">Send your electricity bill and we&apos;ll size the system for free.</p>
+            <a href={waLink("Here is my electricity bill — please suggest a solar system.")} target="_blank" rel="noopener" className="btn-sun mt-4 w-full text-sm">Ask on WhatsApp</a>
+          </div>
+        </aside>
+
+        {/* Results */}
+        <div>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
+              <p className="mt-1 text-sm text-mute">{list.length} products</p>
+            </div>
+            <div className="flex items-center gap-1 text-sm">
+              <span className="mr-1 text-mute">Sort by</span>
+              {sorts.map((s) => (
+                <Link key={s.id} href={href({ sort: s.id })}
+                  className={`rounded-md px-3 py-1.5 ${s.id === sort ? "bg-navy font-semibold text-white" : "text-soft hover:bg-coal"}`}>{s.label}</Link>
+              ))}
             </div>
           </div>
 
-          {/* Promo banner */}
-          <div className="relative mt-12 grid overflow-hidden rounded-[32px] border border-fg/[0.08] bg-gradient-to-br from-stage via-stage-end to-stage-end md:grid-cols-2">
-            <div className="p-8 md:p-14">
-              <p className="tag text-sun">[ Complete systems ]</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Solar packages — installed and ready.</h2>
-              <p className="mt-4 max-w-md text-mute">Panels, hybrid inverter, lithium battery, structure, cabling and installation in one price.</p>
-              <Link href={href({ c: "Packages" })} className="btn-sun mt-8">View packages</Link>
+          {list.length ? (
+            <div className="mt-6 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+              {list.map((p) => <ProductCard key={p.slug} p={p} />)}
             </div>
-            <ProductVisual kind="panel" className="h-72 md:h-auto" />
-          </div>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="sticky top-[76px] z-30 border-y border-fg/[0.06] bg-ink/80 backdrop-blur-xl">
-        <div className="container-x flex flex-wrap items-center justify-between gap-4 py-4">
-          <nav aria-label="Categories" className="-mx-1 flex gap-1 overflow-x-auto">
-            {categories.map((cat) => (
-              <Link key={cat} href={href({ c: cat })}
-                className={`whitespace-nowrap rounded-full px-4 py-2.5 text-sm transition ${cat === c ? "bg-fg font-semibold text-ink" : "text-soft hover:bg-fg/5"}`}>
-                {cat}
-              </Link>
-            ))}
-          </nav>
-          <div className="flex items-center gap-1 text-sm">
-            <span className="mr-2 text-mute">Sort</span>
-            {sorts.map((s) => (
-              <Link key={s.id} href={href({ sort: s.id })}
-                className={`rounded-full px-3 py-2 ${s.id === sort ? "bg-fg/10 text-fg" : "text-mute hover:text-fg"}`}>{s.label}</Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Grid */}
-      <section className="container-x py-14">
-        <p className="mb-8 text-sm text-mute">{list.length} products</p>
-        <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {list.map((p, i) => (
-            <div key={p.slug} className="contents">
-              <ProductCard p={p} />
-              {i === 3 && c === "All" && (
-                <div className="flex flex-col justify-between rounded-3xl bg-sun p-8 text-black sm:col-span-2">
-                  <p className="font-mono text-xs uppercase tracking-widest">[ Not sure what you need? ]</p>
-                  <div>
-                    <h3 className="text-3xl font-semibold tracking-tight md:text-4xl">Send us your electricity bill. We&apos;ll size your system for free.</h3>
-                    <a href={waLink("Here is my electricity bill — please suggest a solar system.")} target="_blank" rel="noopener" className="mt-6 inline-flex rounded-full bg-black px-6 py-3.5 font-semibold text-fg">Send on WhatsApp</a>
-                  </div>
-                </div>
-              )}
+          ) : (
+            <div className="mt-10 rounded-xl border border-dashed border-line p-10 text-center">
+              <p className="font-semibold">No products found.</p>
+              <p className="mt-1 text-mute">Try another search, or ask us on WhatsApp. We stock more than is listed here.</p>
+              <Link href="/shop" className="btn-ghost mt-5">View all products</Link>
             </div>
-          ))}
+          )}
         </div>
-      </section>
-
-      {/* Payments strip */}
-      <section className="container-x pb-10">
-        <div className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-fg/[0.07] p-6 md:p-8">
-          <p className="font-medium">Pay the way you like</p>
-          <div className="flex flex-wrap gap-2">
-            {paymentMethods.map((m) => (
-              <span key={m} className="rounded-xl border border-fg/10 bg-fg/[0.03] px-4 py-2 text-sm text-soft">{m}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
