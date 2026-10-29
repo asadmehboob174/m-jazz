@@ -20,7 +20,7 @@
   --color-sale: #dc2626;
   --color-stage: #f7f8fa;
   --color-stage-end: #edf0f4;
-  --color-stage-blue: #e9effa;
+  --color-stage-blue: color-mix(in oklab, var(--color-brand) 9%, #ffffff);
   --color-stage-amber: #fdf4e3;
   --color-stage-green: #e7f4ec;
   --color-stage-purple: #f0edf9;
@@ -30,6 +30,26 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --animate-marquee: marquee 40s linear infinite;
 }
+
+/* Colour themes (ThemePicker). Solar Blue is the default above; the tints, hero and logo follow --color-brand. */
+[data-color="green"]  { --color-brand: #15803d; --color-brand-2: #116132; --color-navy: #0b2417; }
+[data-color="teal"]   { --color-brand: #0f766e; --color-brand-2: #0b5c56; --color-navy: #082426; }
+[data-color="indigo"] { --color-brand: #4f46e5; --color-brand-2: #3d35c4; --color-navy: #15133b; }
+[data-color="sunset"] { --color-brand: #c2410c; --color-brand-2: #9a330a; --color-navy: #2a160c; --color-sun: #fbbf24; --color-sun-2: #fcd34d; }
+[data-color="graphite"] { --color-brand: #334155; --color-brand-2: #1e293b; --color-navy: #0f172a; }
+
+/* Hero banner: navy into a deep shade of the brand colour, with a faint solar-cell grid */
+.hero-bg {
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(115deg, var(--color-navy) 0%, color-mix(in oklab, var(--color-brand) 55%, var(--color-navy)) 100%);
+}
+
+/* Horizontal swipe rows on phones */
+.swipe { scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-inline: 1rem; }
+.swipe::-webkit-scrollbar { display: none; }
+.swipe > * { scroll-snap-align: start; }
 
 @keyframes marquee {
   from { transform: translateX(0); }

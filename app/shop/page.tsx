@@ -46,11 +46,11 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         {c !== "All" && <><ChevronRight size={14} /><span className="text-soft">{c}</span></>}
       </nav>
 
-      <div className="mt-5 grid gap-8 lg:grid-cols-[240px_1fr]">
+      <div className="mt-4 grid grid-cols-1 gap-5 md:mt-5 lg:grid-cols-[240px_1fr] lg:gap-8">
         {/* Sidebar */}
-        <aside className="lg:sticky lg:top-[132px] lg:self-start">
+        <aside className="min-w-0 lg:sticky lg:top-[132px] lg:self-start">
           <h2 className="hidden text-sm font-bold uppercase tracking-wide text-mute lg:block">Categories</h2>
-          <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-3 lg:block lg:space-y-0.5 lg:overflow-visible lg:px-0">
+          <ul className="swipe -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-3 lg:block lg:space-y-0.5 lg:overflow-visible lg:px-0">
             {categories.map((cat) => {
               const n = cat === "All" ? products.length : products.filter((p) => p.category === cat).length;
               const on = cat === c;
@@ -73,23 +73,23 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         </aside>
 
         {/* Results */}
-        <div>
+        <div className="min-w-0">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
+              <h1 className="text-[22px] font-bold tracking-tight md:text-3xl">{title}</h1>
               <p className="mt-1 text-sm text-mute">{list.length} products</p>
             </div>
-            <div className="flex items-center gap-1 text-sm">
-              <span className="mr-1 text-mute">Sort by</span>
+            <div className="swipe -mx-4 flex w-[calc(100%+2rem)] items-center gap-1 overflow-x-auto px-4 text-sm sm:mx-0 sm:w-auto sm:px-0">
+              <span className="mr-1 shrink-0 text-mute">Sort by</span>
               {sorts.map((s) => (
                 <Link key={s.id} href={href({ sort: s.id })}
-                  className={`rounded-md px-3 py-1.5 ${s.id === sort ? "bg-navy font-semibold text-white" : "text-soft hover:bg-coal"}`}>{s.label}</Link>
+                  className={`shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 ${s.id === sort ? "bg-navy font-semibold text-white" : "text-soft hover:bg-coal"}`}>{s.label}</Link>
               ))}
             </div>
           </div>
 
           {list.length ? (
-            <div className="mt-6 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-5 grid grid-cols-2 gap-3 md:mt-6 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
               {list.map((p) => <ProductCard key={p.slug} p={p} />)}
             </div>
           ) : (

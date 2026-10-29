@@ -27,13 +27,13 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <>
       <section className="container-x pt-6">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-mute">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 overflow-hidden whitespace-nowrap text-sm text-mute">
           <Link href="/" className="hover:text-fg">Home</Link><ChevronRight size={14} />
           <span>Projects</span><ChevronRight size={14} />
           <span className="text-soft">{pr.title}</span>
         </nav>
 
-        <div className="mt-5 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr] lg:gap-8">
           <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-stage-blue">
             <ProductVisual kind={pr.kind} className="h-full w-full" />
             <span className="absolute bottom-4 left-4 rounded bg-white/90 px-3 py-1.5 text-xs text-soft">[Replace with photo of the installation]</span>
@@ -55,7 +55,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="container-x grid gap-8 py-12 lg:grid-cols-[1.4fr_1fr]">
+      <section className="container-x grid grid-cols-1 gap-8 py-10 md:py-12 lg:grid-cols-[1.4fr_1fr]">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">What we did</h2>
           <p className="mt-3 leading-relaxed text-soft">We studied 12 months of bills and the roof layout, then designed a {pr.meta[2][1]} system sized to the real daytime load, with room to add more panels later. Our own team handled structure, wiring, commissioning and app setup.</p>
@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: Props) {
 
       <section className="cv container-x pb-12">
         <h2 className="text-2xl font-bold tracking-tight">More projects</h2>
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {others.map((o) => (
             <Link key={o.slug} href={`/projects/${o.slug}`} className="group overflow-hidden rounded-xl border border-line transition hover:border-brand">
               <div className="aspect-[16/10] bg-stage-blue">

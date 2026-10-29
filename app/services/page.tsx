@@ -17,8 +17,8 @@ export default function ServicesPage() {
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-mute">
             <Link href="/" className="hover:text-fg">Home</Link><ChevronRight size={14} /><span className="text-soft">Services</span>
           </nav>
-          <h1 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight md:text-[42px] md:leading-tight">Sales, installation and after-sales service</h1>
-          <p className="mt-3 max-w-2xl text-lg text-soft">
+          <h1 className="mt-4 max-w-3xl text-[26px] font-bold sm:text-3xl tracking-tight md:text-[42px] md:leading-tight">Sales, installation and after-sales service</h1>
+          <p className="mt-3 max-w-2xl text-soft sm:text-lg">
             From a 1 kVA home backup to a 1 MW industrial plant, from one CCTV camera to a full smart campus. We supply it, install it and look after it.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -29,7 +29,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Divisions */}
-      <section className="container-x grid gap-5 py-12 md:grid-cols-2">
+      <section className="container-x grid grid-cols-1 gap-4 py-8 md:grid-cols-2 md:gap-5 md:py-12">
         {divisions.map((d) => (
           <article key={d.id} id={d.id} className="grid scroll-mt-36 overflow-hidden rounded-xl border border-line sm:grid-cols-[1fr_180px]">
             <div className="p-6">
@@ -53,7 +53,7 @@ export default function ServicesPage() {
       <section className="cv bg-coal py-12">
         <div className="container-x">
           <h2 className="text-2xl font-bold tracking-tight md:text-[28px]">How a solar project works</h2>
-          <ol className="mt-6 grid gap-4 md:grid-cols-4">
+          <ol className="mt-6 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
             {process.map((s) => (
               <li key={s.n} className="rounded-xl border border-line bg-white p-5">
                 <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="cv container-x grid gap-8 py-12 md:grid-cols-[1fr_1.8fr]">
+      <section className="cv container-x grid grid-cols-1 gap-6 py-10 md:grid-cols-[1fr_1.8fr] md:gap-8 md:py-12">
         <div>
           <h2 className="text-2xl font-bold tracking-tight md:text-[28px]">Frequently asked questions</h2>
           <p className="mt-2 text-mute">Can&apos;t find your answer? Our team replies on WhatsApp within minutes during working hours.</p>

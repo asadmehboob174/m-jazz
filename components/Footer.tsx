@@ -17,7 +17,7 @@ export default function Footer() {
     <footer id="contact" className="mt-6">
       {/* Quote band */}
       <section className="bg-brand text-white">
-        <div className="container-x flex flex-wrap items-center justify-between gap-6 py-8">
+        <div className="container-x flex flex-col items-start justify-between gap-4 py-7 sm:flex-row sm:items-center sm:gap-6 sm:py-8">
           <div>
             <h2 className="text-xl font-bold md:text-2xl">Not sure what size you need?</h2>
             <p className="mt-1 text-white/80">Send us your electricity bill on WhatsApp. We&apos;ll suggest a system and price for free.</p>
@@ -29,8 +29,8 @@ export default function Footer() {
       </section>
 
       <div className="bg-navy text-white/70">
-        <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
-          <div>
+        <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 py-10 md:py-14 lg:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
+          <div className="col-span-2 lg:col-span-1">
             <Logo invert />
             <p className="mt-4 max-w-sm text-[15px] leading-relaxed">{company.legal}. {company.tagline}</p>
             <div className="mt-5 flex gap-2">
@@ -57,7 +57,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <p className="font-semibold text-white">Contact us</p>
             <address className="mt-4 space-y-3 text-[15px] not-italic">
               <p className="flex gap-2.5"><MapPin size={18} className="mt-0.5 shrink-0 text-sun" />{company.address}</p>
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10">
-          <div className="container-x flex flex-wrap items-center justify-between gap-4 py-5 text-sm">
+          <div className="container-x flex flex-col items-start justify-between gap-4 py-5 text-sm lg:flex-row lg:items-center">
             <p>© {new Date().getFullYear()} {company.legal}. All rights reserved.</p>
             <ul className="flex flex-wrap gap-2" aria-label="Payment methods">
               {paymentMethods.map((m) => (

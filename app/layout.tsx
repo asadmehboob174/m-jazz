@@ -10,6 +10,9 @@ import ProductGradients from "@/components/ProductGradients";
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
+// Applies the saved colour theme before first paint, so the default colour never flashes.
+const colorScript = `try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c}catch(e){}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://mjaze.pk"),
   title: {
@@ -23,7 +26,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: colorScript }} />
+      </head>
       <body className="font-sans">
         <ProductGradients />
         <SmoothScroll />
