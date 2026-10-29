@@ -23,7 +23,7 @@ export default function Home() {
       <FeatureCards />
 
       {/* Divisions bento */}
-      <section className="cv container-x py-24">
+      <section className="cv atmo-r container-x py-24">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <Badge>What we do</Badge>
@@ -55,11 +55,10 @@ export default function Home() {
                 </Reveal>
               );
             }
-            // Cards 3–6: half-width, tinted backdrop with the product picture on the right
-            const tint = ["from-stage-blue", "from-stage-purple", "from-stage-amber", "from-stage-green"][i - 2];
+            // Cards 3–6: half-width, soft accent tint with the product picture on the right
             return (
               <Reveal key={d.id} delay={i * 0.06} className="md:col-span-3">
-                <Spotlight className={`h-full bg-gradient-to-br ${tint} via-panel to-panel`}>
+                <Spotlight className="h-full bg-gradient-to-br from-warm-2 via-panel to-panel">
                   <Link href={`/services#${d.id}`} className="grid h-full min-h-[260px] grid-cols-[1fr_auto] items-stretch gap-4 p-7 md:p-8">
                     <div className="flex flex-col">
                       <span className="tag">0{i + 1}</span>
@@ -84,7 +83,7 @@ export default function Home() {
       <section className="container-x py-12">
         <div className="grid gap-px overflow-hidden rounded-3xl border border-fg/[0.07] bg-fg/[0.07] sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.l} className="bg-ink p-8 md:p-10">
+            <div key={s.l} className="bg-panel/85 p-8 md:p-10">
               <p className="text-5xl font-semibold tracking-tight md:text-6xl"><Counter to={s.to} suffix={s.suffix} /></p>
               <p className="mt-3 text-mute">{s.l}</p>
             </div>
@@ -95,7 +94,7 @@ export default function Home() {
       <Pricing />
 
       {/* Featured products */}
-      <section className="cv container-x py-24">
+      <section className="cv atmo container-x py-24">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <Badge>Shop</Badge>
@@ -133,7 +132,7 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section className="cv container-x py-24">
+      <section className="cv atmo-r container-x py-24">
         <Reveal>
           <Badge>Recent work</Badge>
           <h2 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">Installed by <span className="em text-sun-gradient">M.JAZE</span></h2>

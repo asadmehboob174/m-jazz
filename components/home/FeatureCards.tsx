@@ -13,7 +13,7 @@ const trio = [
 
 export default function FeatureCards() {
   return (
-    <section className="cv container-x py-24">
+    <section className="cv atmo container-x py-24">
       <SectionTitle badge="Why M.JAZE">
         Solar done <span className="em text-sun-gradient">properly</span>, from roof to app.
       </SectionTitle>

@@ -42,14 +42,14 @@
   --color-soft: #333a47;
   --color-ok: #0e7c4a;
   --color-bubble: #d9fdd3;
-  --color-stage: color-mix(in oklab, var(--color-sun) 11%, #ffffff);
-  --color-stage-end: color-mix(in oklab, var(--color-sun) 3%, #ffffff);
+  --color-stage: #ffffff;
+  --color-stage-end: #eceff4;
   --color-stage-blue: #e4eafb;
   --color-stage-amber: color-mix(in oklab, var(--color-sun) 12%, #ffffff);
   --color-stage-green: #e1f3ea;
   --color-stage-purple: #eee7fb;
   --color-warm: color-mix(in oklab, var(--color-sun) 20%, #ffffff);
-  --color-warm-2: color-mix(in oklab, var(--color-sun) 7%, #ffffff);
+  --color-warm-2: color-mix(in oklab, var(--color-sun) 6%, #ffffff);
   color-scheme: light;
 }
 
@@ -67,6 +67,43 @@
 [data-theme="light"] { --sky-1: #bcdcff; --sky-2: #e4f0ff; }
 .sky-dawn {
   background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 42%, color-mix(in oklab, var(--color-sun) 12%, var(--color-ink)) 82%, var(--color-ink) 100%);
+}
+[data-theme="light"] .sky-dawn {
+  background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 45%, color-mix(in oklab, var(--color-sun) 10%, #f4f8fd) 85%, transparent 100%);
+}
+
+/* Light mode atmosphere: the sky carries on down the page (sky blue → sunlit cream → sky),
+   with a faint dot texture. Plain gradients scroll with the page, so they cost nothing per frame. */
+[data-theme="light"] body {
+  background:
+    radial-gradient(color-mix(in oklab, var(--color-fg) 6%, transparent) 1px, transparent 1.3px) 0 0 / 24px 24px,
+    linear-gradient(180deg,
+      #e3efff 0%,
+      #f3f8fe 14%,
+      color-mix(in oklab, var(--color-sun) 7%, #fbfaf6) 34%,
+      #eef5ff 52%,
+      color-mix(in oklab, var(--color-sun) 9%, #fbf8f2) 72%,
+      #e9f2ff 100%);
+}
+/* Soft sun (accent) and sky (blue) glows behind a section; .atmo-r mirrors them */
+[data-theme="light"] .atmo,
+[data-theme="light"] .atmo-r { position: relative; isolation: isolate; }
+[data-theme="light"] .atmo::before,
+[data-theme="light"] .atmo-r::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* closest-side circles fade out before touching any edge, so no hard box shows */
+  background:
+    radial-gradient(circle closest-side at 22% 28%, color-mix(in oklab, var(--color-sun) 18%, transparent), transparent),
+    radial-gradient(circle closest-side at 80% 76%, rgba(80, 160, 255, 0.17), transparent);
+}
+[data-theme="light"] .atmo-r::before {
+  background:
+    radial-gradient(circle closest-side at 78% 28%, color-mix(in oklab, var(--color-sun) 18%, transparent), transparent),
+    radial-gradient(circle closest-side at 20% 76%, rgba(80, 160, 255, 0.17), transparent);
 }
 
 @keyframes marquee {
@@ -180,8 +217,8 @@ body {
   /* Product picture stage */
   .pv-glow { background: radial-gradient(circle, color-mix(in oklab, var(--color-sun) 28%, transparent) 0%, color-mix(in oklab, var(--color-sun) 8%, transparent) 38%, transparent 64%); }
   .pv-floor { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent); }
-  [data-theme="light"] .pv-glow { background: radial-gradient(circle, color-mix(in oklab, var(--color-sun) 42%, transparent) 0%, color-mix(in oklab, var(--color-sun-2) 18%, transparent) 40%, transparent 66%); }
-  [data-theme="light"] .pv-floor { background: radial-gradient(closest-side, color-mix(in oklab, var(--color-sun-3) 30%, transparent), transparent); }
+  [data-theme="light"] .pv-glow { background: radial-gradient(circle, #ffffff 0%, color-mix(in oklab, var(--color-sun) 12%, transparent) 42%, transparent 66%); }
+  [data-theme="light"] .pv-floor { background: radial-gradient(closest-side, rgba(15, 23, 42, 0.22), transparent); }
   .grid-bg {
     --g: color-mix(in oklab, var(--color-fg) 5%, transparent);
     background-image: linear-gradient(var(--g) 1px, transparent 1px), linear-gradient(90deg, var(--g) 1px, transparent 1px);

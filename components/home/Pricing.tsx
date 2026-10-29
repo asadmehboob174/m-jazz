@@ -12,7 +12,7 @@ export default function Pricing() {
   const [mode, setMode] = useState<Mode>("hybrid");
 
   return (
-    <section className="cv container-x py-24">
+    <section className="cv atmo-r container-x py-24">
       <SectionTitle badge="Solar packages">
         Pricing that <span className="em text-sun-gradient">makes sense</span>
       </SectionTitle>
