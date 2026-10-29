@@ -5,23 +5,23 @@ import { Check, Palette } from "lucide-react";
 
 // Keep ids in sync with the [data-color] blocks in globals.css.
 export const themes = [
+  { id: "teal", name: "Ocean Teal", c: "#0f766e" },
   { id: "blue", name: "Solar Blue", c: "#1747b3" },
   { id: "green", name: "Eco Green", c: "#15803d" },
-  { id: "teal", name: "Ocean Teal", c: "#0f766e" },
   { id: "indigo", name: "Royal Indigo", c: "#4f46e5" },
   { id: "sunset", name: "Sunset", c: "#c2410c" },
   { id: "graphite", name: "Graphite", c: "#334155" },
 ];
 
 function useTheme() {
-  const [theme, setTheme] = useState("blue");
+  const [theme, setTheme] = useState("teal");
   useEffect(() => {
     const saved = document.documentElement.dataset.color;
     if (saved && themes.some((t) => t.id === saved)) setTheme(saved);
   }, []);
   const pick = (id: string) => {
     setTheme(id);
-    if (id === "blue") delete document.documentElement.dataset.color;
+    if (id === "teal") delete document.documentElement.dataset.color;
     else document.documentElement.dataset.color = id;
     try { localStorage.setItem("color", id); } catch {}
   };

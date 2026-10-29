@@ -9,13 +9,13 @@
   --color-fg: #0f172a;
   --color-soft: #334155;
   --color-mute: #64748b;
-  --color-brand: #1747b3;
-  --color-brand-2: #0f3790;
-  --color-navy: #0b1a33;
+  --color-brand: #0f766e;
+  --color-brand-2: #0b5c56;
+  --color-navy: #082426;
   --color-sun: #f59e0b;
   --color-sun-2: #fbbf24;
   --color-sun-3: #b45309;
-  --color-volt: #1747b3;
+  --color-volt: var(--color-brand);
   --color-ok: #15803d;
   --color-sale: #dc2626;
   --color-stage: #f7f8fa;
@@ -31,9 +31,9 @@
   --animate-marquee: marquee 40s linear infinite;
 }
 
-/* Colour themes (ThemePicker). Solar Blue is the default above; the tints, hero and logo follow --color-brand. */
+/* Colour themes (ThemePicker). Ocean Teal is the default above; the tints, hero and logo follow --color-brand. */
 [data-color="green"]  { --color-brand: #15803d; --color-brand-2: #116132; --color-navy: #0b2417; }
-[data-color="teal"]   { --color-brand: #0f766e; --color-brand-2: #0b5c56; --color-navy: #082426; }
+[data-color="blue"]   { --color-brand: #1747b3; --color-brand-2: #0f3790; --color-navy: #0b1a33; }
 [data-color="indigo"] { --color-brand: #4f46e5; --color-brand-2: #3d35c4; --color-navy: #15133b; }
 [data-color="sunset"] { --color-brand: #c2410c; --color-brand-2: #9a330a; --color-navy: #2a160c; --color-sun: #fbbf24; --color-sun-2: #fcd34d; }
 [data-color="graphite"] { --color-brand: #334155; --color-brand-2: #1e293b; --color-navy: #0f172a; }
