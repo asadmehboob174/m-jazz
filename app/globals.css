@@ -53,13 +53,21 @@
   color-scheme: light;
 }
 
-/* Accent themes — picked in ThemePicker, saved in localStorage. Amber is the default. */
-[data-accent="ocean"]   { --color-sun: #4f8bff; --color-sun-2: #9dbfff; --color-sun-3: #1d4ed8; }
-[data-accent="emerald"] { --color-sun: #12c98f; --color-sun-2: #7debc4; --color-sun-3: #047857; }
-[data-accent="violet"]  { --color-sun: #9b6bff; --color-sun-2: #cdb7ff; --color-sun-3: #6d28d9; }
-[data-accent="rose"]    { --color-sun: #ff4d6d; --color-sun-2: #ffa6b7; --color-sun-3: #be123c; }
-[data-accent="cyan"]    { --color-sun: #22d3ee; --color-sun-2: #a5f3fc; --color-sun-3: #0e7490; }
-[data-accent="lime"]    { --color-sun: #a3e635; --color-sun-2: #d9f99d; --color-sun-3: #4d7c0f; }
+/* Accent themes — natural, solar-inspired palettes picked in ThemePicker (saved in localStorage).
+   Solar Amber is the default and lives in @theme above. */
+[data-accent="sunrise"] { --color-sun: #ff7a4d; --color-sun-2: #ffb595; --color-sun-3: #b8361a; }
+[data-accent="golden"]  { --color-sun: #f5b72b; --color-sun-2: #ffe08a; --color-sun-3: #a16207; }
+[data-accent="leaf"]    { --color-sun: #5cc96b; --color-sun-2: #b3e8ad; --color-sun-3: #2f7d32; }
+[data-accent="sky"]     { --color-sun: #3fa9f5; --color-sun-2: #a7d8ff; --color-sun-3: #1565c0; }
+[data-accent="panel"]   { --color-sun: #5b84ff; --color-sun-2: #b0c4ff; --color-sun-3: #1e3a8a; }
+[data-accent="earth"]   { --color-sun: #d9774a; --color-sun-2: #f0b48f; --color-sun-3: #9a3412; }
+
+/* Hero sky: night-to-dawn in dark mode, clear daytime blue in light mode */
+:root { --sky-1: #03050b; --sky-2: #0a1430; }
+[data-theme="light"] { --sky-1: #bcdcff; --sky-2: #e4f0ff; }
+.sky-dawn {
+  background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 42%, color-mix(in oklab, var(--color-sun) 12%, var(--color-ink)) 82%, var(--color-ink) 100%);
+}
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -81,13 +89,13 @@
 }
 
 /* Light that runs around a button or card border */
-@property --beam-angle {
+@property --beam-a {
   syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
-@keyframes beam-spin {
-  to { --beam-angle: 360deg; }
+@keyframes beam-run {
+  to { --beam-a: 360deg; }
 }
 
 /* Brand dome: the ring turns, each coin counter-turns to stay upright, hover pauses both */
@@ -98,6 +106,9 @@
 .orbit-spin-rev { animation: orbit 70s linear infinite reverse; }
 .orbit:hover .orbit-spin,
 .orbit:hover .orbit-spin-rev { animation-play-state: paused; }
+
+/* Off-screen sections skip layout, paint and their animations until scrolled near. */
+.cv { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 
 html { color-scheme: dark; }
 body {
@@ -128,28 +139,22 @@ body {
     @apply inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[15px] font-semibold text-fg transition hover:bg-coal;
     box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-fg) 14%, transparent);
   }
+  /* A glowing streak that travels along the border. It is a conic gradient masked to a
+     thin ring with the element's own border-radius, so it bends around every curve. */
   .beam, .btn-beam { position: relative; isolation: isolate; }
-  .beam::before, .beam::after,
-  .btn-beam::before, .btn-beam::after {
+  .beam::after, .btn-beam::after {
     content: "";
     position: absolute;
-    inset: -1px;
+    inset: 0;
+    z-index: -1;
+    padding: 1.5px;
     border-radius: inherit;
-    padding: 1px;
     pointer-events: none;
-    background: conic-gradient(from var(--beam-angle), transparent 0 66%, var(--color-sun) 78%, color-mix(in oklab, var(--color-sun-2) 45%, #fff) 85%, var(--color-sun-2) 90%, transparent 100%);
+    background: conic-gradient(from var(--beam-a), transparent 0 78%, var(--color-sun) 92%, color-mix(in oklab, var(--color-sun-2) 35%, #fff) 98%, transparent 100%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    animation: beam-spin 3.2s linear infinite;
-  }
-  /* soft glow that travels with the beam */
-  .beam::after, .btn-beam::after {
-    inset: -2px;
-    padding: 2.5px;
-    filter: blur(4px);
-    opacity: 0.55;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: beam-run 3.6s linear infinite;
   }
   .em {
     font-family: var(--font-instrument), Georgia, serif;
@@ -174,11 +179,9 @@ body {
   }
   /* Product picture stage */
   .pv-glow { background: radial-gradient(circle, color-mix(in oklab, var(--color-sun) 28%, transparent) 0%, color-mix(in oklab, var(--color-sun) 8%, transparent) 38%, transparent 64%); }
-  .pv-floor { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent); }
-  .pv-shadow { filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.55)); }
+  .pv-floor { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent); }
   [data-theme="light"] .pv-glow { background: radial-gradient(circle, color-mix(in oklab, var(--color-sun) 42%, transparent) 0%, color-mix(in oklab, var(--color-sun-2) 18%, transparent) 40%, transparent 66%); }
   [data-theme="light"] .pv-floor { background: radial-gradient(closest-side, color-mix(in oklab, var(--color-sun-3) 30%, transparent), transparent); }
-  [data-theme="light"] .pv-shadow { filter: drop-shadow(0 16px 18px color-mix(in oklab, var(--color-sun-3) 22%, transparent)) drop-shadow(0 2px 3px rgba(15, 23, 42, 0.12)); }
   .grid-bg {
     --g: color-mix(in oklab, var(--color-fg) 5%, transparent);
     background-image: linear-gradient(var(--g) 1px, transparent 1px), linear-gradient(90deg, var(--g) 1px, transparent 1px);

@@ -8,13 +8,13 @@ import { revealFrom, store } from "@/lib/reveal";
 
 // Keep ids in sync with the [data-accent] blocks in globals.css.
 export const accents = [
-  { id: "amber", name: "Solar Amber", c: "#ff9a2e" },
-  { id: "ocean", name: "Ocean Blue", c: "#4f8bff" },
-  { id: "emerald", name: "Emerald", c: "#12c98f" },
-  { id: "violet", name: "Violet", c: "#9b6bff" },
-  { id: "rose", name: "Rose", c: "#ff4d6d" },
-  { id: "cyan", name: "Cyan", c: "#22d3ee" },
-  { id: "lime", name: "Lime", c: "#a3e635" },
+  { id: "amber", name: "Solar Amber", note: "Midday sun", c: "#ff9a2e" },
+  { id: "sunrise", name: "Sunrise Coral", note: "First light", c: "#ff7a4d" },
+  { id: "golden", name: "Golden Hour", note: "Evening glow", c: "#f5b72b" },
+  { id: "leaf", name: "Leaf Green", note: "Clean energy", c: "#5cc96b" },
+  { id: "sky", name: "Clear Sky", note: "Blue daylight", c: "#3fa9f5" },
+  { id: "panel", name: "Panel Blue", note: "Solar cells", c: "#5b84ff" },
+  { id: "earth", name: "Terracotta", note: "Warm earth", c: "#d9774a" },
 ];
 
 export default function ThemePicker() {
@@ -23,7 +23,9 @@ export default function ThemePicker() {
   const swatches = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
-    setAccent(document.documentElement.dataset.accent ?? "amber");
+    const saved = document.documentElement.dataset.accent;
+    if (saved && accents.some((a) => a.id === saved)) setAccent(saved);
+    else delete document.documentElement.dataset.accent; // e.g. a colour from an older version
   }, []);
 
   const pick = (id: string) => {
@@ -69,7 +71,10 @@ export default function ThemePicker() {
                       <span className="flex h-7 w-7 items-center justify-center rounded-full ring-2 ring-fg/10" style={{ background: a.c }}>
                         {on && <Check size={15} strokeWidth={3} className="text-black" />}
                       </span>
-                      {a.name}
+                      <span className="leading-tight">
+                        <span className="block">{a.name}</span>
+                        <span className="block text-xs text-mute">{a.note}</span>
+                      </span>
                     </button>
                   </li>
                 );

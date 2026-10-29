@@ -9,7 +9,7 @@ import { faqs } from "@/lib/data";
 export default function FAQ() {
   const [open, setOpen] = useState(0);
   return (
-    <section className="container-x py-24">
+    <section className="cv container-x py-24">
       <SectionTitle badge="FAQ">
         Frequently asked <span className="em text-sun-gradient">questions</span>
       </SectionTitle>

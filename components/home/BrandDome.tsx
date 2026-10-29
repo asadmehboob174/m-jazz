@@ -7,7 +7,7 @@ const Spark = () => (
 
 export default function BrandDome() {
   return (
-    <section className="overflow-hidden pt-24">
+    <section className="cv overflow-hidden pt-24">
       <SectionTitle badge="Brands" className="container-x">
         Official brands, <span className="em text-sun-gradient">installed right</span>
       </SectionTitle>

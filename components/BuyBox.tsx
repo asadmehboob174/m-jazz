@@ -9,7 +9,7 @@ export default function BuyBox({ p }: { p: Product }) {
   const [pay, setPay] = useState(paymentMethods[0]);
 
   return (
-    <div className="rounded-3xl border border-fg/[0.08] bg-panel/70 p-6 backdrop-blur md:p-7">
+    <div className="rounded-3xl border border-fg/[0.08] bg-panel/70 p-6 md:p-7">
       <div className="flex items-baseline gap-3">
         <span className="text-4xl font-semibold tracking-tight">{formatPKR(p.price * qty)}</span>
         {p.oldPrice && <span className="text-mute line-through">{formatPKR(p.oldPrice * qty)}</span>}

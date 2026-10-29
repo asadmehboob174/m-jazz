@@ -17,7 +17,7 @@ export default function FallingPills() {
   useEffect(() => {
     const root = box.current!;
     const { Engine, Bodies, Body, Composite, Constraint } = Matter;
-    const engine = Engine.create({ gravity: { x: 0, y: 0.16 } }); // low gravity = slow, floaty fall
+    const engine = Engine.create({ gravity: { x: 0, y: 0.16 }, enableSleeping: true }); // low gravity = slow, floaty fall
     let W = root.clientWidth;
     let H = root.clientHeight;
 
@@ -55,6 +55,7 @@ export default function FallingPills() {
       const down = (e: PointerEvent) => {
         e.preventDefault();
         if (b.isStatic) Body.setStatic(b, false);
+        Matter.Sleeping.set(b, false);
         const p = local(e);
         grabbed = b;
         grab = Constraint.create({ pointA: p, bodyB: b, pointB: { x: p.x - b.position.x, y: p.y - b.position.y }, stiffness: 0.12, damping: 0.1, length: 0 });
@@ -67,9 +68,12 @@ export default function FallingPills() {
         grab = null;
         grabbed = null;
       };
+      const poke = () => wake();
       el.addEventListener("pointerenter", enter);
       el.addEventListener("pointerleave", leave);
       el.addEventListener("pointerdown", down);
+      el.addEventListener("pointerdown", poke);
+      el.addEventListener("pointerleave", poke);
       el.addEventListener("pointermove", move);
       el.addEventListener("pointerup", up);
       el.addEventListener("pointercancel", up);
@@ -77,6 +81,8 @@ export default function FallingPills() {
         el.removeEventListener("pointerenter", enter);
         el.removeEventListener("pointerleave", leave);
         el.removeEventListener("pointerdown", down);
+        el.removeEventListener("pointerdown", poke);
+        el.removeEventListener("pointerleave", poke);
         el.removeEventListener("pointermove", move);
         el.removeEventListener("pointerup", up);
         el.removeEventListener("pointercancel", up);
@@ -93,11 +99,24 @@ export default function FallingPills() {
     let raf = 0;
     let last = 0;
     let started = false;
+    let visible = false;
+    let running = false;
+    const wake = () => {
+      if (running || !visible) return;
+      running = true;
+      last = 0;
+      raf = requestAnimationFrame(tick);
+    };
     const tick = (t: number) => {
       const dt = last ? Math.min(t - last, 1000 / 60) : 1000 / 60;
       last = t;
       Engine.update(engine, dt);
       draw();
+      // Once every tag has landed and nothing is held, stop until the next interaction.
+      if (!grab && bodies.every(({ b }) => b.isSleeping || b.isStatic)) {
+        running = false;
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
 
@@ -108,9 +127,13 @@ export default function FallingPills() {
           started = true;
           bodies.forEach(({ el }) => (el.style.opacity = "1"));
         }
-        last = 0;
-        raf = requestAnimationFrame(tick);
-      } else cancelAnimationFrame(raf);
+        visible = true;
+        wake();
+      } else {
+        visible = false;
+        running = false;
+        cancelAnimationFrame(raf);
+      }
     }, { threshold: 0.3 });
     io.observe(root);
 

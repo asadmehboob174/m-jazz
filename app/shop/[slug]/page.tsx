@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: Props) {
           <div className="grid gap-3">
             <div className="relative aspect-square overflow-hidden rounded-[32px] border border-fg/[0.07] bg-gradient-to-b from-stage to-stage-end">
               <ProductVisual kind={p.kind} className="h-full w-full" />
-              {p.badge && <span className="absolute left-6 top-6 rounded-full bg-fg/10 px-4 py-1.5 text-sm backdrop-blur">{p.badge}</span>}
+              {p.badge && <span className="absolute left-6 top-6 rounded-full bg-fg/10 px-4 py-1.5 text-sm">{p.badge}</span>}
             </div>
             <div className="grid grid-cols-4 gap-3">
               {["from-stage", "from-stage-blue", "from-stage-amber", "from-stage-green"].map((g, i) => (

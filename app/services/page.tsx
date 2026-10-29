@@ -33,7 +33,7 @@ export default function ServicesPage() {
             <p className="max-w-xl text-lg leading-relaxed text-soft">
               From a 1 kVA home backup to a 1 MW industrial plant, from a single CCTV camera to a full smart campus — we supply, install and look after it.
             </p>
-            <div className="rounded-2xl border border-fg/10 bg-fg/[0.03] p-5 text-sm backdrop-blur">
+            <div className="rounded-2xl border border-fg/10 bg-fg/[0.03] p-5 text-sm">
               <p className="tag mb-2">Get in touch</p>
               <p className="text-soft">{company.phone}</p>
               <p className="text-soft">{company.address}</p>

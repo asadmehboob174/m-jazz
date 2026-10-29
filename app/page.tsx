@@ -23,7 +23,7 @@ export default function Home() {
       <FeatureCards />
 
       {/* Divisions bento */}
-      <section className="container-x py-24">
+      <section className="cv container-x py-24">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <Badge>What we do</Badge>
@@ -95,7 +95,7 @@ export default function Home() {
       <Pricing />
 
       {/* Featured products */}
-      <section className="container-x py-24">
+      <section className="cv container-x py-24">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <Badge>Shop</Badge>
@@ -111,14 +111,14 @@ export default function Home() {
       </section>
 
       {/* Process */}
-      <section className="relative overflow-hidden py-24">
+      <section className="cv relative overflow-hidden py-24">
         <div aria-hidden="true" className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-volt/10 blur-[140px]" />
         <div className="container-x relative">
           <SectionTitle badge="How it works">From rooftop to <span className="em text-sun-gradient">switch-on</span></SectionTitle>
           <div className="mt-16 grid gap-4 md:grid-cols-4">
             {process.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.1}>
-                <div className="relative h-full rounded-3xl border border-fg/[0.07] bg-panel/60 p-7 backdrop-blur">
+                <div className="relative h-full rounded-3xl border border-fg/[0.07] bg-panel/60 p-7">
                   <div className="flex items-center justify-between">
                     <span className="text-5xl font-semibold text-fg/15">{s.n}</span>
                     <span className="rounded-full border border-fg/10 px-3 py-1 font-mono text-xs text-soft">{s.time}</span>
@@ -133,7 +133,7 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section className="container-x py-24">
+      <section className="cv container-x py-24">
         <Reveal>
           <Badge>Recent work</Badge>
           <h2 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">Installed by <span className="em text-sun-gradient">M.JAZE</span></h2>
@@ -144,7 +144,7 @@ export default function Home() {
               <Link href={`/projects/${pr.slug}`} className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-fg/[0.07] bg-gradient-to-br from-stage-blue to-stage-end">
                   <ProductVisual kind={pr.kind} className="h-full w-full transition duration-700 group-hover:scale-105" />
-                  <span className="absolute left-4 top-4 rounded-full bg-ink/50 px-3 py-1 text-xs backdrop-blur">{pr.area}</span>
+                  <span className="absolute left-4 top-4 rounded-full bg-ink/50 px-3 py-1 text-xs">{pr.area}</span>
                   <span className="absolute bottom-4 right-4 rounded-full bg-sun px-3 py-1 text-xs font-bold text-black">{pr.outcome[0][0]} {pr.outcome[0][1].toLowerCase()}</span>
                 </div>
                 <h3 className="mt-5 text-2xl font-semibold tracking-tight group-hover:text-sun">{pr.title}</h3>

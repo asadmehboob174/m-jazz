@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: Props) {
         <Reveal>
           <div className="relative aspect-[16/8] overflow-hidden rounded-[36px] border border-fg/[0.07] bg-gradient-to-br from-stage-blue via-stage-end to-warm-2">
             <ProductVisual kind={pr.kind} className="h-full w-full" />
-            <span className="absolute bottom-6 left-6 rounded-full bg-ink/50 px-4 py-2 text-sm backdrop-blur">[Replace with drone photo of the installation]</span>
+            <span className="absolute bottom-6 left-6 rounded-full bg-ink/50 px-4 py-2 text-sm">[Replace with drone photo of the installation]</span>
           </div>
         </Reveal>
       </section>
@@ -90,7 +90,7 @@ export default async function ProjectPage({ params }: Props) {
           <Reveal key={g} delay={i * 0.05} className={i === 0 ? "md:col-span-2" : ""}>
             <div className={`relative overflow-hidden rounded-[28px] border border-fg/[0.07] bg-gradient-to-br ${g} to-stage-end ${i === 0 ? "aspect-[16/7]" : "aspect-[4/3]"}`}>
               <ProductVisual kind={i % 2 ? "inverter" : pr.kind} className="h-full w-full" />
-              <span className="absolute bottom-4 left-4 rounded-full bg-ink/50 px-3 py-1.5 text-xs backdrop-blur">[Installation photo {i + 1}]</span>
+              <span className="absolute bottom-4 left-4 rounded-full bg-ink/50 px-3 py-1.5 text-xs">[Installation photo {i + 1}]</span>
             </div>
           </Reveal>
         ))}

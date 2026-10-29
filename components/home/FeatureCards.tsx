@@ -13,7 +13,7 @@ const trio = [
 
 export default function FeatureCards() {
   return (
-    <section className="container-x py-24">
+    <section className="cv container-x py-24">
       <SectionTitle badge="Why M.JAZE">
         Solar done <span className="em text-sun-gradient">properly</span>, from roof to app.
       </SectionTitle>
@@ -37,7 +37,7 @@ export default function FeatureCards() {
             <h3 className="text-3xl font-semibold tracking-tight md:text-4xl">Book in one message</h3>
             <p className="mt-4 max-w-sm leading-relaxed text-mute">Send your bill on WhatsApp. Get a size, a quote and a survey slot — usually the same day.</p>
             {/* chat mock */}
-            <div className="absolute inset-x-8 bottom-0 rounded-t-3xl border border-b-0 border-fg/10 bg-ink/80 p-5 backdrop-blur md:inset-x-12">
+            <div className="absolute inset-x-8 bottom-0 rounded-t-3xl border border-b-0 border-fg/10 bg-ink/80 p-5 md:inset-x-12">
               <div className="flex items-center gap-3 border-b border-fg/10 pb-4">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-sun text-sm font-bold text-black">M</span>
                 <div><p className="text-sm font-semibold">M.JAZE Support</p><p className="text-xs text-ok">online</p></div>
@@ -60,7 +60,7 @@ export default function FeatureCards() {
                 { i: Wrench, t: "Inverter fault — #1042", s: "Technician on the way", c: "text-sun" },
                 { i: BadgeCheck, t: "Warranty claim — Panel #7", s: "Approved by LONGi", c: "text-ok" },
               ].map((r) => (
-                <div key={r.t} className="flex items-center gap-3 rounded-2xl border border-fg/10 bg-ink/40 p-4 backdrop-blur">
+                <div key={r.t} className="flex items-center gap-3 rounded-2xl border border-fg/10 bg-ink/40 p-4">
                   <r.i size={20} className={r.c} />
                   <div className="min-w-0"><p className="truncate text-sm font-medium">{r.t}</p><p className={`text-xs ${r.c}`}>{r.s}</p></div>
                   <Plus size={16} className="ml-auto text-mute" />

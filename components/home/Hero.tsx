@@ -11,14 +11,16 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export default function Hero() {
   return (
     <section className="relative isolate overflow-hidden pb-10 pt-36 md:pt-44">
+      {/* dawn sky: deep night (or clear day in light mode) fading into a warm horizon */}
+      <div aria-hidden="true" className="sky-dawn absolute inset-0 -z-20" />
       <div aria-hidden="true" className="grid-bg absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
       <Sky />
-      {/* top glow */}
-      <div aria-hidden="true" className="absolute left-1/2 top-[-260px] -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-sun/[0.13] blur-[120px]" />
+      {/* top glow, drawn as a gradient rather than a blur filter so scrolling stays cheap */}
+      <div aria-hidden="true" className="absolute left-1/2 top-[-300px] -z-10 h-[640px] w-[1100px] -translate-x-1/2 bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-sun)_16%,transparent),transparent)]" />
 
       <div className="container-x relative">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
-          className="inline-flex items-center gap-2 rounded-full border border-fg/10 bg-fg/[0.03] p-1 pr-4 text-[13px] backdrop-blur">
+          className="inline-flex items-center gap-2 rounded-full border border-fg/10 bg-fg/[0.03] p-1 pr-4 text-[13px]">
           <span className="rounded-full bg-fg/10 px-3 py-1 font-medium">1 kVA → 1 MW</span>
           <span className="text-soft">Solar · Storage · Security · Tech</span>
         </motion.div>
@@ -43,7 +45,7 @@ export default function Hero() {
                 className="flex items-center gap-3 rounded-full bg-sun py-1.5 pl-6 pr-1.5 font-semibold text-black transition hover:bg-sun-2">
                 Free site survey <span className="flex h-10 w-12 items-center justify-center rounded-full bg-black/15"><ArrowRight size={18} /></span>
               </a>
-              <Link href="/shop" className="beam flex items-center gap-3 rounded-full border border-fg/15 bg-fg/[0.04] py-1.5 pl-6 pr-1.5 font-semibold backdrop-blur transition hover:border-fg/40">
+              <Link href="/shop" className="beam flex items-center gap-3 rounded-full border border-fg/15 bg-fg/[0.04] py-1.5 pl-6 pr-1.5 font-semibold transition hover:border-fg/40">
                 Shop products <span className="flex h-10 w-10 items-center justify-center rounded-full bg-fg text-ink"><ShoppingBag size={17} /></span>
               </Link>
             </div>

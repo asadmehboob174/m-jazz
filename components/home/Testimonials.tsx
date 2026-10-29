@@ -22,7 +22,7 @@ export default function Testimonials() {
   const a = testimonials.slice(0, 4);
   const b = testimonials.slice(4);
   return (
-    <section className="relative overflow-hidden py-24">
+    <section className="cv relative overflow-hidden py-24">
       <div aria-hidden="true" className="absolute inset-x-0 top-1/3 h-[400px] bg-sun/[0.06] blur-[120px]" />
       <SectionTitle badge="Customer stories" className="container-x relative">
         What Lahore is saying <span className="em text-sun-gradient">about us</span>
