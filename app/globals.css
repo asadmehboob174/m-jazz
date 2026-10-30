@@ -37,7 +37,7 @@
 
 /* Colour themes (ThemePicker). Blue & Orange (the logo colours) is the default above;
    the tints, hero and logo follow --color-brand. The other themes pair with a softer amber accent. */
-:root { --b: #1747b3; --b2: #0f3790; --nv: #0b1a33; --glow-core: #ffffff; --star: color-mix(in oklab, var(--color-brand) 55%, transparent); }
+:root { --b: #1747b3; --b2: #0f3790; --nv: #0b1a33; --glow-core: #ffffff; --star: color-mix(in oklab, var(--color-brand) 80%, transparent); }
 [data-color="teal"], [data-color="green"], [data-color="indigo"], [data-color="graphite"] {
   --color-sun: #f59e0b; --color-sun-2: #fbbf24; --color-sun-3: #b45309;
 }
@@ -73,10 +73,10 @@ html { transition: background-color .3s; }
 
 /* Background sky: a few shooting stars, faint twinkles and slow light, behind everything */
 .sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.sky .orb { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: .07; animation: blob 26s ease-in-out infinite; }
-[data-mode="dark"] .sky .orb { opacity: .16; }
+.sky .orb { position: absolute; border-radius: 9999px; filter: blur(90px); opacity: .2; animation: blob 26s ease-in-out infinite; }
+[data-mode="dark"] .sky .orb { opacity: .22; }
 .sky .shoot {
-  position: absolute; width: 160px; height: 1.5px; border-radius: 9999px; opacity: 0;
+  position: absolute; width: 220px; height: 2px; border-radius: 9999px; opacity: 0;
   background: linear-gradient(90deg, transparent, var(--star));
   transform: rotate(145deg) translateX(0);
   animation: shoot var(--dur, 11s) linear var(--delay, 0s) infinite;
@@ -295,3 +295,32 @@ body {
   .trace { transform: none !important; }
   .tilt { transform: none !important; }
 }
+
+/* Faint grid over the page background, strongest at the top and fading out */
+.sky .grid-lines {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(color-mix(in oklab, var(--color-brand) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-brand) 9%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 75%); mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 75%);
+  animation: grid-pan 40s linear infinite;
+}
+[data-mode="dark"] .sky .grid-lines { background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); }
+@keyframes grid-pan { to { background-position: 56px 56px; } }
+
+/* Aurora: a soft brand/sun glow across the top of the page that slowly shifts */
+.sky .aurora {
+  position: absolute; left: -10%; right: -10%; top: -30vh; height: 80vh; filter: blur(60px); opacity: .45;
+  background: radial-gradient(40% 50% at 25% 50%, color-mix(in oklab, var(--color-brand) 45%, transparent), transparent 70%),
+    radial-gradient(35% 45% at 70% 40%, color-mix(in oklab, var(--color-sun) 40%, transparent), transparent 70%),
+    radial-gradient(30% 40% at 50% 70%, color-mix(in oklab, var(--color-brand) 30%, transparent), transparent 70%);
+  animation: aurora 18s ease-in-out infinite alternate;
+}
+[data-mode="dark"] .sky .aurora { opacity: .55; }
+@keyframes aurora { from { transform: translateX(-4%) scale(1); } to { transform: translateX(4%) scale(1.08); } }
+
+/* Dark mode: lift department colours used as text so they stay readable */
+[data-mode="dark"] .text-\[var\(--tone\)\],
+[data-mode="dark"] .hover\:text-\[var\(--tone\)\]:hover,
+[data-mode="dark"] .group:hover .group-hover\:text-\[var\(--tone\)\],
+[data-mode="dark"] .group\/item:hover .group-hover\/item\:text-\[var\(--tone\)\] { color: color-mix(in oklab, var(--tone) 60%, white); }

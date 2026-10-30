@@ -5,7 +5,7 @@ import ProductVisual from "../ProductVisual";
 import { Heading } from "../SectionHead";
 import FlipWords from "../FlipWords";
 import { catHref, departments, deptHref } from "@/lib/catalog";
-import { formatPKR, inDept } from "@/lib/data";
+import { formatPKR, inCat, inDept } from "@/lib/data";
 
 // The five divisions as a bento grid: one big card for Solar & Power, four around it.
 export default function Solutions() {
@@ -15,7 +15,7 @@ export default function Solutions() {
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8 lg:grid-cols-3 lg:grid-rows-2" data-stagger="zoom">
         {departments.map((d, n) => {
           const big = n === 0;
-          const from = Math.min(...inDept(d.slug).flatMap((p) => (p.price ? [p.price] : [])));
+          const from = Math.min(...(big ? inCat("solar-packages") : inDept(d.slug)).flatMap((p) => (p.price ? [p.price] : [])));
           return (
             <div key={d.slug} style={{ "--tone": d.color } as React.CSSProperties}
               className={`spot group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-[linear-gradient(150deg,color-mix(in_oklab,var(--tone)_9%,var(--color-panel)),var(--color-panel)_60%)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--tone)] hover:shadow-[0_20px_44px_-20px_color-mix(in_oklab,var(--tone)_55%,transparent)] sm:p-6 ${big ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}>
