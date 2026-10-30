@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import ProductGradients from "@/components/ProductGradients";
@@ -56,9 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <Effects />
         <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          {children}
         </CartProvider>
         <WhatsAppButton />
         <DesignPreview />
