@@ -18,7 +18,7 @@ export default function Packages() {
             const featured = p.badge === "Most popular";
             const size = p.name.match(/^[\d.]+ k(W|VA)/)?.[0] ?? "";
             return (
-              <div key={p.slug} className={`group relative flex w-[82%] shrink-0 flex-col rounded-2xl border bg-white p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-24px_rgba(15,23,42,0.4)] sm:w-[48%] lg:w-auto ${featured ? "border-brand ring-2 ring-brand" : "border-line"}`}>
+              <div key={p.slug} className={`group relative flex w-[82%] shrink-0 flex-col rounded-2xl border bg-panel p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-24px_rgba(15,23,42,0.4)] sm:w-[48%] lg:w-auto ${featured ? "border-brand ring-2 ring-brand" : "border-line"}`}>
                 {p.badge && <span className={`absolute -top-3 left-5 rounded-full px-3 py-1 text-xs font-bold ${featured ? "bg-brand text-white" : "bg-sun text-black"}`}>{p.badge}</span>}
                 <p className="text-[40px] font-extrabold leading-none tracking-tight text-brand">{size}</p>
                 <h3 className="mt-2 font-bold leading-snug"><Link href={`/product/${p.slug}`} className="hover:text-brand">{p.name}</Link></h3>

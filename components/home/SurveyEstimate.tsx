@@ -35,13 +35,13 @@ export default function SurveyEstimate() {
     window.open(waLink(msg), "_blank", "noopener");
   };
 
-  const field = "h-11 w-full rounded-lg border border-line bg-white px-3.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/15";
+  const field = "h-11 w-full rounded-lg border border-line bg-panel px-3.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/15";
 
   return (
     <section id="survey" className="cv scroll-mt-36 bg-coal py-10 md:py-14">
       <div className="container-x grid gap-5 lg:grid-cols-[1.15fr_1fr]">
         {/* Estimate */}
-        <div className="rounded-2xl border border-line bg-white p-5 sm:p-7">
+        <div className="rounded-2xl border border-line bg-panel p-5 sm:p-7">
           <p className="flex items-center gap-2 text-sm font-semibold text-brand"><Calculator size={18} /> Solar savings estimate</p>
           <h2 className="mt-2 text-[22px] font-bold tracking-tight md:text-[28px]">How much can you save?</h2>
           <label htmlFor="bill" className="mt-5 flex items-baseline justify-between text-sm text-mute">

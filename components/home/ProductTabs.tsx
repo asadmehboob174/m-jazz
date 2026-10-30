@@ -22,7 +22,7 @@ export default function ProductTabs() {
         <div role="tablist" aria-label="Departments" className="swipe -mx-4 flex w-[calc(100%+2rem)] gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:w-auto md:px-0">
           {departments.map((x, n) => (
             <button key={x.slug} role="tab" aria-selected={n === tab} type="button" onClick={() => setTab(n)} style={{ "--tone": x.color } as React.CSSProperties}
-              className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${n === tab ? "border-[var(--tone)] bg-[var(--tone)] text-white shadow-[0_8px_18px_-8px_var(--tone)]" : "border-line bg-white text-soft hover:border-[var(--tone)] hover:text-[var(--tone)]"}`}>
+              className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${n === tab ? "border-[var(--tone)] bg-[var(--tone)] text-white shadow-[0_8px_18px_-8px_var(--tone)]" : "border-line bg-panel text-soft hover:border-[var(--tone)] hover:text-[var(--tone)]"}`}>
               <DeptIcon icon={x.icon} size={16} />{x.short}
             </button>
           ))}

@@ -66,7 +66,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
   return (
     <div style={{ "--tone": tone } as React.CSSProperties}>
       {/* Banner */}
-      <section className="relative overflow-hidden border-b border-line bg-[color-mix(in_oklab,var(--tone)_7%,white)]">
+      <section className="relative overflow-hidden border-b border-line bg-[color-mix(in_oklab,var(--tone)_7%,var(--color-panel))]">
         <div aria-hidden="true" className="absolute -right-16 -top-20 h-72 w-72 animate-blob rounded-full bg-[var(--tone)] opacity-15 blur-3xl" />
         <div className="container-x relative grid items-center gap-6 py-6 md:grid-cols-[1fr_220px] md:py-9">
           <div className="min-w-0">
@@ -90,7 +90,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
               {(dept ? dept.categories.map((c) => ({ label: c.name, href: catHref(dept, c), on: c.slug === cat?.slug, n: inCat(c.slug).length }))
                 : departments.map((d) => ({ label: d.name, href: deptHref(d), on: false, n: inDept(d.slug).length }))).map((c) => (
                 <Link key={c.href} href={c.href}
-                  className={`shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium transition hover:-translate-y-0.5 ${c.on ? "border-[var(--tone)] bg-[var(--tone)] text-white" : "border-line bg-white hover:border-[var(--tone)] hover:text-[var(--tone)]"}`}>
+                  className={`shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium transition hover:-translate-y-0.5 ${c.on ? "border-[var(--tone)] bg-[var(--tone)] text-white" : "border-line bg-panel hover:border-[var(--tone)] hover:text-[var(--tone)]"}`}>
                   {c.label} <span className={c.on ? "text-white/75" : "text-mute"}>{c.n}</span>
                 </Link>
               ))}

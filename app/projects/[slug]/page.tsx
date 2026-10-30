@@ -36,7 +36,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr] lg:gap-8">
           <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-stage-blue">
             <ProductVisual kind={pr.kind} className="h-full w-full" />
-            <span className="absolute bottom-4 left-4 rounded bg-white/90 px-3 py-1.5 text-xs text-soft">[Replace with photo of the installation]</span>
+            <span className="absolute bottom-4 left-4 rounded bg-panel/90 px-3 py-1.5 text-xs text-soft">[Replace with photo of the installation]</span>
           </div>
           <div>
             <p className="text-sm font-semibold text-brand">{pr.area}</p>

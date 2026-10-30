@@ -56,7 +56,7 @@ export default function ServicesPage() {
                 <a href={waLink(`I'm interested in ${d.name}.`)} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 font-semibold text-[#1fa855] hover:underline">Enquire on WhatsApp</a>
               </div>
             </div>
-            <ProductVisual kind={d.kind} className="hidden h-full bg-[color-mix(in_oklab,var(--tone)_8%,white)] md:flex" />
+            <ProductVisual kind={d.kind} className="hidden h-full bg-[color-mix(in_oklab,var(--tone)_8%,var(--color-panel))] md:flex" />
           </article>
         ))}
       </section>
@@ -67,7 +67,7 @@ export default function ServicesPage() {
           <Heading eyebrow="How we work" title="From survey to after-sales" />
           <ol className="mt-7 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4" data-stagger>
             {process.map((s) => (
-              <li key={s.n} className="group relative overflow-hidden rounded-2xl border border-line bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg">
+              <li key={s.n} className="group relative overflow-hidden rounded-2xl border border-line bg-panel p-5 transition hover:-translate-y-1 hover:shadow-lg">
                 <span aria-hidden="true" className="absolute -right-2 -top-4 text-[80px] font-extrabold leading-none text-coal transition group-hover:text-stage-blue">{s.n}</span>
                 <div className="relative flex items-center justify-between">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{Number(s.n)}</span>

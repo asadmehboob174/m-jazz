@@ -22,7 +22,7 @@ export default function Services() {
         {items.map(([slug, name, text]) => {
           const p = getProduct(slug)!;
           return (
-            <div key={slug} className="spot group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg">
+            <div key={slug} className="spot group flex items-center gap-4 rounded-2xl border border-line bg-panel p-4 transition duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg">
               <ProductVisual kind={p.kind} className="h-20 w-20 shrink-0 rounded-xl bg-coal transition duration-500 group-hover:scale-105 group-hover:bg-stage-blue" />
               <div className="min-w-0 flex-1">
                 <h3 className="font-bold"><Link href={`/product/${slug}`} className="hover:text-brand">{name}</Link></h3>

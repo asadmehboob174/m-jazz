@@ -14,10 +14,10 @@ export default function ProjectsSlider() {
         head={<Heading eyebrow="Recent work" title="Projects we have delivered" sub="Homes, schools, factories and plazas across Lahore" />}>
         {projects.map((pr, n) => (
           <Link key={pr.slug} href={`/projects/${pr.slug}`}
-            className="group block h-full overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-[0_18px_40px_-18px_rgba(15,23,42,0.35)]">
+            className="group block h-full overflow-hidden rounded-2xl border border-line bg-panel transition duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-[0_18px_40px_-18px_rgba(15,23,42,0.35)]">
             <div className={`relative aspect-[16/10] overflow-hidden ${tints[n % tints.length]}`}>
               <ProductVisual kind={pr.kind} className="h-full w-full transition duration-700 group-hover:scale-110" />
-              <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-soft"><MapPin size={12} />{pr.area}</span>
+              <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-panel/90 px-2.5 py-1 text-xs font-medium text-soft"><MapPin size={12} />{pr.area}</span>
               <span className="absolute bottom-3 right-3 rounded-full bg-navy px-3 py-1 text-xs font-bold text-white">{pr.outcome[0][0]} {pr.outcome[0][1].toLowerCase()}</span>
             </div>
             <div className="p-4 sm:p-5">

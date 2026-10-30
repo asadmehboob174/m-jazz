@@ -16,7 +16,7 @@ export default function BuyBox({ p }: { p: Product }) {
   const old = p.variants?.find((v) => v.label === variant)?.oldPrice ?? p.oldPrice;
 
   return (
-    <div className="rounded-2xl border border-line bg-white p-5 md:p-6">
+    <div className="rounded-2xl border border-line bg-panel p-5 md:p-6">
       {price ? (
         <>
           <div className="flex flex-wrap items-baseline gap-x-3">

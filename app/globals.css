@@ -9,9 +9,9 @@
   --color-fg: #0f172a;
   --color-soft: #334155;
   --color-mute: #64748b;
-  --color-brand: #1747b3;
-  --color-brand-2: #0f3790;
-  --color-navy: #0b1a33;
+  --color-brand: var(--b);
+  --color-brand-2: var(--b2);
+  --color-navy: var(--nv);
   --color-sun: #f7931e;
   --color-sun-2: #ffa94d;
   --color-sun-3: #c2410c;
@@ -20,7 +20,7 @@
   --color-sale: #dc2626;
   --color-stage: #f7f8fa;
   --color-stage-end: #edf0f4;
-  --color-stage-blue: color-mix(in oklab, var(--color-brand) 9%, #ffffff);
+  --color-stage-blue: color-mix(in oklab, var(--color-brand) 9%, var(--color-panel));
   --color-stage-amber: #fdf4e3;
   --color-stage-green: #e7f4ec;
   --color-stage-purple: #f0edf9;
@@ -37,14 +37,68 @@
 
 /* Colour themes (ThemePicker). Blue & Orange (the logo colours) is the default above;
    the tints, hero and logo follow --color-brand. The other themes pair with a softer amber accent. */
+:root { --b: #1747b3; --b2: #0f3790; --nv: #0b1a33; --glow-core: #ffffff; --star: color-mix(in oklab, var(--color-brand) 55%, transparent); }
 [data-color="teal"], [data-color="green"], [data-color="indigo"], [data-color="graphite"] {
   --color-sun: #f59e0b; --color-sun-2: #fbbf24; --color-sun-3: #b45309;
 }
-[data-color="teal"]   { --color-brand: #0f766e; --color-brand-2: #0b5c56; --color-navy: #082426; }
-[data-color="green"]  { --color-brand: #15803d; --color-brand-2: #116132; --color-navy: #0b2417; }
-[data-color="indigo"] { --color-brand: #4f46e5; --color-brand-2: #3d35c4; --color-navy: #15133b; }
-[data-color="sunset"] { --color-brand: #c2410c; --color-brand-2: #9a330a; --color-navy: #2a160c; --color-sun: #fbbf24; --color-sun-2: #fcd34d; }
-[data-color="graphite"] { --color-brand: #334155; --color-brand-2: #1e293b; --color-navy: #0f172a; }
+[data-color="teal"]   { --b: #0f766e; --b2: #0b5c56; --nv: #082426; }
+[data-color="green"]  { --b: #15803d; --b2: #116132; --nv: #0b2417; }
+[data-color="indigo"] { --b: #4f46e5; --b2: #3d35c4; --nv: #15133b; }
+[data-color="sunset"] { --b: #c2410c; --b2: #9a330a; --nv: #2a160c; --color-sun: #fbbf24; --color-sun-2: #fcd34d; }
+[data-color="graphite"] { --b: #334155; --b2: #1e293b; --nv: #0f172a; }
+
+/* Dark mode (works with every colour theme above): deep surfaces, the theme colour lifted for contrast */
+[data-mode="dark"] {
+  color-scheme: dark;
+  --color-ink: #070c18;
+  --color-coal: #0d1424;
+  --color-panel: #111a2d;
+  --color-line: #233049;
+  --color-fg: #e8edf6;
+  --color-soft: #b8c3d6;
+  --color-mute: #8592aa;
+  --color-brand: color-mix(in oklab, var(--b) 68%, white);
+  --color-brand-2: color-mix(in oklab, var(--b) 84%, white);
+  --color-navy: color-mix(in oklab, var(--nv) 75%, black);
+  --color-ok: #4ade80;
+  --color-sale: #ef4444;
+  --color-stage-blue: color-mix(in oklab, var(--b) 24%, var(--color-panel));
+  --color-stage-amber: #281f10;
+  --color-stage-green: #0f2619;
+  --color-stage-purple: #1c1832;
+  --glow-core: rgba(255, 255, 255, 0.09);
+  --star: rgba(255, 255, 255, 0.85);
+}
+html { transition: background-color .3s; }
+
+/* Background sky: a few shooting stars, faint twinkles and slow light, behind everything */
+.sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.sky .orb { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: .07; animation: blob 26s ease-in-out infinite; }
+[data-mode="dark"] .sky .orb { opacity: .16; }
+.sky .shoot {
+  position: absolute; width: 160px; height: 1.5px; border-radius: 9999px; opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--star));
+  transform: rotate(145deg) translateX(0);
+  animation: shoot var(--dur, 11s) linear var(--delay, 0s) infinite;
+}
+.sky .shoot::after { content: ""; position: absolute; right: -1px; top: -1.5px; width: 4px; height: 4px; border-radius: 9999px; background: var(--star); box-shadow: 0 0 10px 2px var(--star); }
+@keyframes shoot {
+  0% { opacity: 0; transform: rotate(145deg) translateX(0) scaleX(.3); }
+  1.5% { opacity: 1; }
+  7% { opacity: 0; transform: rotate(145deg) translateX(620px) scaleX(1); }
+  100% { opacity: 0; transform: rotate(145deg) translateX(620px) scaleX(1); }
+}
+.sky .twinkle {
+  position: absolute; inset: 0; opacity: 0;
+  background-image: radial-gradient(1.2px 1.2px at 12% 18%, #fff, transparent), radial-gradient(1px 1px at 28% 64%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 46% 32%, #fff, transparent), radial-gradient(1px 1px at 63% 82%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 77% 24%, #fff, transparent), radial-gradient(1px 1px at 88% 58%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 6% 86%, #fff, transparent), radial-gradient(1px 1px at 52% 6%, #fff, transparent),
+    radial-gradient(1.1px 1.1px at 36% 92%, #fff, transparent), radial-gradient(1px 1px at 94% 90%, #fff, transparent);
+}
+[data-mode="dark"] .sky .twinkle { animation: twinkle 5s ease-in-out infinite alternate; }
+[data-mode="dark"] .sky .twinkle + .twinkle { background-position: 37vw 21vh; animation-delay: -2.5s; }
+@keyframes twinkle { from { opacity: .15; } to { opacity: .7; } }
 
 /* Hero banner: navy into a deep shade of the brand colour, with a faint solar-cell grid */
 .hero-bg {
@@ -182,7 +236,7 @@ body {
     @apply inline-flex items-center gap-1 text-[15px] font-semibold text-brand hover:underline;
   }
   /* Product picture stage */
-  .pv-glow { background: radial-gradient(circle, #ffffff 0%, color-mix(in oklab, var(--color-sun) 10%, transparent) 42%, transparent 66%); }
+  .pv-glow { background: radial-gradient(circle, var(--glow-core) 0%, color-mix(in oklab, var(--color-sun) 10%, transparent) 42%, transparent 66%); }
   .pv-floor { background: radial-gradient(closest-side, rgba(15, 23, 42, 0.2), transparent); }
 }
 

@@ -35,7 +35,7 @@ export default function Logo({ className = "", invert = false, variant, compact 
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <LogoMark variant={variant} />
       <span className="leading-none">
-        <span className={`block text-[21px] font-extrabold tracking-[-0.02em] ${invert ? "text-white" : "text-navy"}`}>
+        <span className={`block text-[21px] font-extrabold tracking-[-0.02em] ${invert ? "text-white" : "text-fg"}`}>
           M<span className="text-sun">.</span>JAZE
         </span>
         {!compact && (

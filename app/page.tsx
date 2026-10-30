@@ -85,7 +85,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
     <section className="container-x py-5 md:py-6">
       <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4" data-stagger>
         {trust.map(({ Icon, t, d }) => (
-          <li key={t} className="group flex flex-col gap-2 bg-white p-3.5 sm:flex-row sm:items-center sm:gap-3.5 sm:px-5 sm:py-4">
+          <li key={t} className="group flex flex-col gap-2 bg-panel p-3.5 sm:flex-row sm:items-center sm:gap-3.5 sm:px-5 sm:py-4">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stage-blue text-brand transition duration-500 group-hover:rotate-[360deg] group-hover:bg-brand group-hover:text-white sm:h-11 sm:w-11"><Icon size={20} /></span>
             <span><span className="block text-sm font-semibold sm:text-[15px]">{t}</span><span className="block text-xs text-mute sm:text-sm">{d}</span></span>
           </li>
@@ -120,8 +120,8 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
           const { dept, cat } = findCat(slug)!;
           return (
             <Link key={slug} href={catHref(dept, cat)} style={{ "--tone": dept.color } as React.CSSProperties}
-              className="group flex w-[120px] shrink-0 flex-col items-center rounded-2xl border border-line bg-white p-2.5 pb-3 text-center transition duration-300 hover:-translate-y-1 hover:border-[var(--tone)] hover:shadow-[0_14px_30px_-16px_var(--tone)] sm:w-auto">
-              <span className="relative w-full overflow-hidden rounded-xl bg-coal transition group-hover:bg-[color-mix(in_oklab,var(--tone)_9%,white)]">
+              className="group flex w-[120px] shrink-0 flex-col items-center rounded-2xl border border-line bg-panel p-2.5 pb-3 text-center transition duration-300 hover:-translate-y-1 hover:border-[var(--tone)] hover:shadow-[0_14px_30px_-16px_var(--tone)] sm:w-auto">
+              <span className="relative w-full overflow-hidden rounded-xl bg-coal transition group-hover:bg-[color-mix(in_oklab,var(--tone)_9%,var(--color-panel))]">
                 <ProductVisual kind={cat.kind} className="aspect-[4/3] w-full transition duration-500 group-hover:scale-110" />
               </span>
               <span className="mt-2.5 text-[13px] font-semibold leading-tight group-hover:text-[var(--tone)] sm:text-sm">{cat.name}</span>
@@ -145,7 +145,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
       <div className="container-x flex flex-wrap items-end justify-between gap-5">
         <Heading eyebrow="Reviews" title="What our customers say" />
         <a href={company.socials.facebook} target="_blank" rel="noopener" data-reveal="right"
-          className="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 transition hover:border-brand">
+          className="flex items-center gap-3 rounded-2xl border border-line bg-panel px-4 py-3 transition hover:border-brand">
           <span className="text-3xl font-extrabold text-brand">{company.recommend}%</span>
           <span className="text-sm leading-tight"><Stars size={14} /><span className="text-mute">recommend us · {company.reviews} Facebook reviews</span></span>
         </a>
@@ -153,7 +153,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
       <div className="mt-7 space-y-4">
         <Marquee>
           {testimonials.map((t) => (
-            <figure key={t.name} className="mx-2 flex w-[300px] shrink-0 flex-col rounded-2xl border border-line bg-white p-5 sm:w-[360px]">
+            <figure key={t.name} className="mx-2 flex w-[300px] shrink-0 flex-col rounded-2xl border border-line bg-panel p-5 sm:w-[360px]">
               <div className="flex items-center justify-between"><Stars size={14} /><Quote size={22} className="text-brand/20" /></div>
               <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-soft">“{t.q}”</blockquote>
               <figcaption className="mt-4 flex items-center gap-3 border-t border-line pt-3 text-sm">
@@ -175,7 +175,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
           {[brands.slice(0, 8), brands.slice(8)].map((row, n) => (
             <Marquee key={n} reverse={n === 1}>
               {row.map((b) => (
-                <span key={b} className="mx-1.5 flex h-14 min-w-[150px] items-center justify-center rounded-xl border border-line bg-white px-5 text-[17px] font-extrabold tracking-tight text-fg/45 grayscale transition hover:border-brand hover:text-brand sm:min-w-[170px]">{b}</span>
+                <span key={b} className="mx-1.5 flex h-14 min-w-[150px] items-center justify-center rounded-xl border border-line bg-panel px-5 text-[17px] font-extrabold tracking-tight text-fg/45 grayscale transition hover:border-brand hover:text-brand sm:min-w-[170px]">{b}</span>
               ))}
             </Marquee>
           ))}

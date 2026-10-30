@@ -53,7 +53,7 @@ export default function Checkout() {
     );
   }
 
-  const field = "h-12 w-full rounded-lg border border-line bg-white px-3.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/15";
+  const field = "h-12 w-full rounded-lg border border-line bg-panel px-3.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/15";
 
   return (
     <form onSubmit={submit} className="grid grid-cols-1 gap-6 py-6 lg:grid-cols-[1.4fr_1fr] lg:gap-10 lg:py-10">
@@ -102,7 +102,7 @@ export default function Checkout() {
             {items.map((it) => (
               <li key={`${it.slug}-${it.variant}`} className="flex items-center gap-3 py-3">
                 <span className="relative shrink-0">
-                  <ProductVisual kind={it.p.kind} className="h-14 w-14 rounded-lg bg-white" />
+                  <ProductVisual kind={it.p.kind} className="h-14 w-14 rounded-lg bg-panel" />
                   <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-navy px-1 text-[11px] font-bold text-white">{it.qty}</span>
                 </span>
                 <span className="min-w-0 flex-1 text-sm"><span className="line-clamp-1 font-medium">{it.p.name}</span>{it.variant && <span className="text-xs text-mute">{it.variant}</span>}</span>

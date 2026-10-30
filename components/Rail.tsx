@@ -27,7 +27,7 @@ export default function Rail({ head, children, itemClass = "w-[78%] sm:w-[calc((
         <div className="flex shrink-0 gap-2">
           {([[-1, ChevronLeft, "Previous", edge.start], [1, ChevronRight, "Next", edge.end]] as const).map(([d, Icon, label, off]) => (
             <button key={label} type="button" aria-label={label} disabled={off} onClick={() => move(d)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white transition hover:border-brand hover:bg-brand hover:text-white disabled:opacity-35 disabled:hover:border-line disabled:hover:bg-white disabled:hover:text-fg">
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-panel transition hover:border-brand hover:bg-brand hover:text-white disabled:opacity-35 disabled:hover:border-line disabled:hover:bg-panel disabled:hover:text-fg">
               <Icon size={19} />
             </button>
           ))}

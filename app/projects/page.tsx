@@ -21,10 +21,10 @@ export default function ProjectsPage() {
       <p className="mt-2 max-w-2xl text-soft" data-reveal>Homes, schools, factories and plazas across Lahore.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3" data-stagger>
         {projects.map((pr, n) => (
-          <Link key={pr.slug} href={`/projects/${pr.slug}`} className="group overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-xl">
+          <Link key={pr.slug} href={`/projects/${pr.slug}`} className="group overflow-hidden rounded-2xl border border-line bg-panel transition duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-xl">
             <div className={`relative aspect-[16/10] overflow-hidden ${tints[n % tints.length]}`}>
               <ProductVisual kind={pr.kind} className="h-full w-full transition duration-700 group-hover:scale-110" />
-              <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-soft"><MapPin size={12} />{pr.area}</span>
+              <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-panel/90 px-2.5 py-1 text-xs font-medium text-soft"><MapPin size={12} />{pr.area}</span>
             </div>
             <div className="p-5">
               <h2 className="text-lg font-bold group-hover:text-brand">{pr.title}</h2>

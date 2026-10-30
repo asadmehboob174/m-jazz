@@ -19,7 +19,7 @@ export default function BrandPage() {
       <div className="mt-8 grid gap-5 lg:grid-cols-3" data-stagger>
         {options.map((o) => (
           <article key={o.v} className="overflow-hidden rounded-2xl border border-line">
-            <div className="flex h-36 items-center justify-center bg-white"><Logo variant={o.v} /></div>
+            <div className="flex h-36 items-center justify-center bg-panel"><Logo variant={o.v} /></div>
             <div className="flex h-36 items-center justify-center bg-navy"><Logo variant={o.v} invert /></div>
             <div className="flex items-center justify-center gap-5 bg-coal py-6">
               <LogoMark variant={o.v} size={64} />

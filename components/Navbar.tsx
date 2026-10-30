@@ -7,7 +7,7 @@ import { ArrowRight, ChevronDown, ChevronRight, LayoutGrid, Mail, Menu, Phone, S
 import Logo from "./Logo";
 import ProductVisual from "./ProductVisual";
 import DeptIcon from "./DeptIcon";
-import ThemePicker, { ThemeSwatches } from "./ThemePicker";
+import ThemePicker, { ModeToggle, ThemeSwatches } from "./ThemePicker";
 import { CartButton } from "./cart/Cart";
 import { catHref, departments, deptHref } from "@/lib/catalog";
 import { company, formatPKR, waLink } from "@/lib/data";
@@ -24,7 +24,7 @@ export const SocialIcon = ({ name, size = 15 }: { name: keyof typeof social; siz
 function SearchBox({ className = "" }: { className?: string }) {
   const params = useSearchParams();
   return (
-    <form action="/shop" role="search" className={`group flex h-11 overflow-hidden rounded-full border-2 border-line bg-coal transition focus-within:border-brand focus-within:bg-white ${className}`}>
+    <form action="/shop" role="search" className={`group flex h-11 overflow-hidden rounded-full border-2 border-line bg-coal transition focus-within:border-brand focus-within:bg-panel ${className}`}>
       <Search size={18} className="ml-4 shrink-0 self-center text-mute" />
       <input name="q" type="search" aria-label="Search products and services" defaultValue={params.get("q") ?? ""}
         placeholder="Search solar, CCTV, UPS, smart boards…" className="min-w-0 flex-1 bg-transparent px-3 text-[15px] outline-none placeholder:text-mute" />
@@ -110,7 +110,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <header className={`sticky top-0 z-50 bg-white/95 backdrop-blur transition-shadow ${scrolled ? "shadow-[0_8px_30px_-12px_rgba(15,23,42,0.25)]" : ""}`}>
+      <header className={`sticky top-0 z-50 bg-panel/95 backdrop-blur transition-shadow ${scrolled ? "shadow-[0_8px_30px_-12px_rgba(15,23,42,0.25)]" : ""}`}>
         {/* Main row */}
         <div className="border-b border-line">
           <div className="container-x flex h-16 items-center gap-3 md:h-[72px] md:gap-6">
@@ -132,6 +132,7 @@ export default function Navbar() {
                   <span className="block text-[15px] font-bold">{company.phone}</span>
                 </span>
               </a>
+              <ModeToggle />
               <div className="hidden sm:block"><ThemePicker /></div>
               <CartButton />
               <a href={waLink("I want a free quote.")} target="_blank" rel="noopener" className="btn-sun shine ml-1 hidden whitespace-nowrap sm:inline-flex">
@@ -161,7 +162,7 @@ export default function Navbar() {
                 </Link>
                 {m.children && (
                   <div className="invisible absolute right-0 top-full z-50 w-72 translate-y-2 opacity-0 transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                    <ul className="mt-px rounded-b-xl border border-line bg-white p-2 shadow-xl">
+                    <ul className="mt-px rounded-b-xl border border-line bg-panel p-2 shadow-xl">
                       {m.children.map((c) => (
                         <li key={c.label}><Link href={c.href} className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[14px] text-soft transition hover:bg-coal hover:pl-4 hover:text-brand">{c.label}<ChevronRight size={14} /></Link></li>
                       ))}
@@ -176,7 +177,7 @@ export default function Navbar() {
           </div>
 
           <div onMouseEnter={enter}
-            className={`absolute inset-x-0 top-full origin-top border-b border-line bg-white shadow-[0_24px_40px_-20px_rgba(15,23,42,0.3)] transition duration-300 ${mega ? "visible scale-y-100 opacity-100" : "invisible scale-y-95 opacity-0"}`}>
+            className={`absolute inset-x-0 top-full origin-top border-b border-line bg-panel shadow-[0_24px_40px_-20px_rgba(15,23,42,0.3)] transition duration-300 ${mega ? "visible scale-y-100 opacity-100" : "invisible scale-y-95 opacity-0"}`}>
             {mega && <MegaPanel onNavigate={() => setMega(false)} />}
           </div>
         </nav>
@@ -186,7 +187,7 @@ export default function Navbar() {
       <div className={`fixed inset-0 z-[85] overflow-hidden lg:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
         <div onClick={() => setOpen(false)} className={`absolute inset-0 bg-navy/50 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`} />
         <aside inert={!open} data-lenis-prevent aria-label="Menu"
-          className={`absolute inset-y-0 left-0 flex w-[88%] max-w-sm flex-col bg-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${open ? "translate-x-0" : "-translate-x-full"}`}>
+          className={`absolute inset-y-0 left-0 flex w-[88%] max-w-sm flex-col bg-panel shadow-2xl transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${open ? "translate-x-0" : "-translate-x-full"}`}>
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <Logo compact />
             <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-coal"><X size={22} /></button>

@@ -19,7 +19,7 @@ export default function ProductCard({ p }: { p: Product }) {
           {off > 0 && <span className="rounded-md bg-sale px-1.5 py-0.5 text-[11px] font-bold text-white sm:px-2 sm:text-xs">-{off}%</span>}
           {p.badge && <span className="rounded-md bg-navy px-1.5 py-0.5 text-[11px] font-semibold text-white sm:px-2 sm:text-xs">{p.badge}</span>}
         </div>
-        <span className="absolute inset-x-3 bottom-3 hidden translate-y-3 items-center justify-center rounded-lg bg-white/95 py-2 text-sm font-semibold text-navy opacity-0 shadow transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:flex">
+        <span className="absolute inset-x-3 bottom-3 hidden translate-y-3 items-center justify-center rounded-lg bg-panel/95 py-2 text-sm font-semibold text-fg opacity-0 shadow transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:flex">
           View details
         </span>
       </Link>

@@ -93,7 +93,7 @@ export default async function ProductPage({ params }: Props) {
             <h2 className="text-2xl font-bold tracking-tight">Specifications</h2>
             <dl className="mt-4 overflow-hidden rounded-xl border border-line">
               {p.specs.map(([k, v], i) => (
-                <div key={k} className={`grid grid-cols-2 gap-3 px-4 py-3 text-[15px] sm:px-5 ${i % 2 ? "bg-white" : "bg-coal"}`}>
+                <div key={k} className={`grid grid-cols-2 gap-3 px-4 py-3 text-[15px] sm:px-5 ${i % 2 ? "bg-panel" : "bg-coal"}`}>
                   <dt className="text-mute">{k}</dt>
                   <dd className="font-medium">{v}</dd>
                 </div>

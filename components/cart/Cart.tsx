@@ -149,7 +149,7 @@ function CartDrawer() {
     <div className={`fixed inset-0 z-[90] overflow-hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
       <div onClick={() => setOpen(false)} className={`absolute inset-0 bg-navy/50 backdrop-blur-[2px] transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`} />
       <aside role="dialog" aria-modal="true" aria-label="Shopping cart" inert={!open} data-lenis-prevent
-        className={`absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${open ? "translate-x-0" : "translate-x-full"}`}>
+        className={`absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-panel shadow-2xl transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${open ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 className="text-lg font-bold">Your cart <span className="text-mute">({items.length})</span></h2>
           <button type="button" aria-label="Close cart" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-coal"><X size={22} /></button>

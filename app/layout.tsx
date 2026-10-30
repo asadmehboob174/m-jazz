@@ -7,6 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import ProductGradients from "@/components/ProductGradients";
 import Effects from "@/components/Effects";
+import Sky from "@/components/Sky";
 import { CartProvider } from "@/components/cart/Cart";
 import { company } from "@/lib/data";
 
@@ -14,7 +15,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 // Before first paint: apply the saved colour theme, and mark that JS runs (enables scroll reveals).
-const bootScript = `document.documentElement.classList.add("js");try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c}catch(e){}`;
+const bootScript = `document.documentElement.classList.add("js");try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c;var m=localStorage.getItem("mode")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(m==="dark")document.documentElement.dataset.mode="dark"}catch(e){}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.site),
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-sans">
+        <Sky />
         <ProductGradients />
         <SmoothScroll />
         <Effects />
