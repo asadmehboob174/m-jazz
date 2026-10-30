@@ -15,7 +15,7 @@ const reasons = [
 
 export default function Why() {
   return (
-    <section className="cv relative isolate overflow-hidden bg-navy py-12 text-white md:py-16">
+    <section className="relative isolate overflow-hidden bg-navy py-12 text-white md:py-16">
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div aria-hidden="true" className="absolute -right-24 -top-24 -z-10 h-96 w-96 animate-blob rounded-full bg-brand opacity-50 blur-3xl" />
       <div aria-hidden="true" className="absolute -bottom-32 -left-20 -z-10 h-80 w-80 animate-blob rounded-full bg-sun opacity-20 blur-3xl [animation-delay:-7s]" />

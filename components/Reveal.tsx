@@ -29,5 +29,6 @@ export function CountUp({ to, suffix = "", decimals = 0 }: { to: number; suffix?
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [seen, to]);
-  return <span ref={ref}>{v.toLocaleString("en-PK", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
+  const shown = decimals ? v : Math.ceil(v); // whole numbers count up without showing 0 for small values
+  return <span ref={ref}>{shown.toLocaleString("en-PK", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
 }

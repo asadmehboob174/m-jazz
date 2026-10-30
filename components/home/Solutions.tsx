@@ -10,7 +10,7 @@ import { formatPKR, inCat, inDept } from "@/lib/data";
 // The five divisions as a bento grid: one big card for Solar & Power, four around it.
 export default function Solutions() {
   return (
-    <section className="cv container-x py-10 md:py-14">
+    <section className="container-x py-10 md:py-14">
       <Heading eyebrow="Complete technology solutions under one roof" title={<>One trusted team for <br className="sm:hidden" /><FlipWords className="text-brand" words={["solar systems", "CCTV & security", "smart classrooms", "UPS & batteries", "EV chargers", "event rentals", "repairs"]} /></>} sub="Five divisions. One call. Sales, installation and after-sales service." />
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8 lg:grid-cols-3 lg:grid-rows-2" data-stagger="zoom">
         {departments.map((d, n) => {

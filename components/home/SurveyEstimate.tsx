@@ -38,7 +38,7 @@ export default function SurveyEstimate() {
   const field = "h-11 w-full rounded-lg border border-line bg-panel px-3.5 text-[15px] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/15";
 
   return (
-    <section id="survey" className="cv scroll-mt-36 bg-coal py-10 md:py-14">
+    <section id="survey" className="scroll-mt-36 bg-coal py-10 md:py-14">
       <div className="container-x grid gap-5 lg:grid-cols-[1.15fr_1fr]">
         {/* Estimate */}
         <div className="rounded-2xl border border-line bg-panel p-5 sm:p-7">

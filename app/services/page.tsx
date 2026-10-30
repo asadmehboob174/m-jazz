@@ -62,7 +62,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Process */}
-      <section id="after-sales" className="cv scroll-mt-36 bg-coal py-12 md:py-14">
+      <section id="after-sales" className="scroll-mt-36 bg-coal py-12 md:py-14">
         <div className="container-x">
           <Heading eyebrow="How we work" title="From survey to after-sales" />
           {/* Tracing beam: fills left to right as the steps scroll into view */}
@@ -87,7 +87,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="cv container-x grid grid-cols-1 gap-6 py-10 md:grid-cols-[1fr_1.8fr] md:gap-8 md:py-14">
+      <section className="container-x grid grid-cols-1 gap-6 py-10 md:grid-cols-[1fr_1.8fr] md:gap-8 md:py-14">
         <div>
           <Heading eyebrow="FAQ" title="Frequently asked questions" sub="Can't find your answer? We reply on WhatsApp during working hours." />
           <a href={waLink("I have a question.")} target="_blank" rel="noopener" className="btn-primary shine mt-5">Ask on WhatsApp</a>

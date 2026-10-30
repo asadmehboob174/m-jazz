@@ -99,7 +99,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
   deals: () => {
     const deals = products.filter((p) => p.price && !p.sample);
     return (
-      <section className="cv container-x py-10 md:py-12">
+      <section className="container-x py-10 md:py-12">
         <Rail head={
           <div data-reveal>
             <p className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] text-sale"><Flame size={16} className="animate-pulse" /> Limited offers</p>
@@ -113,7 +113,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
   },
 
   categories: () => (
-    <section className="cv container-x py-8 md:py-10">
+    <section className="container-x py-8 md:py-10">
       <SectionHead eyebrow="Browse" title="Shop by category" href="/shop" more="All categories" />
       <div className="swipe -mx-4 mt-5 flex gap-3 overflow-x-auto px-4 py-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-6" data-stagger="zoom">
         {popularCats.map((slug) => {
@@ -141,7 +141,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
   projects: () => <ProjectsSlider />,
 
   reviews: () => (
-    <section className="cv overflow-hidden bg-coal py-10 md:py-14">
+    <section className="overflow-hidden bg-coal py-10 md:py-14">
       <div className="container-x flex flex-wrap items-end justify-between gap-5">
         <Heading eyebrow="Reviews" title="What our customers say" />
         <a href={company.socials.facebook} target="_blank" rel="noopener" data-reveal="right"
@@ -168,7 +168,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
   ),
 
   brands: () => (
-    <section className="cv border-t border-line py-10 md:py-12">
+    <section className="border-t border-line py-10 md:py-12">
       <div className="container-x">
         <h2 className="text-center text-xs font-bold uppercase tracking-[0.14em] text-mute sm:text-sm" data-reveal>Brands we supply, install and service</h2>
         <div className="mt-6 space-y-3">

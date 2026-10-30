@@ -6,24 +6,27 @@ import { useEffect } from "react";
 // can use reveals with a plain attribute), plus the pointer position for .spot cards.
 export default function Effects() {
   useEffect(() => {
+    // Reveal items a little before they scroll into view, so a section is never seen empty.
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
       }),
-      { rootMargin: "0px 0px -8% 0px" },
+      { rootMargin: "0px 0px 12% 0px" },
     );
-    const scan = () => document.querySelectorAll("[data-reveal]:not(.in), [data-stagger]:not(.in)").forEach((el) => io.observe(el));
+    const sel = "[data-reveal]:not(.in), [data-stagger]:not(.in)";
+    // Anything already on screen (or scrolled past) when this first runs is shown at once, without animation.
+    document.querySelectorAll<HTMLElement>(sel).forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in", "skip");
+    });
+    document.documentElement.classList.add("reveal-ready");
+    const scan = () => document.querySelectorAll(sel).forEach((el) => io.observe(el));
     scan();
     let raf = 0;
     const mo = new MutationObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(scan); });
     mo.observe(document.body, { childList: true, subtree: true });
 
     let tilted: HTMLElement | null = null;
-    const root = document.documentElement;
-    const sky = document.querySelector<HTMLElement>(".sky");
     const move = (e: PointerEvent) => {
-      // cursor position for the "spotlight" background
-      if (sky && root.dataset.bg === "spotlight") { sky.style.setProperty("--sx", `${e.clientX}px`); sky.style.setProperty("--sy", `${e.clientY}px`); }
       const target = e.target as Element | null;
       const el = target?.closest?.<HTMLElement>(".spot");
       if (el) {

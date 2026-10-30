@@ -9,7 +9,7 @@ import { formatPKR, inCat, waLink } from "@/lib/data";
 export default function Packages() {
   const list = inCat("solar-packages").filter((p) => p.price);
   return (
-    <section className="cv relative overflow-hidden bg-coal py-10 md:py-14">
+    <section className="relative overflow-hidden bg-coal py-10 md:py-14">
       <div aria-hidden="true" className="dots absolute inset-0" />
       <div aria-hidden="true" className="absolute -left-32 top-10 h-80 w-80 animate-blob rounded-full bg-sun/15 blur-3xl" />
       <div className="container-x relative">

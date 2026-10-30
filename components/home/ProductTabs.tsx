@@ -25,7 +25,7 @@ export default function ProductTabs() {
   }, [tab]);
 
   return (
-    <section className="cv container-x py-10 md:py-14" style={{ "--tone": d.color } as React.CSSProperties}>
+    <section className="container-x py-10 md:py-14" style={{ "--tone": d.color } as React.CSSProperties}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <Heading eyebrow="Shop online, confirm on WhatsApp" title="Featured products" />
         <div role="tablist" aria-label="Departments" className="swipe relative -mx-4 flex w-[calc(100%+2rem)] gap-1 overflow-x-auto px-4 py-1 md:mx-0 md:w-auto md:rounded-full md:border md:border-line md:bg-panel md:p-1">

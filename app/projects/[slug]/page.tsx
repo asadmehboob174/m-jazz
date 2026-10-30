@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: Props) {
         </figure>
       </section>
 
-      <section className="cv container-x pb-12">
+      <section className="container-x pb-12">
         <h2 className="text-2xl font-bold tracking-tight">More projects</h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {others.map((o) => (

@@ -17,7 +17,7 @@ const items = [
 
 export default function Services() {
   return (
-    <section className="cv container-x py-10 md:py-14">
+    <section className="container-x py-10 md:py-14">
       <SectionHead eyebrow="Keep your systems running" title="Installation, repair & after-sales" href="/services" more="All services" />
       <HoverGlow><div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3" data-stagger>
         {items.map(([slug, name, text]) => {
