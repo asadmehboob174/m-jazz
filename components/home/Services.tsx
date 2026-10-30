@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductVisual from "../ProductVisual";
 import SectionHead from "../SectionHead";
+import HoverGlow from "../HoverGlow";
 import { WaIcon } from "../ProductCard";
 import { getProduct, waLink } from "@/lib/data";
 
@@ -18,7 +19,7 @@ export default function Services() {
   return (
     <section className="cv container-x py-10 md:py-14">
       <SectionHead eyebrow="Keep your systems running" title="Installation, repair & after-sales" href="/services" more="All services" />
-      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3" data-stagger>
+      <HoverGlow><div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3" data-stagger>
         {items.map(([slug, name, text]) => {
           const p = getProduct(slug)!;
           return (
@@ -34,7 +35,7 @@ export default function Services() {
             </div>
           );
         })}
-      </div>
+      </div></HoverGlow>
     </section>
   );
 }

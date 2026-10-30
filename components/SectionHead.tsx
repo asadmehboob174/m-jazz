@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export function Heading({ eyebrow, title, sub, light = false }: { eyebrow?: string; title: string; sub?: string; light?: boolean }) {
+export function Heading({ eyebrow, title, sub, light = false }: { eyebrow?: string; title: React.ReactNode; sub?: string; light?: boolean }) {
   return (
     <div className="min-w-0" data-reveal>
       {eyebrow && (
         <p className={`flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] ${light ? "text-sun-2" : "text-sun-3"}`}>
-          <span aria-hidden="true" className="bar-draw block h-[3px] w-8 rounded-full bg-sun" />{eyebrow}
+          <span aria-hidden="true" className="bar-draw block h-[3px] w-8 rounded-full bg-sun" /><span className="shiny">{eyebrow}</span>
         </p>
       )}
       <h2 className={`mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px] ${light ? "text-white" : ""}`}>{title}</h2>

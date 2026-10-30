@@ -18,12 +18,24 @@ export default function Effects() {
     const mo = new MutationObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(scan); });
     mo.observe(document.body, { childList: true, subtree: true });
 
+    let tilted: HTMLElement | null = null;
     const move = (e: PointerEvent) => {
-      const el = (e.target as Element | null)?.closest?.<HTMLElement>(".spot");
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      const target = e.target as Element | null;
+      const el = target?.closest?.<HTMLElement>(".spot");
+      if (el) {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }
+      // 3D tilt (mouse only), reset when the pointer leaves the card
+      const t = e.pointerType === "mouse" ? target?.closest?.<HTMLElement>(".tilt") ?? null : null;
+      if (tilted && tilted !== t) { tilted.style.removeProperty("--rx"); tilted.style.removeProperty("--ry"); }
+      tilted = t;
+      if (t) {
+        const r = t.getBoundingClientRect();
+        t.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`);
+        t.style.setProperty("--rx", `${((e.clientY - r.top) / r.height - 0.5) * -10}deg`);
+      }
     };
     document.addEventListener("pointermove", move, { passive: true });
 

@@ -56,9 +56,10 @@ export default async function ProductPage({ params }: Props) {
         <div className="mt-4 grid grid-cols-1 gap-6 md:mt-5 md:gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
           {/* Picture */}
           <div className="min-w-0" data-reveal="zoom">
-            <div className="spot relative aspect-square overflow-hidden rounded-2xl border border-line bg-coal">
+            <div className="spot tilt relative aspect-square overflow-hidden rounded-2xl border border-line bg-coal">
+              <div aria-hidden="true" className="dots absolute inset-0" />
               <div aria-hidden="true" className="absolute -left-10 -top-10 h-52 w-52 animate-blob rounded-full bg-[var(--tone)] opacity-10 blur-3xl" />
-              <ProductVisual kind={p.kind} className="h-full w-full animate-float" />
+              <ProductVisual kind={p.kind} className="pop3d h-full w-full" />
               {p.badge && <span className="absolute left-4 top-4 rounded-md bg-navy px-2.5 py-1 text-xs font-semibold text-white">{p.badge}</span>}
             </div>
             <p className="mt-2 text-center text-xs text-mute">Illustration. Real product photos coming soon.</p>

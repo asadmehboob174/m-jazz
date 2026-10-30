@@ -96,7 +96,7 @@ export default function Checkout() {
       </div>
 
       <aside className="min-w-0 lg:sticky lg:top-[150px] lg:self-start">
-        <div className="rounded-xl border border-line bg-coal p-5" data-reveal="right">
+        <div className="beam rounded-xl border border-line bg-coal p-5 [--beam-w:1.5px]" data-reveal="right">
           <h2 className="font-bold">Order summary</h2>
           <ul className="mt-4 divide-y divide-line">
             {items.map((it) => (

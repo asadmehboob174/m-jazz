@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import DeptIcon from "../DeptIcon";
 import ProductCard from "../ProductCard";
@@ -14,15 +14,25 @@ export default function ProductTabs() {
   const [tab, setTab] = useState(0);
   const d = departments[tab];
   const list = inDept(d.slug).slice(0, 8);
+  // Sliding pill behind the active tab (after Aceternity's animated tabs)
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [pill, setPill] = useState({ x: 0, w: 0 });
+  useEffect(() => {
+    const place = () => { const b = tabs.current[tab]; if (b) setPill({ x: b.offsetLeft, w: b.offsetWidth }); };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [tab]);
 
   return (
     <section className="cv container-x py-10 md:py-14" style={{ "--tone": d.color } as React.CSSProperties}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <Heading eyebrow="Shop online, confirm on WhatsApp" title="Featured products" />
-        <div role="tablist" aria-label="Departments" className="swipe -mx-4 flex w-[calc(100%+2rem)] gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:w-auto md:px-0">
+        <div role="tablist" aria-label="Departments" className="swipe relative -mx-4 flex w-[calc(100%+2rem)] gap-1 overflow-x-auto px-4 py-1 md:mx-0 md:w-auto md:rounded-full md:border md:border-line md:bg-panel md:p-1">
+          <span aria-hidden="true" className="absolute top-1 bottom-1 rounded-full bg-[var(--tone)] shadow-[0_8px_18px_-8px_var(--tone)] transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)]" style={{ left: pill.x, width: pill.w }} />
           {departments.map((x, n) => (
-            <button key={x.slug} role="tab" aria-selected={n === tab} type="button" onClick={() => setTab(n)} style={{ "--tone": x.color } as React.CSSProperties}
-              className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${n === tab ? "border-[var(--tone)] bg-[var(--tone)] text-white shadow-[0_8px_18px_-8px_var(--tone)]" : "border-line bg-panel text-soft hover:border-[var(--tone)] hover:text-[var(--tone)]"}`}>
+            <button key={x.slug} ref={(el) => { tabs.current[n] = el; }} role="tab" aria-selected={n === tab} type="button" onClick={() => setTab(n)} style={{ "--tone": x.color } as React.CSSProperties}
+              className={`relative flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 ${n === tab ? "text-white" : "text-soft hover:text-[var(--tone)]"}`}>
               <DeptIcon icon={x.icon} size={16} />{x.short}
             </button>
           ))}

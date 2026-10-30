@@ -1,6 +1,7 @@
 import { BadgeCheck, HardHat, Headset, MessageCircle, ReceiptText, ShieldCheck } from "lucide-react";
 import { Heading } from "../SectionHead";
 import { CountUp } from "../Reveal";
+import Orbit from "../Orbit";
 import { company, stats } from "@/lib/data";
 
 const reasons = [
@@ -30,9 +31,10 @@ export default function Why() {
             ))}
           </ul>
         </div>
-        <dl className="grid grid-cols-2 gap-3 sm:gap-4" data-stagger="zoom">
+        <div data-reveal="zoom"><Orbit /></div>
+        <dl className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-2 lg:grid-cols-4" data-stagger="zoom">
           {stats.map((s) => (
-            <div key={s.l} className="flex flex-col-reverse rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] p-5 sm:p-6">
+            <div key={s.l} className="beam flex flex-col-reverse rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] p-5 [--beam-w:1px] sm:p-6">
               <dt className="mt-1 text-sm text-white/65">{s.l}</dt>
               <dd className="text-[34px] font-extrabold leading-none tracking-tight text-sun-2 sm:text-[44px]"><CountUp to={s.to} suffix={s.suffix} /></dd>
             </div>

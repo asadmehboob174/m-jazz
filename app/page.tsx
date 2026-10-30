@@ -66,7 +66,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
         {promos.map((pr) => {
           const p = products.find((x) => x.slug === pr.slug)!;
           return (
-            <Link key={pr.slug} href={`/product/${p.slug}`} className={`group relative flex min-h-[132px] w-[78%] shrink-0 overflow-hidden rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg md:w-auto ${pr.bg}`}>
+            <Link key={pr.slug} href={`/product/${p.slug}`} className={`tilt group relative flex min-h-[132px] w-[78%] shrink-0 overflow-hidden rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg md:w-auto ${pr.bg}`}>
               <div className="relative z-10 max-w-[62%]">
                 <p className={`text-[11px] font-bold uppercase tracking-wide ${pr.tc}`}>{pr.tag}</p>
                 <h2 className="mt-1 text-[17px] font-bold leading-snug">{pr.title}</h2>

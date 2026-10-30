@@ -65,7 +65,12 @@ export default function ServicesPage() {
       <section id="after-sales" className="cv scroll-mt-36 bg-coal py-12 md:py-14">
         <div className="container-x">
           <Heading eyebrow="How we work" title="From survey to after-sales" />
-          <ol className="mt-7 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4" data-stagger>
+          {/* Tracing beam: fills left to right as the steps scroll into view */}
+          <div aria-hidden="true" className="relative mt-8 hidden h-1 rounded-full bg-line lg:block">
+            <div className="trace absolute inset-0 rounded-full bg-gradient-to-r from-brand via-brand to-sun shadow-[0_0_12px_var(--color-sun)]" />
+            {[12.5, 37.5, 62.5, 87.5].map((x) => <span key={x} className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-brand bg-panel" style={{ left: `${x}%` }} />)}
+          </div>
+          <ol className="mt-7 grid gap-3 sm:grid-cols-2 md:gap-4 lg:mt-5 lg:grid-cols-4" data-stagger>
             {process.map((s) => (
               <li key={s.n} className="group relative overflow-hidden rounded-2xl border border-line bg-panel p-5 transition hover:-translate-y-1 hover:shadow-lg">
                 <span aria-hidden="true" className="absolute -right-2 -top-4 text-[80px] font-extrabold leading-none text-coal transition group-hover:text-stage-blue">{s.n}</span>

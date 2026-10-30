@@ -67,6 +67,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
     <div style={{ "--tone": tone } as React.CSSProperties}>
       {/* Banner */}
       <section className="relative overflow-hidden border-b border-line bg-[color-mix(in_oklab,var(--tone)_7%,var(--color-panel))]">
+        <div aria-hidden="true" className="dots absolute inset-0" />
         <div aria-hidden="true" className="absolute -right-16 -top-20 h-72 w-72 animate-blob rounded-full bg-[var(--tone)] opacity-15 blur-3xl" />
         <div className="container-x relative grid items-center gap-6 py-6 md:grid-cols-[1fr_220px] md:py-9">
           <div className="min-w-0">

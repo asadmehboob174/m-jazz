@@ -52,7 +52,7 @@ function MegaPanel({ onNavigate }: { onNavigate: () => void }) {
           </ul>
         </div>
       ))}
-      <Link href="/product/cctv-4-camera-package" onClick={onNavigate} className="shine group relative hidden flex-col overflow-hidden rounded-xl bg-navy p-5 text-white xl:flex">
+      <Link href="/product/cctv-4-camera-package" onClick={onNavigate} className="beam group relative hidden flex-col rounded-xl bg-navy p-5 text-white xl:flex">
         <span className="w-fit rounded bg-sale px-2 py-0.5 text-xs font-bold">Bumper offer</span>
         <span className="mt-2 font-bold leading-snug">4 Full HD CCTV cameras, installed</span>
         <span className="mt-1 text-2xl font-extrabold text-sun-2">{formatPKR(35999)}</span>
