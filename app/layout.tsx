@@ -5,6 +5,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import ProductGradients from "@/components/ProductGradients";
 import Effects from "@/components/Effects";
+import Sky from "@/components/Sky";
 import { CartProvider } from "@/components/cart/Cart";
 import { company } from "@/lib/data";
 
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-sans">
+        <Sky />
         <ProductGradients />
         <SmoothScroll />
         <Effects />

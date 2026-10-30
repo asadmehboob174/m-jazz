@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, ChevronRight, LayoutGrid, Mail, Menu, Phone, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight, LayoutGrid, Mail, Menu, Phone, Search, ShoppingBag, X } from "lucide-react";
 import Logo from "./Logo";
 import ProductVisual from "./ProductVisual";
 import DeptIcon from "./DeptIcon";
@@ -155,11 +155,19 @@ export default function Navbar() {
             </button>
             {menu.map((m) => (
               <div key={m.label} className={`group relative flex items-stretch ${m.wide ? "hidden xl:flex" : ""}`} onMouseEnter={m.mega ? enter : undefined}>
+                {m.mega ? (
+                  <Link href={m.href} className={`shine my-1.5 flex items-center gap-2 rounded-full bg-gradient-to-r from-sun to-sun-2 px-4 font-bold text-black shadow-[0_6px_16px_-6px_var(--color-sun)] transition hover:-translate-y-px hover:shadow-[0_10px_22px_-8px_var(--color-sun)] ${mega ? "ring-2 ring-sun/40" : ""}`}>
+                    <ShoppingBag size={17} /> {m.label}
+                    <span className="rounded-full bg-black/85 px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-sun-2">Offers</span>
+                    <ChevronDown size={14} className={`transition ${mega ? "rotate-180" : ""}`} />
+                  </Link>
+                ) : (
                 <Link href={m.href}
                   className={`relative flex items-center gap-1 whitespace-nowrap px-2.5 font-semibold transition after:absolute after:inset-x-2.5 after:bottom-0 after:h-[3px] after:origin-left after:rounded-full after:bg-sun after:transition-transform after:duration-300 hover:text-brand xl:px-3 ${isOn(m.href) ? "text-brand after:scale-x-100" : "text-soft after:scale-x-0 hover:after:scale-x-100"}`}>
                   {m.label}
-                  {(m.mega || m.children) && <ChevronDown size={14} className="transition group-hover:rotate-180" />}
+                  {m.children && <ChevronDown size={14} className="transition group-hover:rotate-180" />}
                 </Link>
+                )}
                 {m.children && (
                   <div className="invisible absolute right-0 top-full z-50 w-72 translate-y-2 opacity-0 transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                     <ul className="mt-px rounded-b-xl border border-line bg-panel p-2 shadow-xl">
@@ -208,6 +216,7 @@ export default function Navbar() {
               </details>
             ))}
             <div className="my-3 border-t border-line" />
+            <Link href="/shop" className="mb-1 flex items-center gap-2 rounded-lg bg-gradient-to-r from-sun to-sun-2 px-3 py-2.5 font-bold text-black"><ShoppingBag size={18} /> Shop all products</Link>
             {menu.filter((m) => !m.mega).map((m) => (
               <Link key={m.label} href={m.href} className={`block rounded-lg px-2 py-2.5 font-medium hover:bg-coal ${isOn(m.href) ? "text-brand" : ""}`}>{m.label}</Link>
             ))}

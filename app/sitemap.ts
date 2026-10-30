@@ -4,7 +4,7 @@ import { company, products, projects } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
-    "/", "/shop", "/services", "/projects", "/contact",
+    "/", "/shop", "/services", "/projects", "/about", "/contact",
     ...departments.flatMap((d) => [deptHref(d), ...d.categories.map((c) => catHref(d, c))]),
     ...products.map((p) => `/product/${p.slug}`),
     ...projects.map((p) => `/projects/${p.slug}`),

@@ -17,10 +17,6 @@ export type MenuItem = {
 export const menu: MenuItem[] = [
   { label: "Home", href: "/" },
   { label: "Shop", href: "/shop", mega: true },
-  { label: "Solar Packages", href: "/shop/solar-power/solar-packages" },
-  { label: "Security", href: "/shop/security" },
-  { label: "IT & Classroom", href: "/shop/it-solutions" },
-  { label: "Rentals", href: "/shop/rentals" },
   {
     label: "Services",
     href: "/services",
@@ -34,8 +30,9 @@ export const menu: MenuItem[] = [
       { label: "After-sales & warranty", href: "/services#after-sales" },
     ],
   },
-  { label: "Projects", href: "/projects", wide: true },
-  { label: "Contact", href: "/contact", wide: true },
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const ticker = [
