@@ -42,7 +42,7 @@ export function VHeader({ tone = "light", search = false, className = "" }: { to
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 transition ${tone === "light" ? "bg-coal hover:bg-stage-blue" : "bg-white/10 hover:bg-white/20"}`}>
             <LayoutGrid size={16} /> Shop <ChevronDown size={14} className={`transition ${mega ? "rotate-180" : ""}`} />
           </button>
-          {links.slice(0, search ? 3 : 6).map((l) => <Link key={l.label} href={l.href} className={`rounded-full px-3 py-2 transition ${sub}`}>{l.label}</Link>)}
+          {links.slice(0, search ? 3 : 6).map((l, i) => <Link key={l.label} href={l.href} className={`rounded-full px-3 py-2 transition ${sub} ${i > 2 ? "hidden xl:block" : ""}`}>{l.label}</Link>)}
         </nav>
         {search && (
           <form action="/shop" className="ml-auto hidden max-w-md flex-1 items-center overflow-hidden rounded-full bg-white pl-4 xl:flex">
