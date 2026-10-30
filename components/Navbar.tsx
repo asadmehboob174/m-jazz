@@ -34,7 +34,7 @@ function SearchBox({ className = "" }: { className?: string }) {
 }
 
 // Full shop menu: every department with its categories, plus an offer card.
-function MegaPanel({ onNavigate }: { onNavigate: () => void }) {
+export function MegaPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
     <div className="container-x grid grid-cols-5 gap-6 py-7 xl:grid-cols-[repeat(5,1fr)_250px]">
       {departments.map((d, n) => (
