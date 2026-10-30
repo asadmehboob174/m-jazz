@@ -19,7 +19,11 @@ export default function Effects() {
     mo.observe(document.body, { childList: true, subtree: true });
 
     let tilted: HTMLElement | null = null;
+    const root = document.documentElement;
+    const sky = document.querySelector<HTMLElement>(".sky");
     const move = (e: PointerEvent) => {
+      // cursor position for the "spotlight" background
+      if (sky && root.dataset.bg === "spotlight") { sky.style.setProperty("--sx", `${e.clientX}px`); sky.style.setProperty("--sy", `${e.clientY}px`); }
       const target = e.target as Element | null;
       const el = target?.closest?.<HTMLElement>(".spot");
       if (el) {

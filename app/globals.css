@@ -324,3 +324,46 @@ body {
 [data-mode="dark"] .hover\:text-\[var\(--tone\)\]:hover,
 [data-mode="dark"] .group:hover .group-hover\:text-\[var\(--tone\)\],
 [data-mode="dark"] .group\/item:hover .group-hover\/item\:text-\[var\(--tone\)\] { color: color-mix(in oklab, var(--tone) 60%, white); }
+
+/* ── Background styles (owner picks one; switch with ?bg=name) ── */
+.sky > [data-v] { display: none; }
+[data-bg="aurora"] .sky > [data-v~="aurora"],
+[data-bg="mesh"] .sky > [data-v~="mesh"],
+[data-bg="beams"] .sky > [data-v~="beams"],
+[data-bg="spotlight"] .sky > [data-v~="spotlight"],
+[data-bg="waves"] .sky > [data-v~="waves"],
+[data-bg="clean"] .sky > [data-v~="clean"] { display: block; }
+
+/* Mesh: large soft colour blobs that drift independently (Stripe-style gradient mesh) */
+.sky .mesh { position: absolute; inset: -20%; filter: blur(70px); opacity: .32; }
+[data-mode="dark"] .sky .mesh { opacity: .38; }
+.sky .mesh i { position: absolute; border-radius: 9999px; animation: mesh-drift 22s ease-in-out infinite alternate; }
+.sky .mesh i:nth-child(1) { left: 5%; top: 5%; width: 45vw; height: 45vw; background: var(--color-brand); }
+.sky .mesh i:nth-child(2) { right: 0; top: 10%; width: 38vw; height: 38vw; background: var(--color-sun); animation-duration: 26s; animation-delay: -8s; }
+.sky .mesh i:nth-child(3) { left: 30%; bottom: 0; width: 42vw; height: 42vw; background: color-mix(in oklab, var(--color-brand) 50%, #8b5cf6); animation-duration: 30s; animation-delay: -15s; }
+.sky .mesh i:nth-child(4) { right: 15%; bottom: 10%; width: 28vw; height: 28vw; background: color-mix(in oklab, var(--color-brand) 40%, #06b6d4); animation-duration: 24s; animation-delay: -4s; }
+@keyframes mesh-drift { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(8vw, 6vh) scale(1.15); } 100% { transform: translate(-6vw, 10vh) scale(.9); } }
+
+/* Beams: slim diagonal light beams sweeping slowly across (Aceternity background beams) */
+.sky .beams { position: absolute; inset: 0; overflow: hidden; }
+.sky .beams i {
+  position: absolute; top: -50%; width: 2px; height: 200%; transform: rotate(35deg); opacity: 0;
+  background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--color-brand) 70%, transparent) 45%, color-mix(in oklab, var(--color-sun) 70%, transparent) 55%, transparent);
+  box-shadow: 0 0 18px 2px color-mix(in oklab, var(--color-brand) 25%, transparent);
+  animation: beam-sweep var(--dur, 14s) linear var(--delay, 0s) infinite;
+}
+@keyframes beam-sweep { 0% { opacity: 0; translate: -30vw 0; } 10%, 70% { opacity: .55; } 100% { opacity: 0; translate: 60vw 0; } }
+.sky .dots-full { position: absolute; inset: 0; background-image: radial-gradient(color-mix(in oklab, var(--color-fg) 13%, transparent) 1px, transparent 1.3px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(to bottom, #000, transparent 90%); mask-image: linear-gradient(to bottom, #000, transparent 90%); }
+
+/* Spotlight: a large soft glow that follows the cursor (position from <Effects />) */
+.sky .spotlight { position: absolute; inset: 0; background: radial-gradient(520px circle at var(--sx, 50%) var(--sy, 20%), color-mix(in oklab, var(--color-brand) 30%, transparent), transparent 70%); transition: background .1s; }
+.sky .spotlight-2 { position: absolute; inset: 0; background: radial-gradient(1000px circle at var(--sx, 50%) var(--sy, 20%), color-mix(in oklab, var(--color-sun) 16%, transparent), transparent 70%); }
+
+/* Waves: layered soft waves rolling along the bottom of the screen */
+.sky .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 38vh; }
+.sky .waves svg { position: absolute; bottom: 0; width: 200%; height: 100%; animation: wave-roll var(--dur, 22s) linear infinite; }
+.sky .waves svg:nth-child(2) { --dur: 32s; animation-direction: reverse; opacity: .7; }
+.sky .waves svg:nth-child(3) { --dur: 44s; opacity: .5; }
+@keyframes wave-roll { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) { .sky .beams { display: none !important; } }
