@@ -21,7 +21,7 @@ export const links = [
 ];
 
 // Shared header for the design previews. Keeps the full shop mega menu, search, cart and mobile menu.
-export function VHeader({ tone = "light", search = false, className = "" }: { tone?: "light" | "dark" | "brand"; search?: boolean; className?: string }) {
+export function VHeader({ tone = "light", search = false, call = false, className = "" }: { tone?: "light" | "dark" | "brand"; search?: boolean; call?: boolean; className?: string }) {
   const [mega, setMega] = useState(false);
   const [open, setOpen] = useState(false);
   const t = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -52,9 +52,16 @@ export function VHeader({ tone = "light", search = false, className = "" }: { to
           </form>
         )}
         <div className={`flex items-center gap-1 ${search ? "ml-2" : "ml-auto"}`}>
-          <a href={`tel:${company.phoneIntl}`} aria-label="Call" className={`hidden h-10 w-10 items-center justify-center rounded-full xl:flex ${tone === "light" ? "hover:bg-coal" : "hover:bg-white/10"}`}><Phone size={19} /></a>
+          {call ? (
+            <a href={`tel:${company.phoneIntl}`} className="mr-2 hidden items-center gap-3 xl:flex">
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white"><span className="absolute inset-0 animate-ping rounded-full bg-brand opacity-30" /><Phone size={20} className="relative" /></span>
+              <span className="leading-tight"><span className="block text-sm opacity-75">Make a call</span><span className="block text-lg font-bold">{company.phone}</span></span>
+            </a>
+          ) : (
+            <a href={`tel:${company.phoneIntl}`} aria-label="Call" className={`hidden h-10 w-10 items-center justify-center rounded-full xl:flex ${tone === "light" ? "hover:bg-coal" : "hover:bg-white/10"}`}><Phone size={19} /></a>
+          )}
           <div className={`rounded-full ${tone === "brand" ? "bg-white text-[#0f172a]" : ""}`}><CartButton /></div>
-          <a href={waLink("I want a free quote.")} target="_blank" rel="noopener" className="shine ml-1 hidden rounded-full bg-sun px-5 py-2.5 text-sm font-bold text-black sm:block">Free quote</a>
+          {!call && <a href={waLink("I want a free quote.")} target="_blank" rel="noopener" className="shine ml-1 hidden rounded-full bg-sun px-5 py-2.5 text-sm font-bold text-black sm:block">Free quote</a>}
         </div>
       </div>
 
@@ -90,7 +97,7 @@ export function VHeader({ tone = "light", search = false, className = "" }: { to
   );
 }
 
-const designs = ["Spotlight", "Lamp (white)", "Store", "Aurora", "Scroll"];
+const designs = ["Spotlight", "Lamp (white)", "Store", "Aurora", "Scroll", "Next style"];
 
 // Floating bar to jump between the previews.
 export function VSwitch({ current }: { current: number }) {

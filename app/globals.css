@@ -339,3 +339,9 @@ html.reveal-ready [data-words]:not(.in) > span { opacity: 0; }
 @keyframes grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes sv-stack { to { transform: scale(.92); filter: brightness(.96); } }
 .text-outline { -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-fg) 35%, transparent); color: transparent; }
+
+/* Design 6: preloader */
+@keyframes ring-fill { to { stroke-dashoffset: 0; } }
+@keyframes blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+/* Hero items wait for the preloader shutters */
+.after-load { animation: rv-up .9s cubic-bezier(.22,1,.36,1) both; animation-delay: calc(2s + var(--d, 0ms)); }
