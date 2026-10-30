@@ -1,67 +1,80 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check, ChevronRight, Plus } from "lucide-react";
+import { ArrowRight, Check, ChevronRight, Plus } from "lucide-react";
 import ProductVisual from "@/components/ProductVisual";
-import { divisions, faqs, process, waLink } from "@/lib/data";
+import DeptIcon from "@/components/DeptIcon";
+import { Heading } from "@/components/SectionHead";
+import { catHref, departments, deptHref } from "@/lib/catalog";
+import { company, faqs, process, waLink } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Services — Solar, UPS, CCTV, IT & Event Rentals",
-  description: "Solar installation from 1 kVA to 1 MW, lithium batteries, UPS sales and repair, CCTV, attendance systems, IT solutions, projectors and event rentals in Lahore.",
+  title: "Services: Solar, CCTV, Fire Alarm, IT, Rentals & Repairs",
+  description: "Solar installation from 1 kVA to 1 MW, CCTV, attendance, fire alarm, electric fence, smart classrooms, projector & SMD rentals, UPS and projector repair, EV chargers and solar panel washing in Lahore.",
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <section className="border-b border-line bg-coal">
-        <div className="container-x py-8 md:py-12">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-mute">
-            <Link href="/" className="hover:text-fg">Home</Link><ChevronRight size={14} /><span className="text-soft">Services</span>
+      <section className="hero-bg relative isolate overflow-hidden text-white">
+        <div aria-hidden="true" className="absolute -right-20 -top-20 -z-10 h-96 w-96 animate-blob rounded-full bg-sun opacity-25 blur-3xl" />
+        <div className="container-x py-10 md:py-16">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-white/60">
+            <Link href="/" className="hover:text-white">Home</Link><ChevronRight size={14} /><span className="text-white/85">Services</span>
           </nav>
-          <h1 className="mt-4 max-w-3xl text-[26px] font-bold sm:text-3xl tracking-tight md:text-[42px] md:leading-tight">Sales, installation and after-sales service</h1>
-          <p className="mt-3 max-w-2xl text-soft sm:text-lg">
-            From a 1 kVA home backup to a 1 MW industrial plant, from one CCTV camera to a full smart campus. We supply it, install it and look after it.
+          <h1 className="mt-4 max-w-3xl text-[30px] font-extrabold leading-tight tracking-tight md:text-[48px]" data-reveal>Sales, installation and after-sales service</h1>
+          <p className="mt-3 max-w-2xl text-white/75 sm:text-lg" data-reveal style={{ "--d": "100ms" } as React.CSSProperties}>
+            From a 1 kVA home backup to a 1 MW plant, from one CCTV camera to a full smart campus. {company.years} years of supplying it, installing it and looking after it.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href={waLink("I want to book a free site survey.")} target="_blank" rel="noopener" className="btn-sun">Book free site survey</a>
-            <Link href="/shop" className="btn-ghost">Browse products</Link>
+          <div className="mt-7 flex flex-wrap gap-3" data-reveal style={{ "--d": "200ms" } as React.CSSProperties}>
+            <a href={waLink("I want to book a free site survey.")} target="_blank" rel="noopener" className="btn-sun shine glow">Book free site survey</a>
+            <Link href="/shop" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3 font-semibold hover:bg-white/10">Browse products</Link>
           </div>
         </div>
       </section>
 
       {/* Divisions */}
-      <section className="container-x grid grid-cols-1 gap-4 py-8 md:grid-cols-2 md:gap-5 md:py-12">
-        {divisions.map((d) => (
-          <article key={d.id} id={d.id} className="grid scroll-mt-36 overflow-hidden rounded-xl border border-line sm:grid-cols-[1fr_180px]">
-            <div className="p-6">
-              <h2 className="text-xl font-bold">{d.name}</h2>
-              <p className="mt-2 text-[15px] leading-relaxed text-mute">{d.blurb}</p>
+      <section className="container-x space-y-5 py-10 md:py-14">
+        {departments.map((d, n) => (
+          <article key={d.slug} id={d.slug} style={{ "--tone": d.color } as React.CSSProperties} data-reveal={n % 2 ? "right" : "left"}
+            className="spot grid scroll-mt-36 overflow-hidden rounded-2xl border border-line md:grid-cols-[1fr_280px]">
+            <div className="p-6 md:p-8">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--tone)] text-white"><DeptIcon icon={d.icon} size={22} /></span>
+                <div>
+                  <h2 className="text-xl font-extrabold md:text-2xl">{d.name}</h2>
+                  <p className="text-sm font-semibold text-[var(--tone)]">{d.tagline}</p>
+                </div>
+              </div>
+              <p className="mt-4 text-[15px] leading-relaxed text-soft">{d.blurb}</p>
               <ul className="mt-4 grid gap-2 text-[15px] sm:grid-cols-2">
-                {d.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2"><Check size={17} className="mt-0.5 shrink-0 text-ok" />{it}</li>
+                {d.categories.map((c) => (
+                  <li key={c.slug}><Link href={catHref(d, c)} className="flex items-start gap-2 hover:text-[var(--tone)]"><Check size={17} className="mt-0.5 shrink-0 text-ok" />{c.name}</Link></li>
                 ))}
               </ul>
-              <a href={waLink(`I'm interested in ${d.name}.`)} target="_blank" rel="noopener" className="link-more mt-5">
-                Enquire on WhatsApp <ChevronRight size={16} />
-              </a>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link href={deptHref(d)} className="inline-flex items-center gap-1.5 font-semibold text-[var(--tone)] hover:underline">Shop {d.short} <ArrowRight size={16} /></Link>
+                <a href={waLink(`I'm interested in ${d.name}.`)} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 font-semibold text-[#1fa855] hover:underline">Enquire on WhatsApp</a>
+              </div>
             </div>
-            <ProductVisual kind={d.kind} className="hidden h-full bg-coal sm:flex" />
+            <ProductVisual kind={d.kind} className="hidden h-full bg-[color-mix(in_oklab,var(--tone)_8%,white)] md:flex" />
           </article>
         ))}
       </section>
 
       {/* Process */}
-      <section className="cv bg-coal py-12">
+      <section id="after-sales" className="cv scroll-mt-36 bg-coal py-12 md:py-14">
         <div className="container-x">
-          <h2 className="text-2xl font-bold tracking-tight md:text-[28px]">How a solar project works</h2>
-          <ol className="mt-6 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
+          <Heading eyebrow="How we work" title="From survey to after-sales" />
+          <ol className="mt-7 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4" data-stagger>
             {process.map((s) => (
-              <li key={s.n} className="rounded-xl border border-line bg-white p-5">
-                <div className="flex items-center justify-between">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{Number(s.n)}</span>
-                  <span className="rounded bg-coal px-2 py-1 text-xs font-medium text-soft">{s.time}</span>
+              <li key={s.n} className="group relative overflow-hidden rounded-2xl border border-line bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg">
+                <span aria-hidden="true" className="absolute -right-2 -top-4 text-[80px] font-extrabold leading-none text-coal transition group-hover:text-stage-blue">{s.n}</span>
+                <div className="relative flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{Number(s.n)}</span>
+                  <span className="rounded-full bg-coal px-2.5 py-1 text-xs font-medium text-soft">{s.time}</span>
                 </div>
-                <h3 className="mt-4 font-bold">{s.t}</h3>
-                <p className="mt-1.5 text-[15px] leading-relaxed text-mute">{s.d}</p>
+                <h3 className="relative mt-4 font-bold">{s.t}</h3>
+                <p className="relative mt-1.5 text-[15px] leading-relaxed text-mute">{s.d}</p>
               </li>
             ))}
           </ol>
@@ -69,18 +82,17 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="cv container-x grid grid-cols-1 gap-6 py-10 md:grid-cols-[1fr_1.8fr] md:gap-8 md:py-12">
+      <section className="cv container-x grid grid-cols-1 gap-6 py-10 md:grid-cols-[1fr_1.8fr] md:gap-8 md:py-14">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight md:text-[28px]">Frequently asked questions</h2>
-          <p className="mt-2 text-mute">Can&apos;t find your answer? Our team replies on WhatsApp within minutes during working hours.</p>
-          <a href={waLink("I have a question.")} target="_blank" rel="noopener" className="btn-primary mt-5">Ask on WhatsApp</a>
+          <Heading eyebrow="FAQ" title="Frequently asked questions" sub="Can't find your answer? We reply on WhatsApp during working hours." />
+          <a href={waLink("I have a question.")} target="_blank" rel="noopener" className="btn-primary shine mt-5">Ask on WhatsApp</a>
         </div>
-        <div className="divide-y divide-line rounded-xl border border-line">
+        <div className="divide-y divide-line rounded-2xl border border-line" data-reveal>
           {faqs.map((f) => (
             <details key={f.q} className="group px-5 [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-semibold">
                 {f.q}
-                <Plus size={20} className="shrink-0 text-mute transition group-open:rotate-45" />
+                <Plus size={20} className="shrink-0 text-mute transition group-open:rotate-45 group-open:text-brand" />
               </summary>
               <p className="pb-5 leading-relaxed text-soft">{f.a}</p>
             </details>

@@ -6,36 +6,55 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import ProductGradients from "@/components/ProductGradients";
+import Effects from "@/components/Effects";
+import { CartProvider } from "@/components/cart/Cart";
+import { company } from "@/lib/data";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
-// Applies the saved colour theme before first paint, so the default colour never flashes.
-const colorScript = `try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c}catch(e){}`;
+// Before first paint: apply the saved colour theme, and mark that JS runs (enables scroll reveals).
+const bootScript = `document.documentElement.classList.add("js");try{var c=localStorage.getItem("color");if(c&&c!=="blue")document.documentElement.dataset.color=c}catch(e){}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mjaze.pk"),
+  metadataBase: new URL(company.site),
   title: {
-    default: "M.JAZE — Solar Systems, Lithium Batteries, UPS & CCTV in Lahore",
+    default: "M.JAZE — Solar, CCTV, UPS, Smart Boards & IT Solutions in Lahore",
     template: "%s | M.JAZE",
   },
   description:
-    "Solar solutions from 1 kVA to 1 MW, lithium batteries, UPS, CCTV, attendance systems, projectors and interactive boards. Sales, installation and after-sales service in Lahore.",
-  openGraph: { type: "website", siteName: "M.JAZE (PVT) LTD", locale: "en_PK" },
+    "Solar systems from 1 kVA to 1 MW, lithium batteries, UPS, CCTV, attendance, fire alarm, electric fence, interactive boards, projectors, rentals and repairs. Sales, installation and service in Lahore.",
+  openGraph: { type: "website", siteName: company.legal, locale: "en_PK" },
+};
+
+// Local business details for Google
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: company.legal,
+  url: company.site,
+  telephone: [company.phoneIntl, company.landlineIntl],
+  email: company.email,
+  address: { "@type": "PostalAddress", streetAddress: "E-4/6, Main Ghazi Road, Next to Honda Shop", addressLocality: "Lahore", addressCountry: "PK" },
+  sameAs: Object.values(company.socials),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: colorScript }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-sans">
         <ProductGradients />
         <SmoothScroll />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <Effects />
+        <CartProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </CartProvider>
         <WhatsAppButton />
       </body>
     </html>

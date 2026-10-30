@@ -114,6 +114,88 @@ export default function ProductVisual({ kind, className = "" }: { kind: Kind; cl
             <circle cx="100" cy="128" r="8" fill="currentColor" />
           </g>
         )}
+        {kind === "ev" && (
+          <g>
+            <rect x="62" y="22" width="76" height="114" rx="16" fill="url(#pv-body)" stroke="rgba(15,23,42,0.12)" strokeWidth="1" />
+            <rect x="74" y="38" width="52" height="32" rx="5" fill="url(#pv-dark)" />
+            <path d="M103 44 L93 56 H101 L97 65 L108 52 H100 Z" fill="#5eea9a" />
+            <rect x="86" y="86" width="28" height="4" rx="2" fill="#5eea9a" />
+            <path d="M100 136 C100 162 140 150 150 170" fill="none" stroke="#2a2f3b" strokeWidth="6" strokeLinecap="round" />
+            <rect x="140" y="164" width="24" height="18" rx="4" fill="url(#pv-dark)" />
+          </g>
+        )}
+        {kind === "dome" && (
+          <g>
+            <rect x="50" y="54" width="100" height="14" rx="7" fill="#dfe3ea" />
+            <path d="M56 68 A44 44 0 0 0 144 68 Z" fill="url(#pv-body)" stroke="rgba(15,23,42,0.12)" strokeWidth="1" />
+            <circle cx="100" cy="92" r="22" fill="url(#pv-dark)" />
+            <circle cx="100" cy="92" r="10" fill="#14275e" />
+            <circle cx="96" cy="88" r="3" fill="#fff" opacity="0.7" />
+            <circle cx="128" cy="76" r="2.5" fill="#ff5a3c" />
+          </g>
+        )}
+        {kind === "fire" && (
+          <g>
+            <rect x="56" y="28" width="88" height="134" rx="10" fill="#dc2626" />
+            <rect x="68" y="42" width="64" height="26" rx="4" fill="#fff" />
+            <text x="100" y="60" textAnchor="middle" fontSize="14" fontWeight="700" fill="#dc2626" fontFamily="sans-serif" letterSpacing="2">FIRE</text>
+            <circle cx="100" cy="110" r="24" fill="#b91c1c" stroke="#fff" strokeOpacity="0.5" strokeWidth="2" />
+            <circle cx="100" cy="110" r="10" fill="#fff" opacity="0.9" />
+            <rect x="80" y="144" width="40" height="6" rx="3" fill="#fff" opacity="0.6" />
+          </g>
+        )}
+        {kind === "fence" && (
+          <g>
+            {[40, 100, 160].map((x) => <rect key={x} x={x - 5} y="36" width="10" height="136" rx="2" fill="#8d95a6" />)}
+            {[56, 76, 96, 116, 136, 156].map((y) => <path key={y} d={`M30 ${y} H170`} stroke="#b4bbc8" strokeWidth="2" />)}
+            <rect x="74" y="88" width="52" height="40" rx="5" fill="#facc15" stroke="#111" strokeWidth="2" />
+            <path d="M104 94 L92 110 H101 L96 122 L110 105 H101 Z" fill="#111" />
+          </g>
+        )}
+        {kind === "computer" && (
+          <g>
+            <rect x="24" y="36" width="122" height="82" rx="6" fill="url(#pv-dark)" />
+            <rect x="30" y="42" width="110" height="70" rx="3" fill="#10204d" />
+            <path d="M42 96 L64 74 L82 88 L104 62 L128 78" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            <rect x="79" y="118" width="12" height="20" fill="#2a2f3b" />
+            <rect x="60" y="136" width="50" height="6" rx="3" fill="#2a2f3b" />
+            <rect x="118" y="104" width="58" height="40" rx="3" fill="url(#pv-body)" stroke="rgba(15,23,42,0.15)" strokeWidth="1" />
+            <rect x="122" y="108" width="50" height="32" rx="2" fill="#1d3a8f" />
+            <path d="M110 144 H184 L178 154 H116 Z" fill="#c9ced9" />
+          </g>
+        )}
+        {kind === "network" && (
+          <g>
+            <rect x="60" y="66" width="6" height="50" rx="3" fill="#2a2f3b" />
+            <rect x="134" y="66" width="6" height="50" rx="3" fill="#2a2f3b" />
+            <rect x="36" y="112" width="128" height="42" rx="10" fill="url(#pv-body)" stroke="rgba(15,23,42,0.12)" strokeWidth="1" />
+            {[64, 80, 96, 112].map((x) => <circle key={x} cx={x} cy="133" r="3.5" fill="#5eea9a" />)}
+            <rect x="124" y="129" width="24" height="8" rx="2" fill="#c0c6d2" />
+            {[14, 26, 38].map((r) => <path key={r} d={`M${100 - r} 78 A${r} ${r} 0 0 1 ${100 + r} 78`} fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />)}
+          </g>
+        )}
+        {kind === "tools" && (
+          <g>
+            <path d="M76 72 V58 a6 6 0 0 1 6 -6 h36 a6 6 0 0 1 6 6 V72" fill="none" stroke="#2a2f3b" strokeWidth="7" />
+            <rect x="34" y="72" width="132" height="90" rx="10" fill="#dc2626" />
+            <rect x="34" y="98" width="132" height="8" fill="rgba(0,0,0,0.18)" />
+            <rect x="89" y="93" width="22" height="18" rx="3" fill="url(#pv-dark)" />
+            <path d="M44 162 V168 M156 162 V168" stroke="#2a2f3b" strokeWidth="6" />
+          </g>
+        )}
+        {kind === "wash" && (
+          <g>
+            <g transform="translate(100 120) skewY(-8) translate(-100 -120)">
+              <rect x="34" y="62" width="132" height="110" rx="4" fill="#cfd5df" />
+              {Array.from({ length: 16 }, (_, i) => (
+                <rect key={i} x={40 + (i % 4) * 31} y={68 + Math.floor(i / 4) * 25.5} width="28" height="23" rx="1.5" fill="url(#pv-cell)" />
+              ))}
+            </g>
+            {[[60, 30], [92, 18], [126, 34], [150, 16]].map(([x, y]) => (
+              <path key={x} transform={`translate(${x} ${y})`} d="M0 0 C6 8 9 13 9 17 a9 9 0 0 1 -18 0 c0 -4 3 -9 9 -17 Z" fill="#38bdf8" />
+            ))}
+          </g>
+        )}
       </svg>
     </div>
   );

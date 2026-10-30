@@ -8,7 +8,7 @@ import { formatPKR, waLink } from "@/lib/data";
 const RATE = 60; // average Rs per unit incl. taxes
 const SUN_HOURS = 4.5; // useful daily sun hours
 const PER_KW = { ongrid: 92000, hybrid: 125000 }; // installed Rs per kW
-const services = ["Solar system", "Lithium battery / UPS", "CCTV / attendance", "Touch boards / IT", "Projector or SMD rental", "Repair / service"];
+const services = ["Solar system", "Lithium battery / UPS", "CCTV / security", "Fire alarm / electric fence", "Smart board / IT", "EV charger", "Rental (projector, SMD, sound)", "Repair / panel washing"];
 const areas = ["Lahore", "Sheikhupura", "Kasur", "Gujranwala", "Nationwide delivery"];
 
 export default function SurveyEstimate() {

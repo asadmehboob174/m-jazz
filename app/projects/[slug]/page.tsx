@@ -29,7 +29,7 @@ export default async function ProjectPage({ params }: Props) {
       <section className="container-x pt-6">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 overflow-hidden whitespace-nowrap text-sm text-mute">
           <Link href="/" className="hover:text-fg">Home</Link><ChevronRight size={14} />
-          <span>Projects</span><ChevronRight size={14} />
+          <Link href="/projects" className="hover:text-fg">Projects</Link><ChevronRight size={14} />
           <span className="text-soft">{pr.title}</span>
         </nav>
 

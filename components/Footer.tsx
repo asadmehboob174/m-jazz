@@ -1,69 +1,59 @@
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import Logo from "./Logo";
-import { company, waLink, divisions, paymentMethods } from "@/lib/data";
-
-const socials = [
-  { label: "Facebook", d: "M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8Z" },
-  { label: "Instagram", d: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm5.5-1.5h.01" },
-  { label: "YouTube", d: "M22 8.5s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-.9C15.8 5 12 5 12 5s-3.8 0-6.9.3c-.4 0-1.4 0-2.2.9C2.2 6.9 2 8.5 2 8.5S1.8 10.3 1.8 12v1.6c0 1.8.2 3.6.2 3.6s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.7.2 6.7.2 6.7.2s3.8 0 6.9-.3c.4 0 1.4 0 2.2-.9.7-.7.9-2.3.9-2.3s.2-1.8.2-3.6V12c0-1.7-.2-3.5-.2-3.5ZM10 15V9l5 3-5 3Z" },
-  { label: "TikTok", d: "M16 3c.3 2.2 1.7 3.7 4 4v3c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6v3a3 3 0 1 0 3 3V3h3Z" },
-];
-
-const shop = ["Solar Panels", "Inverters", "Batteries", "Packages", "UPS", "CCTV", "Rentals"];
+import { SocialIcon } from "./Navbar";
+import { catHref, departments, deptHref } from "@/lib/catalog";
+import { company, paymentMethods, waLink } from "@/lib/data";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="mt-6">
-      {/* Quote band */}
-      <section className="bg-brand text-white">
-        <div className="container-x flex flex-col items-start justify-between gap-4 py-7 sm:flex-row sm:items-center sm:gap-6 sm:py-8">
+    <footer id="contact" className="mt-10">
+      {/* Call-to-action band */}
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div aria-hidden="true" className="absolute -right-20 -top-24 h-72 w-72 animate-blob rounded-full bg-sun/30 blur-3xl" />
+        <div className="container-x relative flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center" data-reveal>
           <div>
-            <h2 className="text-xl font-bold md:text-2xl">Not sure what size you need?</h2>
-            <p className="mt-1 text-white/80">Send us your electricity bill on WhatsApp. We&apos;ll suggest a system and price for free.</p>
+            <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Not sure what you need?</h2>
+            <p className="mt-1.5 max-w-xl text-white/80">Send us your electricity bill, a photo of your site, or just your question on WhatsApp. We reply with a free recommendation and price.</p>
           </div>
-          <a href={waLink("Here is my electricity bill — please suggest a solar system.")} target="_blank" rel="noopener" className="btn-sun">
-            Send bill on WhatsApp
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a href={waLink("Assalam-o-Alaikum, I need a recommendation.")} target="_blank" rel="noopener" className="btn-sun shine glow">Chat on WhatsApp <ArrowRight size={18} /></a>
+            <a href={`tel:${company.phoneIntl}`} className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-5 py-3 font-semibold hover:bg-white/10"><Phone size={17} /> {company.phone}</a>
+          </div>
         </div>
       </section>
 
       <div className="bg-navy text-white/70">
-        <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 py-10 md:py-14 lg:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
-          <div className="col-span-2 lg:col-span-1">
+        <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 py-12 md:grid-cols-3 lg:grid-cols-[1.4fr_repeat(3,1fr)_1.3fr] lg:py-16">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Logo invert />
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed">{company.legal}. {company.tagline}</p>
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed">{company.legal}, {company.slogan.toLowerCase()}. {company.tagline}</p>
+            <p className="mt-3 text-sm">NTN: {company.ntn}</p>
             <div className="mt-5 flex gap-2">
-              {socials.map((s) => (
-                <a key={s.label} href="#" aria-label={s.label} className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-sun hover:text-black">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true"><path d={s.d} /></svg>
+              {(["Facebook", "Instagram"] as const).map((s) => (
+                <a key={s} href={company.socials[s.toLowerCase() as "facebook" | "instagram"]} target="_blank" rel="noopener" aria-label={s}
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white transition hover:-translate-y-0.5 hover:bg-sun hover:text-black">
+                  <SocialIcon name={s} size={17} />
                 </a>
               ))}
             </div>
           </div>
-          <div>
-            <p className="font-semibold text-white">Shop</p>
-            <ul className="mt-4 space-y-2.5 text-[15px]">
-              {shop.map((c) => (
-                <li key={c}><Link href={`/shop?c=${encodeURIComponent(c)}`} className="hover:text-white">{c}</Link></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-white">Services</p>
-            <ul className="mt-4 space-y-2.5 text-[15px]">
-              {divisions.map((d) => (
-                <li key={d.id}><Link href={`/services#${d.id}`} className="hover:text-white">{d.name}</Link></li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-span-2 lg:col-span-1">
+          {departments.slice(0, 3).map((d) => (
+            <div key={d.slug}>
+              <Link href={deptHref(d)} className="font-semibold text-white hover:text-sun-2">{d.name}</Link>
+              <ul className="mt-4 space-y-2.5 text-[15px]">
+                {d.categories.slice(0, 5).map((c) => <li key={c.slug}><Link href={catHref(d, c)} className="transition hover:pl-1 hover:text-white">{c.name}</Link></li>)}
+              </ul>
+            </div>
+          ))}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <p className="font-semibold text-white">Contact us</p>
             <address className="mt-4 space-y-3 text-[15px] not-italic">
               <p className="flex gap-2.5"><MapPin size={18} className="mt-0.5 shrink-0 text-sun" />{company.address}</p>
-              <p className="flex gap-2.5"><Clock size={18} className="mt-0.5 shrink-0 text-sun" />{company.hours}</p>
-              <p className="flex gap-2.5"><Phone size={18} className="mt-0.5 shrink-0 text-sun" /><a href={`tel:${company.phone.replace(/\s/g, "")}`} className="hover:text-white">{company.phone}</a></p>
+              <p className="flex gap-2.5"><Phone size={18} className="mt-0.5 shrink-0 text-sun" />
+                <span><a href={`tel:${company.phoneIntl}`} className="hover:text-white">{company.phone}</a> · <a href={`tel:${company.landlineIntl}`} className="hover:text-white">{company.landline}</a></span></p>
               <p className="flex gap-2.5"><Mail size={18} className="mt-0.5 shrink-0 text-sun" /><a href={`mailto:${company.email}`} className="hover:text-white">{company.email}</a></p>
+              <p className="flex gap-2.5"><Clock size={18} className="mt-0.5 shrink-0 text-sun" />{company.hours}</p>
             </address>
           </div>
         </div>
@@ -72,11 +62,13 @@ export default function Footer() {
           <div className="container-x flex flex-col items-start justify-between gap-4 py-5 text-sm lg:flex-row lg:items-center">
             <p>© {new Date().getFullYear()} {company.legal}. All rights reserved.</p>
             <ul className="flex flex-wrap gap-2" aria-label="Payment methods">
-              {paymentMethods.map((m) => (
-                <li key={m} className="rounded bg-white px-2.5 py-1 text-xs font-semibold text-navy">{m}</li>
-              ))}
+              {paymentMethods.map((m) => <li key={m} className="rounded bg-white/10 px-2.5 py-1 text-xs font-semibold text-white">{m}</li>)}
             </ul>
-            <p className="flex gap-5"><Link href="#" className="hover:text-white">Privacy</Link><Link href="#" className="hover:text-white">Warranty terms</Link><Link href="#" className="hover:text-white">Returns</Link></p>
+            <p className="flex flex-wrap gap-5">
+              <Link href="/services" className="hover:text-white">Services</Link>
+              <Link href="/projects" className="hover:text-white">Projects</Link>
+              <Link href="/contact" className="hover:text-white">Contact</Link>
+            </p>
           </div>
         </div>
       </div>

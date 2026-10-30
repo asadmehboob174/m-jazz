@@ -1,197 +1,191 @@
+import { Fragment } from "react";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, BatteryCharging, Cctv, ChevronRight, CreditCard, Presentation, Projector, ShieldCheck, Star, Sun, Truck, Wrench } from "lucide-react";
+import { ArrowRight, BadgeCheck, Flame, MessageCircle, Quote, ShieldCheck, Star, Truck, Zap } from "lucide-react";
 import HeroSlider from "@/components/home/HeroSlider";
+import CategorySidebar from "@/components/home/CategorySidebar";
+import Solutions from "@/components/home/Solutions";
+import ProductTabs from "@/components/home/ProductTabs";
 import Packages from "@/components/home/Packages";
+import Services from "@/components/home/Services";
+import Why from "@/components/home/Why";
 import ProjectsSlider from "@/components/home/ProjectsSlider";
 import SurveyEstimate from "@/components/home/SurveyEstimate";
 import Marquee from "@/components/Marquee";
-import { CountUp, Reveal } from "@/components/Reveal";
+import Rail from "@/components/Rail";
 import ProductCard from "@/components/ProductCard";
 import ProductVisual from "@/components/ProductVisual";
-import SectionHead from "@/components/SectionHead";
-import { brands, categories, company, divisions, formatPKR, products, stats, testimonials, type Kind } from "@/lib/data";
-
-const catKind: Record<string, Kind> = {
-  "Solar Panels": "panel", Inverters: "inverter", Batteries: "battery", Packages: "stand", UPS: "ups", CCTV: "cctv",
-  Attendance: "attendance", Projectors: "projector", "Touch Boards": "board", Structures: "stand", Rentals: "speaker",
-};
+import SectionHead, { Heading } from "@/components/SectionHead";
+import { catHref, findCat } from "@/lib/catalog";
+import { brands, company, formatPKR, inCat, products, testimonials, waLink } from "@/lib/data";
+import { heroStyle, homeSections, ticker, type HomeSection } from "@/lib/site";
 
 const trust = [
-  { Icon: BadgeCheck, t: "Free site survey", d: "Engineer visit within 48 hours" },
-  { Icon: ShieldCheck, t: "Official warranty", d: "Genuine stock, claims handled by us" },
-  { Icon: Wrench, t: "Expert installation", d: "Our own trained team" },
-  { Icon: CreditCard, t: "Easy payments", d: "Instalments, cards, bank, COD" },
+  { Icon: BadgeCheck, t: "Authorised Dahua reseller", d: "Genuine stock, official warranty" },
+  { Icon: Zap, t: "Free site survey", d: "Engineer visit in Lahore" },
+  { Icon: ShieldCheck, t: "Installation & after-sales", d: "By our own trained team" },
+  { Icon: Truck, t: "Order on WhatsApp", d: "Cash on delivery or bank transfer" },
 ];
 
-const ticker = [
-  "Solar systems 1 kVA – 1 MW", "Lithium batteries", "Hybrid & on-grid inverters", "Net-metering with LESCO", "UPS sales & repair",
-  "CCTV installation", "Face & fingerprint attendance", "Interactive touch boards", "Projector & SMD on rent", "After-sales service & warranty",
+const promos = [
+  { slug: "1kw-solar-solution", tag: "Starter solar", title: "1 kW solar with battery", bg: "bg-stage-amber", tc: "text-sun-3" },
+  { slug: "smart-board-package", tag: "Specially for schools", title: "Smart board package", bg: "bg-stage-purple", tc: "text-[#6d28d9]" },
+  { slug: "solar-panel-washing", tag: "Clean panels, more savings", title: "Solar panel washing", bg: "bg-stage-blue", tc: "text-brand" },
 ];
 
-const divisionIcon = { energy: Sun, backup: BatteryCharging, security: Cctv, it: Presentation, av: Projector, care: Wrench } as const;
+const popularCats = ["solar-packages", "solar-panels", "inverters", "lithium-batteries", "ups-batteries", "ev-chargers",
+  "cctv-packages", "cctv-cameras", "attendance-access", "fire-alarm", "interactive-boards", "projectors"];
 
 const Stars = ({ size = 15 }: { size?: number }) => (
   <span className="flex">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={size} className="fill-sun text-sun" />)}</span>
 );
 
-export default function Home() {
-  const bestSellers = products.filter((p) => p.badge).slice(0, 8);
-  const cheapest = (c: string) => Math.min(...products.filter((p) => p.category === c).map((p) => p.price));
-  const promos = [
-    { c: "Batteries", kind: "battery" as Kind, tag: "Lithium batteries", title: "Backup that lasts through the night", bg: "bg-stage-amber", tc: "text-sun-3" },
-    { c: "Inverters", kind: "inverter" as Kind, tag: "Hybrid inverters", title: "Solar, battery and grid in one box", bg: "bg-stage-green", tc: "text-ok" },
-  ];
+const sections: Record<HomeSection, () => React.ReactNode> = {
+  ticker: () => (
+    <div className="border-b border-line bg-stage-blue py-2.5 text-[13px] font-semibold text-brand sm:text-sm">
+      <Marquee>
+        {ticker.map((t) => (
+          <span key={t} className="flex items-center gap-3 whitespace-nowrap px-3">
+            <Zap size={14} className="fill-sun text-sun" aria-hidden="true" />{t}
+          </span>
+        ))}
+      </Marquee>
+    </div>
+  ),
 
-  return (
-    <>
-      {/* Running bar */}
-      <div className="border-b border-line bg-stage-blue py-2.5 text-[13px] font-semibold text-brand sm:text-sm">
+  hero: () => (
+    <section className="container-x pt-4 md:pt-5">
+      <div className={`grid gap-4 ${heroStyle === "sidebar" ? "lg:grid-cols-[240px_1fr]" : ""}`}>
+        {heroStyle === "sidebar" && <CategorySidebar />}
+        <HeroSlider tall={heroStyle === "wide"} />
+      </div>
+      <div className="swipe -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0" data-stagger>
+        {promos.map((pr) => {
+          const p = products.find((x) => x.slug === pr.slug)!;
+          return (
+            <Link key={pr.slug} href={`/product/${p.slug}`} className={`group relative flex min-h-[132px] w-[78%] shrink-0 overflow-hidden rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg md:w-auto ${pr.bg}`}>
+              <div className="relative z-10 max-w-[62%]">
+                <p className={`text-[11px] font-bold uppercase tracking-wide ${pr.tc}`}>{pr.tag}</p>
+                <h2 className="mt-1 text-[17px] font-bold leading-snug">{pr.title}</h2>
+                <p className="mt-1.5 text-sm text-soft">{p.price ? <>Only <span className="font-bold text-fg">{formatPKR(p.price)}</span></> : p.badge}</p>
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand">Shop now <ArrowRight size={14} className="transition group-hover:translate-x-1" /></span>
+              </div>
+              <ProductVisual kind={p.kind} className="absolute -right-3 bottom-0 h-full w-[45%] transition duration-500 group-hover:-rotate-3 group-hover:scale-110" />
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  ),
+
+  trust: () => (
+    <section className="container-x py-5 md:py-6">
+      <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4" data-stagger>
+        {trust.map(({ Icon, t, d }) => (
+          <li key={t} className="group flex flex-col gap-2 bg-white p-3.5 sm:flex-row sm:items-center sm:gap-3.5 sm:px-5 sm:py-4">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stage-blue text-brand transition duration-500 group-hover:rotate-[360deg] group-hover:bg-brand group-hover:text-white sm:h-11 sm:w-11"><Icon size={20} /></span>
+            <span><span className="block text-sm font-semibold sm:text-[15px]">{t}</span><span className="block text-xs text-mute sm:text-sm">{d}</span></span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ),
+
+  solutions: () => <Solutions />,
+
+  deals: () => {
+    const deals = products.filter((p) => p.price && !p.sample);
+    return (
+      <section className="cv container-x py-10 md:py-12">
+        <Rail head={
+          <div data-reveal>
+            <p className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] text-sale"><Flame size={16} className="animate-pulse" /> Limited offers</p>
+            <h2 className="mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px]">Hot deals this month</h2>
+          </div>
+        }>
+          {deals.map((p) => <ProductCard key={p.slug} p={p} />)}
+        </Rail>
+      </section>
+    );
+  },
+
+  categories: () => (
+    <section className="cv container-x py-8 md:py-10">
+      <SectionHead eyebrow="Browse" title="Shop by category" href="/shop" more="All categories" />
+      <div className="swipe -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-6" data-stagger="zoom">
+        {popularCats.map((slug) => {
+          const { dept, cat } = findCat(slug)!;
+          return (
+            <Link key={slug} href={catHref(dept, cat)} style={{ "--tone": dept.color } as React.CSSProperties}
+              className="group flex w-[120px] shrink-0 flex-col items-center rounded-2xl border border-line bg-white p-2.5 pb-3 text-center transition duration-300 hover:-translate-y-1 hover:border-[var(--tone)] hover:shadow-[0_14px_30px_-16px_var(--tone)] sm:w-auto">
+              <span className="relative w-full overflow-hidden rounded-xl bg-coal transition group-hover:bg-[color-mix(in_oklab,var(--tone)_9%,white)]">
+                <ProductVisual kind={cat.kind} className="aspect-[4/3] w-full transition duration-500 group-hover:scale-110" />
+              </span>
+              <span className="mt-2.5 text-[13px] font-semibold leading-tight group-hover:text-[var(--tone)] sm:text-sm">{cat.name}</span>
+              <span className="text-xs text-mute">{inCat(slug).length} {inCat(slug).length === 1 ? "item" : "items"}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  ),
+
+  products: () => <ProductTabs />,
+  packages: () => <Packages />,
+  services: () => <Services />,
+  why: () => <Why />,
+  estimate: () => <SurveyEstimate />,
+  projects: () => <ProjectsSlider />,
+
+  reviews: () => (
+    <section className="cv overflow-hidden bg-coal py-10 md:py-14">
+      <div className="container-x flex flex-wrap items-end justify-between gap-5">
+        <Heading eyebrow="Reviews" title="What our customers say" />
+        <a href={company.socials.facebook} target="_blank" rel="noopener" data-reveal="right"
+          className="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 transition hover:border-brand">
+          <span className="text-3xl font-extrabold text-brand">{company.recommend}%</span>
+          <span className="text-sm leading-tight"><Stars size={14} /><span className="text-mute">recommend us · {company.reviews} Facebook reviews</span></span>
+        </a>
+      </div>
+      <div className="mt-7 space-y-4">
         <Marquee>
-          {ticker.map((t) => (
-            <span key={t} className="flex items-center gap-3 whitespace-nowrap px-3">
-              <Sun size={15} className="text-sun" aria-hidden="true" />{t}
-            </span>
+          {testimonials.map((t) => (
+            <figure key={t.name} className="mx-2 flex w-[300px] shrink-0 flex-col rounded-2xl border border-line bg-white p-5 sm:w-[360px]">
+              <div className="flex items-center justify-between"><Stars size={14} /><Quote size={22} className="text-brand/20" /></div>
+              <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-soft">“{t.q}”</blockquote>
+              <figcaption className="mt-4 flex items-center gap-3 border-t border-line pt-3 text-sm">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand font-bold text-white">{t.name[0]}</span>
+                <span><span className="block font-semibold">{t.name}</span><span className="text-mute">{t.role}</span></span>
+              </figcaption>
+            </figure>
           ))}
         </Marquee>
       </div>
+    </section>
+  ),
 
-      {/* Hero: slider + two promo tiles */}
-      <section className="container-x pt-4 md:pt-5">
-        <div className="grid gap-3 md:gap-4 xl:grid-cols-[2fr_1fr]">
-          <HeroSlider />
-
-          <div className="grid grid-cols-2 gap-3 md:gap-4 xl:grid-cols-1">
-            {promos.map((pr) => (
-              <Link key={pr.c} href={`/shop?c=${pr.c}`} className={`group relative flex min-h-[170px] overflow-hidden rounded-2xl p-4 sm:p-6 ${pr.bg}`}>
-                <div className="relative z-10 sm:max-w-[60%]">
-                  <p className={`tag ${pr.tc}`}>{pr.tag}</p>
-                  <h2 className="mt-1.5 text-[15px] font-bold leading-snug sm:mt-2 sm:text-xl">{pr.title}</h2>
-                  <p className="mt-1.5 text-xs text-soft sm:mt-2 sm:text-sm">From <span className="font-bold text-fg">{formatPKR(cheapest(pr.c))}</span></p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand group-hover:underline sm:mt-4">Shop now <ChevronRight size={15} /></span>
-                </div>
-                <ProductVisual kind={pr.kind} className="absolute -right-4 bottom-0 hidden h-full w-1/2 transition duration-500 group-hover:scale-105 sm:flex" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust bar */}
-      <section className="container-x py-4 md:py-6">
-        <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-4">
-          {trust.map(({ Icon, t, d }, n) => (
-            <li key={t} style={{ animationDelay: `${n * 90}ms` }} className="animate-[rise_.6s_cubic-bezier(.22,1,.36,1)_both] flex flex-col gap-2 bg-white p-3.5 sm:flex-row sm:items-center sm:gap-3.5 sm:px-5 sm:py-4">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-stage-blue text-brand sm:h-10 sm:w-10"><Icon size={19} /></span>
-              <span><span className="block text-sm font-semibold sm:text-base">{t}</span><span className="block text-xs text-mute sm:text-sm">{d}</span></span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Shop by category: swipe row on phones, grid from tablet up */}
-      <section className="container-x py-6 md:py-8">
-        <SectionHead title="Shop by category" href="/shop" />
-        <Reveal><div className="swipe -mx-4 mt-5 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-6">
-          {categories.filter((c) => c !== "All").map((c) => (
-            <Link key={c} href={`/shop?c=${encodeURIComponent(c)}`}
-              className="group flex w-[112px] shrink-0 flex-col items-center rounded-xl border border-line bg-white p-2.5 pb-3 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-md sm:w-auto">
-              <ProductVisual kind={catKind[c] ?? "panel"} className="aspect-[4/3] w-full rounded-lg bg-coal" />
-              <span className="mt-2.5 text-[13px] font-semibold leading-tight group-hover:text-brand sm:text-sm">{c}</span>
-              <span className="text-xs text-mute">{products.filter((p) => p.category === c).length} items</span>
-            </Link>
-          ))}
-          <Link href="/shop" className="flex w-[112px] shrink-0 flex-col items-center justify-center rounded-xl bg-brand p-3 text-center text-sm font-semibold text-white transition hover:bg-brand-2 sm:w-auto">
-            View all<br />{products.length} products
-            <ArrowRight size={20} className="mt-2" />
-          </Link>
-        </div></Reveal>
-      </section>
-
-      {/* Best sellers */}
-      <section className="cv container-x py-8 md:py-10">
-        <SectionHead title="Best sellers" sub="Most ordered by homes and businesses in Lahore" href="/shop" />
-        <div className="mt-5 grid grid-cols-2 gap-3 md:mt-6 md:gap-5 lg:grid-cols-4">
-          {bestSellers.map((p, n) => <Reveal key={p.slug} delay={(n % 4) * 0.07}><ProductCard p={p} /></Reveal>)}
-        </div>
-      </section>
-
-      <Packages />
-      <ProjectsSlider />
-
-      {/* Services */}
-      <section className="cv container-x py-10 md:py-14">
-        <SectionHead title="More than solar" sub="Sales, installation and repair across six divisions" href="/services" more="All services" />
-        <div className="mt-5 grid grid-cols-2 gap-3 md:mt-6 md:gap-4 lg:grid-cols-3">
-          {divisions.map((d, n) => {
-            const Icon = divisionIcon[d.id as keyof typeof divisionIcon];
-            return (
-              <Reveal key={d.id} delay={(n % 3) * 0.06} className="h-full">
-              <Link href={`/services#${d.id}`} className="group flex h-full flex-col gap-3 rounded-xl border border-line p-4 transition hover:border-brand hover:shadow-sm sm:flex-row sm:gap-4 sm:p-5">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-stage-blue text-brand transition group-hover:bg-brand group-hover:text-white sm:h-11 sm:w-11"><Icon size={20} /></span>
-                <span>
-                  <span className="block text-sm font-semibold group-hover:text-brand sm:text-base">{d.name}</span>
-                  <span className="mt-1 hidden text-sm leading-relaxed text-mute sm:block">{d.items.join(" · ")}</span>
-                </span>
-              </Link>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
-
-      <SurveyEstimate />
-
-      {/* Reviews + numbers */}
-      <section className="cv py-10 md:py-14">
-        <div className="container-x grid gap-6 lg:grid-cols-[1fr_2.2fr] lg:gap-8">
-          <div>
-            <h2 className="text-[22px] font-bold tracking-tight md:text-[28px]">Trusted across Lahore</h2>
-            <div className="mt-3 flex items-center gap-2">
-              <span className="text-4xl font-bold">{company.rating}</span>
-              <span><Stars size={16} /><span className="text-sm text-mute">{company.reviews}+ Google reviews</span></span>
-            </div>
-            <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
-              {stats.map((s) => (
-                <div key={s.l} className="flex flex-col-reverse rounded-lg border border-line bg-coal p-3.5 sm:p-4">
-                  <dt className="text-xs text-mute sm:text-sm">{s.l}</dt>
-                  <dd className="text-xl font-bold sm:text-2xl"><CountUp to={s.to} suffix={s.suffix} /></dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div className="swipe -mx-4 flex gap-3 overflow-x-auto px-4 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
-            {testimonials.slice(0, 3).map((t) => (
-              <figure key={t.name} className="flex w-[82%] shrink-0 flex-col rounded-xl border border-line bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md md:w-auto">
-                <Stars size={14} />
-                <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-soft">“{t.q}”</blockquote>
-                <figcaption className="mt-4 border-t border-line pt-3 text-sm">
-                  <span className="block font-semibold">{t.name}</span>
-                  <span className="text-mute">{t.role}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Brands */}
-      <section className="cv border-t border-line bg-coal py-10 md:py-12">
-        <div className="container-x">
-        <h2 className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-mute sm:text-sm">Authorised brands we supply and install</h2>
-        <div className="mt-5 space-y-3">
+  brands: () => (
+    <section className="cv border-t border-line py-10 md:py-12">
+      <div className="container-x">
+        <h2 className="text-center text-xs font-bold uppercase tracking-[0.14em] text-mute sm:text-sm" data-reveal>Brands we supply, install and service</h2>
+        <div className="mt-6 space-y-3">
           {[brands.slice(0, 8), brands.slice(8)].map((row, n) => (
             <Marquee key={n} reverse={n === 1}>
               {row.map((b) => (
-                <span key={b} className="mx-1.5 flex h-12 min-w-[130px] items-center justify-center rounded-lg border border-line bg-white px-5 text-[15px] font-bold tracking-tight text-fg/55 transition hover:border-brand hover:text-brand sm:h-14 sm:min-w-[160px]">{b}</span>
+                <span key={b} className="mx-1.5 flex h-14 min-w-[150px] items-center justify-center rounded-xl border border-line bg-white px-5 text-[17px] font-extrabold tracking-tight text-fg/45 grayscale transition hover:border-brand hover:text-brand sm:min-w-[170px]">{b}</span>
               ))}
             </Marquee>
           ))}
         </div>
-        <p className="mt-6 flex items-center justify-center gap-2 text-center text-sm text-mute">
-          <Truck size={16} className="shrink-0" /> Delivery across Pakistan · Installation in Lahore and nearby cities
+        <p className="mt-7 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm text-mute">
+          <MessageCircle size={16} className="shrink-0 text-[#1fa855]" /> Can&apos;t find what you need?
+          <a href={waLink("I'm looking for a product that's not on the website.")} target="_blank" rel="noopener" className="font-semibold text-brand hover:underline">Ask us on WhatsApp</a>
+          . We stock much more than is listed.
         </p>
-        </div>
-      </section>
-    </>
-  );
+      </div>
+    </section>
+  ),
+};
+
+export default function Home() {
+  return <>{homeSections.map((s) => <Fragment key={s}>{sections[s]()}</Fragment>)}</>;
 }
