@@ -39,7 +39,7 @@ export default function Logo({ className = "", invert = false, variant, compact 
           M<span className="text-sun">.</span>JAZE
         </span>
         {!compact && (
-          <span className={`mt-1 block text-[9.5px] font-semibold uppercase tracking-[0.2em] ${invert ? "text-white/60" : "text-mute"}`}>
+          <span className={`mt-1 block max-[379px]:hidden text-[9.5px] font-semibold uppercase tracking-[0.2em] ${invert ? "text-white/60" : "text-mute"}`}>
             Solar · Security · IT
           </span>
         )}
