@@ -145,10 +145,10 @@ html { transition: background-color .3s; }
 
 /* Scroll reveals. Hidden only when JS runs (html.js), so crawlers and no-JS visitors see everything.
    Uses backwards-filled animations, so hover transforms keep working once the reveal finishes. */
-@keyframes rv-up { from { opacity: 0; transform: translateY(28px); filter: blur(6px); } }
-@keyframes rv-zoom { from { opacity: 0; transform: scale(.94); filter: blur(6px); } }
-@keyframes rv-left { from { opacity: 0; transform: translateX(-44px); filter: blur(6px); } }
-@keyframes rv-right { from { opacity: 0; transform: translateX(44px); filter: blur(6px); } }
+@keyframes rv-up { from { opacity: 0; transform: translateY(28px); } }
+@keyframes rv-zoom { from { opacity: 0; transform: scale(.94); } }
+@keyframes rv-left { from { opacity: 0; transform: translateX(-44px); } }
+@keyframes rv-right { from { opacity: 0; transform: translateX(44px); } }
 @keyframes rv-clip { from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(24px); } to { clip-path: inset(0 0 0 0); } }
 html.js [data-reveal]:not(.in), html.js [data-stagger]:not(.in) > * { opacity: 0; }
 [data-reveal].in { animation: rv-up .9s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
@@ -277,7 +277,7 @@ body {
 .tilt .pop3d { transform: translateZ(36px); }
 
 /* Flip words: each letter blurs in */
-@keyframes letter-in { from { opacity: 0; filter: blur(8px); transform: translateY(12px); } }
+@keyframes letter-in { from { opacity: 0; transform: translateY(0.45em); } }
 
 /* Orbiting circles */
 .orbit { position: absolute; left: 50%; top: 50%; width: 0; height: 0; animation: orbit var(--t, 30s) linear infinite; animation-delay: var(--d, 0s); }
