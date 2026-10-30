@@ -41,11 +41,15 @@ const Stars = ({ size = 15 }: { size?: number }) => (
 
 const sections: Record<HomeSection, () => React.ReactNode> = {
   ticker: () => (
-    <div className="border-b border-line bg-stage-blue py-2.5 text-[13px] font-semibold text-brand sm:text-sm">
-      <Marquee>
+    <div className="relative flex items-stretch overflow-hidden bg-[linear-gradient(90deg,var(--color-navy),color-mix(in_oklab,var(--color-brand)_45%,var(--color-navy)),var(--color-navy))] text-[13px] text-white/85">
+      <span className="relative z-10 hidden shrink-0 items-center gap-2 bg-sun py-2.5 pl-4 pr-5 text-[11px] font-bold uppercase tracking-[0.14em] text-black [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)] sm:flex md:pl-6">
+        <Zap size={14} className="fill-black" aria-hidden="true" /> Our services
+      </span>
+      <Marquee className="flex-1 py-2.5">
         {ticker.map((t) => (
-          <span key={t} className="flex items-center gap-3 whitespace-nowrap px-3">
-            <Zap size={14} className="fill-sun text-sun" aria-hidden="true" />{t}
+          <span key={t} className="flex items-center whitespace-nowrap">
+            <span className="px-5 font-medium tracking-wide transition hover:text-white">{t}</span>
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" className="text-sun"><path d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5 3.8 3.8Z" fill="currentColor" /></svg>
           </span>
         ))}
       </Marquee>
