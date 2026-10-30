@@ -90,7 +90,7 @@ export function VHeader({ tone = "light", search = false, className = "" }: { to
   );
 }
 
-const designs = ["Spotlight", "Lamp", "Store", "Aurora", "Scroll"];
+const designs = ["Spotlight", "Lamp (white)", "Store", "Aurora", "Scroll"];
 
 // Floating bar to jump between the previews.
 export function VSwitch({ current }: { current: number }) {

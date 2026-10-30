@@ -13,7 +13,7 @@ export default function Effects() {
       }),
       { rootMargin: "0px 0px 12% 0px" },
     );
-    const sel = "[data-reveal]:not(.in), [data-stagger]:not(.in)";
+    const sel = "[data-reveal]:not(.in), [data-stagger]:not(.in), [data-words]:not(.in)";
     // Anything already on screen (or scrolled past) when this first runs is shown at once, without animation.
     document.querySelectorAll<HTMLElement>(sel).forEach((el) => {
       if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in", "skip");

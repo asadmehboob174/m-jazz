@@ -308,3 +308,34 @@ body {
 @keyframes cscroll { from { transform: perspective(1200px) rotateX(28deg) scale(1.05); } to { transform: perspective(1200px) rotateX(0) scale(1); } }
 /* Text generate: words fade in one by one */
 @keyframes word-in { from { opacity: 0; filter: none; transform: translateY(6px); } }
+
+/* ── Scroll animations for the Lamp and Aurora designs ── */
+/* Heading words rise in one by one */
+[data-words] > span { display: inline-block; }
+html.reveal-ready [data-words]:not(.in) > span { opacity: 0; }
+[data-words].in > span { animation: word-up .7s cubic-bezier(.22,1,.36,1) both; animation-delay: calc(var(--i) * 70ms); }
+[data-words].skip > span { animation: none; }
+@keyframes word-up { from { opacity: 0; transform: translateY(.6em) rotate(3deg); } }
+
+/* Scrubbed with the scroll position (Chrome, Edge, Safari 18+; static elsewhere) */
+@supports (animation-timeline: view()) {
+  .sv-zoom { animation: sv-zoom linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  .sv-tilt { animation: sv-tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  .sv-float { animation: sv-float linear both; animation-timeline: view(); }
+  .sv-left { animation: sv-left linear both; animation-timeline: view(); }
+  .sv-right { animation: sv-right linear both; animation-timeline: view(); }
+  .sv-colup { animation: sv-colup linear both; animation-timeline: view(); }
+  .sv-coldown { animation: sv-coldown linear both; animation-timeline: view(); }
+  .trace-y { transform-origin: top; animation: grow-y linear both; animation-timeline: view(); animation-range: entry 30% cover 75%; }
+  .sv-stack { animation: sv-stack linear both; animation-timeline: view(); animation-range: exit-crossing 0% exit-crossing 100%; }
+}
+@keyframes sv-zoom { from { transform: scale(.86); opacity: .35; } to { transform: none; opacity: 1; } }
+@keyframes sv-tilt { from { transform: perspective(1100px) rotateX(28deg) translateY(60px); opacity: .25; } to { transform: none; opacity: 1; } }
+@keyframes sv-float { from { transform: translateY(70px); } to { transform: translateY(-70px); } }
+@keyframes sv-left { from { transform: translateX(5%); } to { transform: translateX(-35%); } }
+@keyframes sv-right { from { transform: translateX(-35%); } to { transform: translateX(5%); } }
+@keyframes sv-colup { from { transform: translateY(140px); } to { transform: translateY(-140px); } }
+@keyframes sv-coldown { from { transform: translateY(-140px); } to { transform: translateY(140px); } }
+@keyframes grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes sv-stack { to { transform: scale(.92); filter: brightness(.96); } }
+.text-outline { -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-fg) 35%, transparent); color: transparent; }
