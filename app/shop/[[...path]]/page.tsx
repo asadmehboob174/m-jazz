@@ -86,7 +86,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
               {dept ? dept.blurb : "Solar, security, IT, rentals and repair services. Order online and confirm on WhatsApp."}
             </p>
             {/* Sub-category chips */}
-            <div className="swipe -mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:px-0" data-stagger>
+            <div className="swipe -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 py-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0" data-stagger>
               {(dept ? dept.categories.map((c) => ({ label: c.name, href: catHref(dept, c), on: c.slug === cat?.slug, n: inCat(c.slug).length }))
                 : departments.map((d) => ({ label: d.name, href: deptHref(d), on: false, n: inDept(d.slug).length }))).map((c) => (
                 <Link key={c.href} href={c.href}

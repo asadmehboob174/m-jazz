@@ -58,7 +58,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
         {heroStyle === "sidebar" && <CategorySidebar />}
         <HeroSlider tall={heroStyle === "wide"} />
       </div>
-      <div className="swipe -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0" data-stagger>
+      <div className="swipe -mx-4 mt-3 flex gap-3 overflow-x-auto px-4 py-1 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0" data-stagger>
         {promos.map((pr) => {
           const p = products.find((x) => x.slug === pr.slug)!;
           return (
@@ -111,7 +111,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
   categories: () => (
     <section className="cv container-x py-8 md:py-10">
       <SectionHead eyebrow="Browse" title="Shop by category" href="/shop" more="All categories" />
-      <div className="swipe -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-6" data-stagger="zoom">
+      <div className="swipe -mx-4 mt-5 flex gap-3 overflow-x-auto px-4 py-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-6" data-stagger="zoom">
         {popularCats.map((slug) => {
           const { dept, cat } = findCat(slug)!;
           return (
