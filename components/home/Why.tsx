@@ -31,7 +31,7 @@ export default function Why() {
             ))}
           </ul>
         </div>
-        <div data-reveal="zoom"><Orbit /></div>
+        <div data-reveal="zoom"><div className="sv-float"><Orbit /></div></div>
         <dl className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-2 lg:grid-cols-4" data-stagger="zoom">
           {stats.map((s) => (
             <div key={s.l} className="beam flex flex-col-reverse rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] p-5 [--beam-w:1px] sm:p-6">

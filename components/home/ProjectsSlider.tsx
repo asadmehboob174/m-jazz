@@ -9,7 +9,7 @@ const tints = ["bg-stage-blue", "bg-stage-amber", "bg-stage-green", "bg-stage-pu
 
 export default function ProjectsSlider() {
   return (
-    <section className="container-x py-10 md:py-14">
+    <section className="container-x py-10 md:py-14" data-reveal="right">
       <Rail itemClass="w-[84%] sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-40px)/3)]"
         head={<Heading eyebrow="Recent work" title="Projects we have delivered" sub="Homes, schools, factories and plazas across Lahore" />}>
         {projects.map((pr, n) => (

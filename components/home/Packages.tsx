@@ -14,7 +14,7 @@ export default function Packages() {
       <div aria-hidden="true" className="absolute -left-32 top-10 h-80 w-80 animate-blob rounded-full bg-sun/15 blur-3xl" />
       <div className="container-x relative">
         <SectionHead eyebrow="Supply + installation in one price" title="Solar packages" sub="Complete systems with panels, inverter, structure, wiring and installation." href="/shop/solar-power/solar-packages" />
-        <div className="swipe -mx-4 mt-6 flex gap-4 overflow-x-auto px-4 pb-2 pt-4 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0" data-stagger>
+        <div className="swipe sv-tilt -mx-4 mt-6 flex gap-4 overflow-x-auto px-4 pb-2 pt-4 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0" data-stagger>
           {list.map((p) => {
             const featured = p.badge === "Most popular";
             const size = p.name.match(/^[\d.]+ k(W|VA)/)?.[0] ?? "";

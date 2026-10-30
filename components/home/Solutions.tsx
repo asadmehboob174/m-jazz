@@ -12,7 +12,7 @@ export default function Solutions() {
   return (
     <section className="container-x py-10 md:py-14">
       <Heading eyebrow="Complete technology solutions under one roof" title={<>One trusted team for <br className="sm:hidden" /><FlipWords className="text-brand" words={["solar systems", "CCTV & security", "smart classrooms", "UPS & batteries", "EV chargers", "event rentals", "repairs"]} /></>} sub="Five divisions. One call. Sales, installation and after-sales service." />
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8 lg:grid-cols-3 lg:grid-rows-2" data-stagger="zoom">
+      <div className="sv-zoom mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8 lg:grid-cols-3 lg:grid-rows-2" data-stagger="zoom">
         {departments.map((d, n) => {
           const big = n === 0;
           const from = Math.min(...(big ? inCat("solar-packages") : inDept(d.slug)).flatMap((p) => (p.price ? [p.price] : [])));
@@ -42,7 +42,7 @@ export default function Solutions() {
                 <p className="relative z-10 mt-5 w-fit rounded-full bg-panel px-3 py-1.5 text-sm shadow-sm">Packages from <span className="font-bold text-[var(--tone)]">{formatPKR(from)}</span></p>
               )}
               <ProductVisual kind={d.kind}
-                className={`pointer-events-none transition duration-700 group-hover:-translate-y-2 group-hover:scale-110 ${big ? "mt-auto aspect-[4/3] w-full" : "absolute -bottom-3 -right-3 h-[58%] w-[46%]"}`} />
+                className={`pointer-events-none transition duration-700 group-hover:-translate-y-2 group-hover:scale-110 ${big ? "sv-float mt-auto aspect-[4/3] w-full" : "absolute -bottom-3 -right-3 h-[58%] w-[46%]"}`} />
               {big && (
                 <span className="relative z-10 mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--tone)]">Explore {d.short} <ArrowRight size={15} className="transition group-hover:translate-x-1" /></span>
               )}

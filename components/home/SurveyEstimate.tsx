@@ -41,7 +41,7 @@ export default function SurveyEstimate() {
     <section id="survey" className="scroll-mt-36 bg-coal py-10 md:py-14">
       <div className="container-x grid gap-5 lg:grid-cols-[1.15fr_1fr]">
         {/* Estimate */}
-        <div className="rounded-2xl border border-line bg-panel p-5 sm:p-7">
+        <div className="rounded-2xl border border-line bg-panel p-5 sm:p-7" data-reveal="left">
           <p className="flex items-center gap-2 text-sm font-semibold text-brand"><Calculator size={18} /> Solar savings estimate</p>
           <h2 className="mt-2 text-[22px] font-bold tracking-tight md:text-[28px]">How much can you save?</h2>
           <label htmlFor="bill" className="mt-5 flex items-baseline justify-between text-sm text-mute">
@@ -73,7 +73,7 @@ export default function SurveyEstimate() {
         </div>
 
         {/* Survey form */}
-        <form onSubmit={submit} className="rounded-2xl bg-navy p-5 text-white sm:p-7">
+        <form onSubmit={submit} className="rounded-2xl bg-navy p-5 text-white sm:p-7" data-reveal="right">
           <p className="flex items-center gap-2 text-sm font-semibold text-sun-2"><CheckCircle2 size={18} /> Free, no obligation</p>
           <h2 className="mt-2 text-[22px] font-bold tracking-tight md:text-[28px]">Book a free site survey</h2>
           <p className="mt-1.5 text-sm text-white/70">An engineer visits within 48 hours. We reply on WhatsApp.</p>

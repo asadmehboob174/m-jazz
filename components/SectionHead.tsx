@@ -9,7 +9,9 @@ export function Heading({ eyebrow, title, sub, light = false }: { eyebrow?: stri
           <span aria-hidden="true" className="bar-draw block h-[3px] w-8 rounded-full bg-sun" /><span className="shiny">{eyebrow}</span>
         </p>
       )}
-      <h2 className={`sec-title mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px] ${light ? "text-white" : ""}`}>{title}</h2>
+      <h2 data-words={typeof title === "string" ? "" : undefined} className={`sec-title mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px] ${light ? "text-white" : ""}`}>
+        {typeof title === "string" ? title.split(" ").map((w, i) => <span key={i} style={{ "--i": i } as React.CSSProperties}>{w}&nbsp;</span>) : title}
+      </h2>
       {sub && <p className={`mt-1 text-sm md:mt-1.5 md:text-base ${light ? "text-white/70" : "text-mute"}`}>{sub}</p>}
     </div>
   );

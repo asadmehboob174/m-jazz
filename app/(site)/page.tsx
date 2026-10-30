@@ -150,7 +150,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
           <span className="text-sm leading-tight"><Stars size={14} /><span className="text-mute">recommend us · {company.reviews} Facebook reviews</span></span>
         </a>
       </div>
-      <div className="mt-7 space-y-4">
+      <div className="mt-7 space-y-4" data-reveal="zoom">
         <Marquee>
           {testimonials.map((t) => (
             <figure key={t.name} className="mx-2 flex w-[300px] shrink-0 flex-col rounded-2xl border border-line bg-panel p-5 sm:w-[360px]">
@@ -171,7 +171,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
     <section className="border-t border-line py-10 md:py-12">
       <div className="container-x">
         <h2 className="text-center text-xs font-bold uppercase tracking-[0.14em] text-mute sm:text-sm" data-reveal>Brands we supply, install and service</h2>
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 space-y-3" data-reveal>
           {[brands.slice(0, 8), brands.slice(8)].map((row, n) => (
             <Marquee key={n} reverse={n === 1}>
               {row.map((b) => (

@@ -2,12 +2,11 @@
 
 import { usePathname } from "next/navigation";
 
-// Keyed on the full path so a short fade plays on every page change,
-// including nested ones like /shop → /shop/some-product.
+// Keyed on the path so each new page rises in softly (header and footer stay put).
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <div key={pathname} className="animate-[fade_.3s_ease-out_both]">
+    <div key={pathname} className="animate-[page-in_.55s_cubic-bezier(.22,1,.36,1)_both]">
       {children}
     </div>
   );
