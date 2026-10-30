@@ -9,7 +9,7 @@ export function Heading({ eyebrow, title, sub, light = false }: { eyebrow?: stri
           <span aria-hidden="true" className="bar-draw block h-[3px] w-8 rounded-full bg-sun" /><span className="shiny">{eyebrow}</span>
         </p>
       )}
-      <h2 className={`mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px] ${light ? "text-white" : ""}`}>{title}</h2>
+      <h2 className={`sec-title mt-2 text-[24px] font-extrabold tracking-tight md:text-[32px] ${light ? "text-white" : ""}`}>{title}</h2>
       {sub && <p className={`mt-1 text-sm md:mt-1.5 md:text-base ${light ? "text-white/70" : "text-mute"}`}>{sub}</p>}
     </div>
   );

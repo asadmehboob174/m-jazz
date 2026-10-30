@@ -58,7 +58,7 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
 
   hero: () => (
     <section className="container-x pt-4 md:pt-5">
-      <div className={`grid gap-4 ${heroStyle === "sidebar" ? "lg:grid-cols-[240px_1fr]" : ""}`}>
+      <div className={`hero-grid grid gap-4 ${heroStyle === "sidebar" ? "lg:grid-cols-[240px_1fr]" : ""}`}>
         {heroStyle === "sidebar" && <CategorySidebar />}
         <HeroSlider tall={heroStyle === "wide"} />
       </div>

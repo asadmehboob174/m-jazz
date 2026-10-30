@@ -5,7 +5,12 @@ import { Check, Moon, Palette, Sun } from "lucide-react";
 
 // Keep ids in sync with the [data-color] blocks in globals.css.
 export const themes = [
-  { id: "blue", name: "Blue & Orange", c: "#1747b3", c2: "#f7931e" },
+  { id: "blue", name: "Classic Blue", c: "#1747b3", c2: "#f7931e" },
+  { id: "royal", name: "Royal Blue", c: "#2563eb", c2: "#f7931e" },
+  { id: "azure", name: "Azure", c: "#0284c7", c2: "#f7931e" },
+  { id: "electric", name: "Electric Blue", c: "#3d5afe", c2: "#f7931e" },
+  { id: "midnight", name: "Midnight Blue", c: "#1e3a8a", c2: "#f7931e" },
+  { id: "cerulean", name: "Cerulean", c: "#0a66c2", c2: "#f7931e" },
   { id: "teal", name: "Ocean Teal", c: "#0f766e", c2: "#f59e0b" },
   { id: "green", name: "Eco Green", c: "#15803d", c2: "#f59e0b" },
   { id: "indigo", name: "Royal Indigo", c: "#4f46e5", c2: "#f59e0b" },
