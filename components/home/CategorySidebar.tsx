@@ -11,7 +11,7 @@ const hot = [["cctv-4-camera-package", "4 CCTV cameras"], ["1kw-solar-solution",
 // Hovering a department opens a panel of its categories over the slider; pure CSS, no JS.
 export default function CategorySidebar() {
   return (
-    <aside className="hero-sidebar relative hidden flex-col rounded-2xl border border-line bg-panel lg:flex" aria-label="Shop by department">
+    <aside style={{ "--d": "220ms" } as React.CSSProperties} className="intro-left hero-sidebar relative hidden flex-col rounded-2xl border border-line bg-panel lg:flex" aria-label="Shop by department">
       <ul className="flex-1 py-2">
         {departments.map((d) => (
           <li key={d.slug} className="group/item" style={{ "--tone": d.color } as React.CSSProperties}>

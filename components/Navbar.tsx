@@ -92,7 +92,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top bar */}
-      <div className="bg-navy text-[13px] text-white/80">
+      <div className="intro-down bg-navy text-[13px] text-white/80">
         <div className="container-x flex h-9 items-center justify-between gap-4">
           <p className="truncate">
             <span className="font-semibold text-sun-2">Authorised Dahua reseller</span>
@@ -110,7 +110,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <header className={`sticky top-0 z-50 bg-panel/95 backdrop-blur transition-shadow ${scrolled ? "shadow-[0_8px_30px_-12px_rgba(15,23,42,0.25)]" : ""}`}>
+      <header style={{ "--d": "80ms" } as React.CSSProperties} className={`intro-down sticky top-0 z-50 bg-panel/95 backdrop-blur transition-shadow ${scrolled ? "shadow-[0_8px_30px_-12px_rgba(15,23,42,0.25)]" : ""}`}>
         {/* Main row */}
         <div className="border-b border-line">
           <div className="container-x flex h-16 items-center gap-3 md:h-[72px] md:gap-6">

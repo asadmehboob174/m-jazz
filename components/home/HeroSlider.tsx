@@ -38,7 +38,8 @@ export default function HeroSlider({ tall = false }: { tall?: boolean }) {
   return (
     <div
       ref={root}
-      className="hero-bg relative isolate flex flex-col overflow-hidden rounded-2xl text-white"
+      style={{ "--d": "280ms" } as React.CSSProperties}
+      className="hero-intro intro-zoom hero-bg relative isolate flex flex-col overflow-hidden rounded-2xl text-white"
       role="region" aria-roledescription="carousel" aria-label="Featured offers"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); root.current?.style.setProperty("--px", "0"); root.current?.style.setProperty("--py", "0"); }}

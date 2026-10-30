@@ -41,7 +41,7 @@ const Stars = ({ size = 15 }: { size?: number }) => (
 
 const sections: Record<HomeSection, () => React.ReactNode> = {
   ticker: () => (
-    <div className="relative flex items-stretch overflow-hidden bg-[linear-gradient(90deg,var(--color-navy),color-mix(in_oklab,var(--color-brand)_45%,var(--color-navy)),var(--color-navy))] text-[13px] text-white/85">
+    <div style={{ "--d": "160ms" } as React.CSSProperties} className="intro-down relative flex items-stretch overflow-hidden bg-[linear-gradient(90deg,var(--color-navy),color-mix(in_oklab,var(--color-brand)_45%,var(--color-navy)),var(--color-navy))] text-[13px] text-white/85">
       <span className="relative z-10 hidden shrink-0 items-center gap-2 bg-sun py-2.5 pl-4 pr-5 text-[11px] font-bold uppercase tracking-[0.14em] text-black [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)] sm:flex md:pl-6">
         <Zap size={14} className="fill-black" aria-hidden="true" /> Our services
       </span>
@@ -62,11 +62,11 @@ const sections: Record<HomeSection, () => React.ReactNode> = {
         {heroStyle === "sidebar" && <CategorySidebar />}
         <HeroSlider tall={heroStyle === "wide"} />
       </div>
-      <div className="swipe -mx-4 mt-3 flex gap-3 overflow-x-auto px-4 py-1 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0" data-stagger>
-        {promos.map((pr) => {
+      <div className="swipe -mx-4 mt-3 flex gap-3 overflow-x-auto px-4 py-1 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
+        {promos.map((pr, n) => {
           const p = products.find((x) => x.slug === pr.slug)!;
           return (
-            <Link key={pr.slug} href={`/product/${p.slug}`} className={`tilt group relative flex min-h-[132px] w-[78%] shrink-0 overflow-hidden rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg md:w-auto ${pr.bg}`}>
+            <Link key={pr.slug} href={`/product/${p.slug}`} style={{ "--d": `${650 + n * 110}ms` } as React.CSSProperties} className={`intro-up tilt group relative flex min-h-[132px] w-[78%] shrink-0 overflow-hidden rounded-2xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg md:w-auto ${pr.bg}`}>
               <div className="relative z-10 max-w-[62%]">
                 <p className={`text-[11px] font-bold uppercase tracking-wide ${pr.tc}`}>{pr.tag}</p>
                 <h2 className="mt-1 text-[17px] font-bold leading-snug">{pr.title}</h2>

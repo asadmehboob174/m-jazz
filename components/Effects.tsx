@@ -6,12 +6,12 @@ import { useEffect } from "react";
 // can use reveals with a plain attribute), plus the pointer position for .spot cards.
 export default function Effects() {
   useEffect(() => {
-    // Reveal items a little before they scroll into view, so a section is never seen empty.
+    // Reveal items as they scroll into view (content is only hidden once this script is running).
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
       }),
-      { rootMargin: "0px 0px 12% 0px" },
+      { rootMargin: "0px 0px -10% 0px" },
     );
     const sel = "[data-reveal]:not(.in), [data-stagger]:not(.in), [data-words]:not(.in)";
     // Anything already on screen (or scrolled past) when this first runs is shown at once, without animation.
